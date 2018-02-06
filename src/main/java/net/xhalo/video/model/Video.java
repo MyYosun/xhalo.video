@@ -2,9 +2,10 @@ package net.xhalo.video.model;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Video {
+public class Video implements Serializable {
 	@NotNull
 	private Long id;
 	@NotNull

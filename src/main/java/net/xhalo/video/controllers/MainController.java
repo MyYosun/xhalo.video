@@ -1,5 +1,7 @@
 package net.xhalo.video.controllers;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,8 @@ import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
 
 @Controller
 public class MainController {
+
+    private Logger logger = LogManager.getLogger(MainController.class);
 
     private static final long serialVersionUID = 1L;
     private static final int BUFFER_LENGTH = 1024 * 16;
@@ -90,8 +94,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "showImg")
-    public void showImage(@RequestParam(name = "video.view") String imgFile, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void showImage(@RequestParam(name = "video.view") String imgFile, HttpServletResponse response) throws IOException {
         String imgSavePath = IMAGE_SAVE_PATH + imgFile;
+        File image = new File(imgSavePath);
+        if(!image.exists()){
+            logger.error("IMAGE FILE NOT FOUND!");
+            return;
+        }
         FileInputStream fis = new FileInputStream(imgSavePath);
         byte data[] = new byte[1024];
         response.setContentType("image/*");

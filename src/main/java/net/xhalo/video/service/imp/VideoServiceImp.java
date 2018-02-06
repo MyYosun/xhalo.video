@@ -11,6 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +40,7 @@ public class VideoServiceImp implements IVideoService {
     private VideoDao videoDao;
 
     @Override
+    @CacheEvict(value = "video", key = "getNewVideos", beforeInvocation = true)
     public Video addVideo(MultipartFile upload, Video video, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String md5 = null;
@@ -60,10 +64,8 @@ public class VideoServiceImp implements IVideoService {
             return null;
         }
         view = video.getTitle() + md5 + ".jpg";
-
         Video obj = new Video();
         obj.setTitle(video.getTitle());
-
         obj.setAuthor(author);
         obj.setAddress(address);
         obj.setCategory(video.getCategory());
@@ -78,6 +80,7 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
+    @Cacheable(value = "video", key = "#root.method")
     public List<Video> getNewVideos(HttpServletRequest request, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosOrderByWhat("date");
