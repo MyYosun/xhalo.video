@@ -18,9 +18,10 @@ public class VideoAop {
     public void videoShot(Object returnValue) {
         if(null != returnValue && returnValue instanceof Video){
             Video video = (Video) returnValue;
-            String videoPath = video.getAddress();
-            String imagePath = video.getView();
-            FFmpegUtil.makeScreenCut(videoPath, imagePath);
+            String videoName = video.getAddress();
+            String imageName = video.getView();
+            FFmpegUtil.makeScreenCut(videoName, imageName);
+            FFmpegUtil.processMediaCode(videoName);
         }
     }
 

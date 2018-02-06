@@ -44,8 +44,8 @@ public class VideoServiceImp implements IVideoService {
         String view = null;
         String videoPath = null;
         User author = null;
-//        if((author =  (User) session.getAttribute(USER_IN_SESSION)) == null)
-//            return null;
+        if((author =  (User) session.getAttribute(USER_IN_SESSION)) == null)
+            return null;
         try {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if(StringUtils.isEmpty(md5))

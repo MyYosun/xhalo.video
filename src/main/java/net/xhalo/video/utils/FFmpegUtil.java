@@ -59,7 +59,7 @@ public class FFmpegUtil {
 	}
 
 	public static Integer getDuration(String videoPath) {
-		String duration = getSingleInfo(videoPath, 1, 1);
+		String duration = getDetailInfo(videoPath, 1, 1);
 		String pattern = "(\\d+):(\\d+):(\\d+)\\.(\\d+)";
 		java.util.regex.Pattern r = java.util.regex.Pattern.compile(pattern);
 		Matcher m = r.matcher(duration);
@@ -73,6 +73,20 @@ public class FFmpegUtil {
 		return 0;
 	}
 
+	public static boolean processMediaCode(String videoName) {
+		String videoPath = VIDEO_SAVE_PATH + videoName;
+		Integer bitrate = Integer.parseInt(getDetailInfo(videoPath, 1, 3));
+		if(bitrate == null)
+			return false;
+		if(bitrate > 1000)
+			return transcodeMedia(videoPath, "normal");
+		if(bitrate > 2000)
+			return transcodeMedia(videoPath, "medium");
+		if(bitrate > 3000)
+			return transcodeMedia(videoPath, "high");
+		return false;
+	}
+
 	/**
 	 *
 	 * @param videoPath:视频地址
@@ -80,7 +94,7 @@ public class FFmpegUtil {
 	 * @param detailWhich:选择详细信息
 	 * @return
 	 */
-	private static String getSingleInfo(String videoPath, int which, int detailWhich) {
+	private static String getDetailInfo(String videoPath, int which, int detailWhich) {
 		String result = getVideoInfo(videoPath);
 		PatternCompiler compiler = new Perl5Compiler();
 		String regexDuration = "Duration: (.*?), start: (.*?), bitrate: (\\d*) kb\\/s";
@@ -141,14 +155,14 @@ public class FFmpegUtil {
 	}
 
 	private static String getVideoInfo(String inputPath) {
-		List<String> commend = new java.util.ArrayList<String>();
-		commend.add(FFMPEG_PATH);
-		commend.add("-i");
-		commend.add(inputPath);
+		List<String> command = new java.util.ArrayList<String>();
+		command.add(FFMPEG_PATH);
+		command.add("-i");
+		command.add(inputPath);
 
 		try {
 			ProcessBuilder builder = new ProcessBuilder();
-			builder.command(commend);
+			builder.command(command);
 			builder.redirectErrorStream(true);
 			Process p = builder.start();
 
@@ -170,5 +184,65 @@ public class FFmpegUtil {
 			logger.error("ERROR WHEN GET VIDEO INFO:", e);
 		}
 		return null;
+	}
+
+	private static boolean transcodeMedia(String videoPath, String level) {
+		String speed = "faster";
+		String transcodeLevel = "28";
+		switch(level) {
+			case "high" : {
+				speed = "slow";
+				transcodeLevel = "18";
+				break;
+			}
+			case "medium" : {
+				speed = "medium";
+				transcodeLevel = "22";
+				break;
+			}
+			case "normal" : {
+				speed = "fast";
+				transcodeLevel = "24";
+				break;
+			}
+			case "low" : {
+				speed = "faster";
+				transcodeLevel = "28";
+				break;
+			}
+		}
+		List<String> command = new ArrayList<String>();
+		command.add(FFMPEG_PATH);
+		command.add("-i");
+		command.add(videoPath);
+		command.add("-c:v");
+		command.add("libx264"); //用H.264解码
+		command.add("-preset");
+		command.add(speed);    //转码速度，越快画质越差
+		command.add("-crf");
+		command.add(transcodeLevel);    //画质水平，越低越好
+		command.add("-c:a");
+		command.add("copy");
+		command.add(videoPath + "(transcode).mp4");
+		try {
+			ProcessBuilder builder = new ProcessBuilder();
+			builder.command(command);
+			builder.redirectErrorStream(true);
+			Process p = builder.start();
+
+			InputStream in = p.getInputStream();
+			byte[] bytes = new byte[1024];
+			while (in.read(bytes) != -1) {
+				logger.info("......");
+			}
+			// 这里线程阻塞，将等待外部转换进程运行成功运行结束后，才往下执行
+			p.waitFor();
+
+			logger.info("视频:" + videoPath + "转码成功!");
+			return true;
+		} catch (Exception e) {
+			logger.error("ERROR WHEN TRANSCODE VIDEO:", e);
+		}
+		return false;
 	}
 }

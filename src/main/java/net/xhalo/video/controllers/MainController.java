@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static net.xhalo.video.config.FilePathConfig.IMAGE_SAVE_PATH;
-import static net.xhalo.video.config.FilePathConfig.VIDEO_PATH;
+import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
 
 @Controller
 public class MainController {
@@ -35,7 +35,7 @@ public class MainController {
     @RequestMapping(value = "videoPlay")
     public void videoPlay(@RequestParam String videoAddress, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String videoFilename = URLDecoder.decode(videoAddress, "UTF-8");
-        Path video = Paths.get(VIDEO_PATH, videoFilename);
+        Path video = Paths.get(VIDEO_SAVE_PATH, videoFilename);
 
         File file = video.toFile();
         if(! (file.exists() || file.isFile()))
