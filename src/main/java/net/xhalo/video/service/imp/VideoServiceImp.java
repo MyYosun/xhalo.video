@@ -12,8 +12,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -91,13 +93,14 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
-    @Cacheable(value = "video", key = "#video.category.id")
+    @Cacheable(value = "video", key = "'category_'+#video.category.id")
     public List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosByCategoryAndOrderByWhat(video, "click");
     }
 
     @Override
+    @Cacheable(value = "video", key = "#videoId")
     public Video getVideoById(Integer videoId) {
         return videoDao.getVideoById(videoId);
     }
