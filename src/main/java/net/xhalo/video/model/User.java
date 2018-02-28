@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
-	@NotNull
 	private Long id;
 	@NotNull
 	@Size(min = 2, max = 20)

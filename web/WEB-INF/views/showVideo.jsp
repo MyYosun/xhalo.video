@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title><s:property value="#request['video'].title" /></title>
+<title>Video—${video.title}</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -32,14 +32,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="song" style="width:100%;">
 					<div class="song-info">
 						<h3>
-							<s:property value="#request['video'].title" />
+							${video.title}
 						</h3>
 					</div>
 					<div class="video-grid" style=" width:100%; position:relative; padding-bottom:56.25%; height: 0;">
 						<video id="my-player"
 							class="video-js vjs-default-skin vjs-big-play-centered" controls
 							preload="auto" data-setup='{}'
-							src="videoPlay?videoAddress=<s:property value="#request['video'].address"/>"
+							src="videoPlay?videoAddress=${video.address}"
 							style="position: absolute;top:0;left: 0;width: 100%;height: 100%;">
 						<p class="vjs-no-js">
 							To view this video please enable JavaScript, and consider
@@ -73,10 +73,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li>
 								<h4>
 									Published on
-									<s:property value="#request['video'].date" />
+									${video.date}
 								</h4>
 								<p>
-									<s:property value="#request['video'].info" />
+									${video.info}
 								</p>
 							</li>
 

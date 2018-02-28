@@ -21,9 +21,9 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 
-	@RequestMapping(value = "/addUser")
+	@RequestMapping(value = "/processRegister")
 	@ResponseBody
-	public String addUser(@RequestBody @Valid User user, Errors errors) {
+	public String addUser(@Valid User user, Errors errors) {
 		String result = "registFail";
 		if(errors.hasErrors()) {
 			return result;

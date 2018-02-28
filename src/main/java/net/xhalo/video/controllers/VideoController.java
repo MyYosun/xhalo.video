@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,11 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Random;
 
 import static net.xhalo.video.config.FilePathConfig.IMAGE_SAVE_PATH;
 import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
+import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
+import static net.xhalo.video.config.MaginNumberConfig.NUM_THREE;
 
 @Controller
 public class VideoController {
@@ -33,17 +37,16 @@ public class VideoController {
      * @param upload
      * @param video
      * @param errors
-     * @param request
      * @return
      * 上传文件和表单时注意接受表单的对象不要加注解
      */
     //TODO:上传的表单数据接受有问题
     @RequestMapping(value = "uploadVideo", method = RequestMethod.POST)
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
-                           Errors errors, HttpServletRequest request) {
+                           Errors errors) {
         if(null == upload || upload.isEmpty() || errors.hasErrors())
             return "error";
-        if(videoService.addVideo(upload, video, request) != null)
+        if(videoService.addVideo(upload, video) != null)
             return "index";
         else
             return "error";
@@ -53,13 +56,27 @@ public class VideoController {
     @ResponseBody
     public List<Video> getNewVideos(HttpServletRequest request) {
         List<Video> newVideoList = null;
-        newVideoList = videoService.getNewVideos(request, 1, 3);
+        newVideoList = videoService.getNewVideos(request, NUM_ONE, NUM_THREE);
         return newVideoList;
     }
 
-    @RequestMapping(value = "getRecommandVideosByCategoryAndPage")
+    @RequestMapping(value = "getRecommendVideosByCategoryAndPage")
     @ResponseBody
-    public List<Video> getRecommandVideosByCategoryAndPage(@RequestBody Video video) {
-        return null;
+    public List<Video> getRecommendVideosByCategoryAndPage(Video video,
+                                                           @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                           @RequestParam(required = false, defaultValue = "4") Integer pageSize) {
+        List<Video> newVideoList = null;
+        newVideoList = videoService.getRecommendVideosByCategoryAndPage(video, pageNum, pageSize);
+        return newVideoList;
+    }
+
+    @RequestMapping(value = "video-{videoId}.html")
+    public String getVideoById(@PathVariable(value = "videoId") Integer videoId, Model model) {
+        Video result = null;
+        result = videoService.getVideoById(videoId);
+        if(result == null)
+            return "404";
+        model.addAttribute("video", result);
+        return "showVideo";
     }
 }

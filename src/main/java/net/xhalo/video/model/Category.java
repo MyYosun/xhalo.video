@@ -5,7 +5,6 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Category implements Serializable {
-	@NotNull
 	private Long id;
 	@NotNull
 	@Size(min = 1)

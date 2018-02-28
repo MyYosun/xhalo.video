@@ -21,9 +21,9 @@ function formatTime(seconds) {
 
 function getIndex() {
 	getNew();
-	getRecommandByCategoryAndPage(1, 1);
-	getRecommandByCategoryAndPage(2, 1);
-	getRecommandByCategoryAndPage(3, 1);
+	getRecommendByCategoryAndPage(1);
+	getRecommendByCategoryAndPage(2);
+	getRecommendByCategoryAndPage(3);
 }
 
 
@@ -54,9 +54,9 @@ function getPopular() {
 	};
 }
 
-function getRecommandByCategoryAndPage(category, currentPage) {
+function getRecommendByCategoryAndPage(category) {
 	var request = getRequest();
-	var action = "getRecommandVideosByCategoryAndPage?video.category.id=" + category + "&currentPage=" + currentPage;
+	var action = "getRecommendVideosByCategoryAndPage?category.id=" + category;
 	var json;
 	request.open("get", action, true);
 	request.send();

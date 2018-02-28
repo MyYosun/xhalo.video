@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Video implements Serializable {
-	@NotNull
 	private Long id;
 	@NotNull
 	@Size(min = 1, max = 30)

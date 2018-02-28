@@ -1,6 +1,7 @@
 package net.xhalo.video.service.imp;
 
 import com.github.pagehelper.PageHelper;
+import net.xhalo.video.dao.UserDao;
 import net.xhalo.video.dao.VideoDao;
 import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
@@ -13,18 +14,18 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import static net.xhalo.video.config.ConstantConfig.USER_IN_SESSION;
 import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
 import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
 import static net.xhalo.video.config.MaginNumberConfig.NUM_ZERO;
@@ -38,17 +39,21 @@ public class VideoServiceImp implements IVideoService {
     @Autowired
     private VideoDao videoDao;
 
+    @Autowired
+    private UserDao userDao;
+
     @Override
-    @CacheEvict(value = "video", key = "getNewVideos", beforeInvocation = true)
-    public Video addVideo(MultipartFile upload, Video video, HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    @CacheEvict(value = "video", allEntries = true , beforeInvocation = true)
+    public Video addVideo(MultipartFile upload, Video video) {
         String md5 = null;
         String address = null;
         String view = null;
         String videoPath = null;
-        User author = null;
-        if((author =  (User) session.getAttribute(USER_IN_SESSION)) == null)
+        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
             return null;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User author = null;
+        author = userDao.findByUsername(userDetails.getUsername());
         try {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if(StringUtils.isEmpty(md5))
@@ -79,9 +84,21 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
-    @Cacheable(value = "video", key = "#root.method")
+    @Cacheable(value = "video", key = "#root.methodName")
     public List<Video> getNewVideos(HttpServletRequest request, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosOrderByWhat("date");
+    }
+
+    @Override
+    @Cacheable(value = "video", key = "#video.category.id")
+    public List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return videoDao.getVideosByCategoryAndOrderByWhat(video, "click");
+    }
+
+    @Override
+    public Video getVideoById(Integer videoId) {
+        return videoDao.getVideoById(videoId);
     }
 }

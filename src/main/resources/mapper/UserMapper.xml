@@ -10,7 +10,7 @@
 		<result column="username" jdbcType="VARCHAR" property="username" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
 		<result column="nickname" jdbcType="VARCHAR" property="nickname" />
-		<result column="enabled" jdbcType="BIGINT" javaType="boolean" property="enabled" />
+		<result column="enabled" jdbcType="TINYINT" javaType="boolean" property="enabled" />
 		<result column="authority" jdbcType="VARCHAR" property="authority" />
 		<result column="sign" jdbcType="VARCHAR" property="sign" />
 		<result column="head_img" jdbcType="VARCHAR" property="headImg" />
@@ -32,35 +32,13 @@
 		#{username},
 		#{password},
 		#{nickname},
-		#{enable},
+		#{enabled},
 		#{authority},
 		#{sign},
 		#{headImg},
 		CURRENT_TIMESTAMP
 		)
 	</insert>
-
-	<select id="validateUser" parameterType="net.xhalo.video.model.User" resultMap="UserMap">
-		SELECT
-		id,
-		username,
-		password,
-		nickname,
-		enabled,
-		authority,
-		sign,
-		head_img,
-		create_time,
-		last_login_time
-		FROM
-		usertable
-		WHERE
-		username=#{username}
-		AND
-		password=#{password}
-		AND
-		enabled = TRUE
-	</select>
 
 	<select id="validateUsername" parameterType="net.xhalo.video.model.User"
 		resultType="INTEGER">
@@ -85,6 +63,7 @@
 
 	<select id="findByUsername" parameterType="String" resultMap="UserMap">
 		SELECT
+		id,
 		username,
 		password,
 		authority

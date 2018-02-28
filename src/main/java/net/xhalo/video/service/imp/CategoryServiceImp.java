@@ -17,7 +17,7 @@ public class CategoryServiceImp implements ICategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
-	@Cacheable(value = "category", key = "#root.method")
+	@Cacheable(value = "category", key = "#root.methodName")
 	public List<Category> getAllCategories() {
 		return categoryDao.getAllCategories();
 	}
