@@ -80,10 +80,10 @@
 		SET
 		last_login_time = CURRENT_TIMESTAMP
 		WHERE
-		id = #{id}
+		username = #{username}
 	</update>
 
-	<select id="selectByUsername" parameterType="String" resultMap="UserMap">
+	<select id="findByUsername" parameterType="String" resultMap="UserMap">
 		SELECT
 		username,
 		password,

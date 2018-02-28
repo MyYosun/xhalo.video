@@ -23,10 +23,9 @@ public class UserController {
 
 	@RequestMapping(value = "/addUser")
 	@ResponseBody
-	public String addUser(@RequestBody @Valid User user, Errors errors, Model model) {
+	public String addUser(@RequestBody @Valid User user, Errors errors) {
 		String result = "registFail";
 		if(errors.hasErrors()) {
-			model.addAttribute(result);
 			return result;
 		}
 
@@ -35,35 +34,8 @@ public class UserController {
 				result = "registSuccess";
 		} else
 			result = "userExist";
-		model.addAttribute(result);
-		return result;
-	}
 
-	@RequestMapping(value = "/validateUser")
-	@ResponseBody
-	public String validateUser(@RequestBody@Valid User user, Errors errors,
-							 Model model, HttpServletRequest request) {
-		String result = "loginFail";
-		if(errors.hasErrors()) {
-			model.addAttribute(result);
-			return result;
-		}
-		HttpSession session = null;
-		User loginUser = null;
-		if ((loginUser = userService.validateUser(user)) != null) {
-			result = "loginSuccess";
-			session = request.getSession();
-			session.setAttribute("user", loginUser);
-		}
-		model.addAttribute(result);
 		return result;
-	}
-
-	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.removeAttribute("user");
-		return "index";
 	}
 
 }

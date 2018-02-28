@@ -439,22 +439,22 @@ function regist() {
 
 
 function login() {
-	var request = getRequest();
-	var loginUsername = document.getElementById('loginUsername').value;
-	var loginPassword = document.getElementById('loginPassword').value;
-	var action = "login?user.username=" + loginUsername + "&user.password=" + loginPassword;
-	request.open("get", action, true);
-	request.send();
-	request.onreadystatechange = function() {
-		if (request.readyState == 4 && request.status == 200) {
-			var result = request.responseText;
-			if (result.indexOf("loginSuccess") != -1)
-				alert("登录成功！");
-			else
-				alert("用户名/密码错误！");
-			window.location.reload();
-		}
-	}
+	// var request = getRequest();
+	// var loginUsername = document.getElementById('loginUsername').value;
+	// var loginPassword = document.getElementById('loginPassword').value;
+	// var action = "processLogin?username=" + loginUsername + "&password=" + loginPassword;
+	// request.open("post", action, true);
+	// request.send();
+	$.ajax({
+		type:"post",
+		url:"processLogin",
+		data:{
+			"username" : $("#loginUsername").val(),
+			"password" : $("#loginPassword").val()
+		},
+		// contentType:"application/json",
+		async:false
+	});
 
 }
 

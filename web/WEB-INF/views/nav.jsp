@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -96,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsp"><h1>
+			<a class="navbar-brand" href="index"><h1>
 					<img src="images/logo.png" alt="" />
 				</h1></a>
 		</div>
@@ -110,20 +112,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="header-top-right">
 				<div class="file">
-					<a href="upload.jsp">上 传</a>
+					<a href="upload">上 传</a>
 				</div>
 				<div class="signin" id="registBtn">
 					<a href="javascript:return;" class="play-icon popup-with-zoom-anim">注
 						册</a>
 				</div>
 				<div class="signin" id="loginBtn">
-					<c:if test="${empty sessionScope.user}">
-						<a href="javascript:return;"
+					<sec:authorize access="!hasRole('ROLE_USER')">
+
+					<a href="javascript:return;"
 							class="play-icon popup-with-zoom-anim">登 录</a>
-					</c:if>
-					<c:if test="!${empty sessionScope.user}">
-						<a href="logout" class="play-icon popup-with-zoom-anim">登 出</a>
-					</c:if>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_USER')">
+
+					<a href="/logout" class="play-icon popup-with-zoom-anim">登 出</a>
+					</sec:authorize>
 					<div class="clearfix"></div>
 				</div>
 			</div>

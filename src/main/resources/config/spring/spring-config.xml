@@ -95,6 +95,7 @@
         <constructor-arg name="cacheConfig" ref="defaultRedisCacheConfiguration"/>
     </bean>
 
+    <!--注册三个cache集合-->
     <bean id="redisCacheManager" class="org.springframework.cache.support.SimpleCacheManager" >
         <property name="caches" >
             <set>

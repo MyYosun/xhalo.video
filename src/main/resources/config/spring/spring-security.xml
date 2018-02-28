@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:security="http://www.springframework.org/schema/security"
-       xsi:schemaLocation="
-            http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd
-            http://www.springframework.org/schema/security
-            http://www.springframework.org/schema/security/spring-security-4.0.xsd
-            ">
-    
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security.xsd ">
 
-</beans>
+    <global-method-security pre-post-annotations="enabled"/>
+
+    <!-- 不需要进行安全认证的资源 -->
+    <!--<http pattern="/resources/**" security="none" />-->
+
+    <!-- 资源所需要的权限 -->
+    <http use-expressions="true" auto-config="true">
+        <intercept-url pattern="/user*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/upload*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**" access="permitAll" />
+        <form-login login-page="/login" login-processing-url="/processLogin" username-parameter="username"
+                    password-parameter="password" authentication-success-handler-ref="cusAuthenticationSucessHandler"
+                    authentication-failure-url="/login?error=1"/>
+        <logout invalidate-session="true" logout-url="/logout"
+                    logout-success-url="/index"/>
+        <csrf disabled="true" token-repository-ref="csrfTokenRepository" />
+        <remember-me key="authorition" remember-me-parameter="remember-me" remember-me-cookie="login-user"/>
+    </http>
+    <!-- 配置用户和相应的权限 -->
+    <authentication-manager>
+        <authentication-provider ref="authenticationProvider"/>
+    </authentication-manager>
+
+
+    <!--spring security 5.x以上不需要配置密码加密方式直接在数据库中密码前缀加上加密方式，如:{MD5}xxxxx-->
+    <beans:bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <beans:property name="hideUserNotFoundExceptions" value="true" />
+        <beans:property name="userDetailsService" ref="securityUserService" />
+    </beans:bean>
+
+    <beans:bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository" />
+
+</beans:beans>
