@@ -7,12 +7,14 @@
 	<resultMap type="net.xhalo.video.model.Category" id="CategoryMap">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="belong_to_other" jdbcType="BOOLEAN" property="belongToOther" />
 	</resultMap>
 
 	<select id="getCategoryById" parameterType="LONG" resultMap="CategoryMap">
 		SELECT
 		id,
-		name
+		name,
+		belong_to_other
 		FROM
 		categorytable
 		WHERE
@@ -22,7 +24,8 @@
 	<select id="getAllCategories" resultMap="CategoryMap">
 		SELECT
 		id,
-		name
+		name,
+		belong_to_other
 		FROM
 		categorytable
 		ORDER BY id ASC

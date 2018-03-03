@@ -104,4 +104,16 @@ public class VideoServiceImp implements IVideoService {
     public Video getVideoById(Integer videoId) {
         return videoDao.getVideoById(videoId);
     }
+
+    @Override
+    public List<Video> getVideosByCategory(Video video, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return videoDao.getVideosByCategoryAndOrderByWhat(video, "date");
+    }
+
+    @Override
+    public List<Video> getVideosByTitle(Video video, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return videoDao.getVideosByTitleAndOrderByWhat(video, "date");
+    }
 }

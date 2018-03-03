@@ -9,6 +9,7 @@ public class Category implements Serializable {
 	@NotNull
 	@Size(min = 1)
 	private String name;
+	private boolean belongToOther;
 
 	public Long getId() {
 		return id;
@@ -24,5 +25,13 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isBelongToOther() {
+		return belongToOther;
+	}
+
+	public void setBelongToOther(boolean belongToOther) {
+		this.belongToOther = belongToOther;
 	}
 }

@@ -11,5 +11,6 @@ public interface VideoDao {
     int addVideo(Video video);
     List<Video> getVideosOrderByWhat(@Param("orderItem") String orderItem);
     List<Video> getVideosByCategoryAndOrderByWhat(@Param("video") Video video, @Param("orderItem") String orderItem);
+    List<Video> getVideosByTitleAndOrderByWhat(@Param("video") Video video, @Param("orderItem") String orderItem);
     Video getVideoById(Integer videoId);
 }

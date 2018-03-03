@@ -63,7 +63,7 @@ function getRecommendByCategoryAndPage(category) {
 	request.onreadystatechange = function() {
 		if (request.readyState == 4 && request.status == 200) {
 			json = request.responseText;
-			showRecommandFirst(json, category);
+			showRecommendFirst(json, category);
 		}
 	};
 }
@@ -97,8 +97,6 @@ function showNew(json) {
 		divThird_img_time.setAttribute("class", "time");
 		divThird_img.appendChild(divThird_img_time);
 		divThird_img_time.innerHTML = "<p>" + formatTime(video.duration) + "</p>";
-
-		//谢浩截止
 
 		var divThird_img_clck = document.createElement('div');
 		divThird_img_clck.setAttribute("class", "clck");
@@ -140,7 +138,7 @@ function showNew(json) {
 	divTop.appendChild(divSecond_empty);
 }
 
-function showRecommandFirst(json, id) {
+function showRecommendFirst(json, id) {
 	var videoList = eval('(' + json + ')');
 	var divTop = document.getElementById("recommand" + id);
 	divTop.innerHTML = "";
@@ -162,8 +160,6 @@ function showRecommandFirst(json, id) {
 		divThird_img_time.setAttribute("class", "time small-time slider-time");
 		divThird_img.appendChild(divThird_img_time);
 		divThird_img_time.innerHTML = "<p>" + formatTime(video.duration) + "</p>";
-
-		//谢浩截止
 
 		var divThird_img_clck = document.createElement('div');
 		divThird_img_clck.setAttribute("class", "clck small-clck");
@@ -272,6 +268,36 @@ function showCategory(json) {
 				category.name + "</a>";
 	}
 }
+
+function getCategory1() {
+	var request = getRequest();
+	var action = "getAllCategories";
+	request.open("get", action, true);
+	request.send();
+	request.onreadystatechange = function() {
+		if (request.readyState == 4 && request.status == 200) {
+			var json = request.responseText;
+			showCategory1(json);
+		}
+	};
+}
+
+function showCategory1(json) {
+	var categoryList = eval('(' + json + ')');
+	var otherVideos = document.getElementById("categoryOther");
+	for (var i = 0; i < categoryList.length; i++) {
+        var category = categoryList[i];
+		if(!category.belongToOther){
+			continue;
+		}
+		var id = "category" + (i + 1).toString();
+		var li = document.createElement("li");
+		otherVideos.appendChild(li);
+		li.innerHTML = "<a href='category-" + category.id + ".html" + "'>" + category.name + "</a>";
+	}
+}
+
+
 function getResultVideos() {
 	var request = getRequest();
 	var categoryId = document.getElementById("categoryId");
@@ -279,9 +305,9 @@ function getResultVideos() {
 	var currentPage = document.getElementById("currentPage").value;
 	var action;
 	if (categoryId != null) {
-		action = "getVideosByCategoryAndPage?video.category.id=" + categoryId.value + "&currentPage=" + currentPage;
+		action = "getVideosByCategoryAndPage?category.id=" + categoryId.value + "&pageNum=" + currentPage;
 	} else {
-		action = "getVideosByTitleAndPage?video.title=" + videoTitle.value + "&currentPage=" + currentPage;
+        action = "getVideosByTitleAndPage?title=" + videoTitle.value + "&pageNum=" + currentPage;
 	}
 	request.open("get", action, true);
 	request.send();
@@ -458,11 +484,6 @@ function login() {
 
 }
 
-function uploadCheck(){
-	if(document.getElementById("isExist").value == "false"){
-		alert('请先登录!');
-	}else{
-		document.getElementById("uploadBtn").removeAttribute("disabled");
-	}
-	
+function openLoginModal() {
+	$('#loginForm').css("display","block");
 }

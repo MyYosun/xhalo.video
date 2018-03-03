@@ -55,6 +55,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
+        <!--配置文件上传大小ss-->
         <multipart-config>
             <max-file-size>218103808</max-file-size>
             <max-request-size>218103808</max-request-size>
@@ -67,7 +68,31 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!-- 默认的错误处理页面 -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>
 
+    <!--在开发中注释掉-->
+<!--    <error-page>
+        <error-code>500</error-code>
+        <location>/500</location>
+    </error-page>
 
+    &lt;!&ndash; 这样的配置表示如果jsp页面或者servlet发生java.lang.Exception类型（当然包含子类）的异常就会转到500.jsp页面处理。 &ndash;&gt;
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/500</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/500</location>
+    </error-page>-->
 
 </web-app>

@@ -121,6 +121,32 @@
 		ORDER BY ${orderItem} DESC
 	</select>
 
+	<select id="getVideosByTitleAndOrderByWhat" resultMap="VideoMap">
+		SELECT
+		a.id,
+		a.title,
+		a.click,
+		a.date,
+		a.address,
+		a.view,
+		a.duration,
+		b.id category_id,
+		b.name category_name,
+		c.id author_id,
+		c.username author_username
+		FROM
+		videotable a,
+		categorytable b,
+		usertable c
+		WHERE
+		a.title like CONCAT(CONCAT('%', #{video.title}), '%')
+		AND
+		a.category=b.id
+		AND
+		a.author=c.id
+		ORDER BY ${orderItem} DESC
+	</select>
+
 	<select id="getVideoById" parameterType="INTEGER" resultMap="VideoMapDetail">
 		SELECT
 		a.id,

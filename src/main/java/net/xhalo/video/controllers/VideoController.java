@@ -40,7 +40,6 @@ public class VideoController {
      * @return
      * 上传文件和表单时注意接受表单的对象不要加注解
      */
-    //TODO:上传的表单数据接受有问题
     @RequestMapping(value = "uploadVideo", method = RequestMethod.POST)
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
                            Errors errors) {
@@ -63,7 +62,7 @@ public class VideoController {
     @RequestMapping(value = "getRecommendVideosByCategoryAndPage")
     @ResponseBody
     public List<Video> getRecommendVideosByCategoryAndPage(Video video,
-                                                           @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                           @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                            @RequestParam(required = false, defaultValue = "4") Integer pageSize) {
         List<Video> newVideoList = null;
         newVideoList = videoService.getRecommendVideosByCategoryAndPage(video, pageNum, pageSize);
@@ -75,8 +74,34 @@ public class VideoController {
         Video result = null;
         result = videoService.getVideoById(videoId);
         if(result == null)
-            return "404";
+            return "error/404";
         model.addAttribute("video", result);
         return "showVideo";
     }
+
+    @RequestMapping(value = "search")
+    public String searchByTitle(@RequestParam(value = "title") String videoTitle, Model model) {
+        Video result = new Video();
+        result.setTitle(videoTitle);
+        model.addAttribute("video", result);
+        return "showVideos";
+    }
+
+    @RequestMapping(value = "getVideosByCategoryAndPage")
+    @ResponseBody
+    public List<Video> getVideoByCategory(Video video,
+                                          @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                          @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+        return videoService.getVideosByCategory(video, pageNum, pageSize);
+    }
+
+    @RequestMapping(value = "getVideosByTitleAndPage")
+    @ResponseBody
+    public List<Video> getVideosByTitle(Video video,
+                                        @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                        @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+        return videoService.getVideosByTitle(video, pageNum, pageSize);
+    }
+
+
 }

@@ -22,8 +22,8 @@ public class CategoryServiceImp implements ICategoryService {
 		return categoryDao.getAllCategories();
 	}
 
-	@Cacheable(value = "category", key = "#obj.id")
-	public Category getCategoryById(Category obj) {
-		return categoryDao.getCategoryById(obj.getId());
+	@Cacheable(value = "category", key = "#categoryId")
+	public Category getCategoryById(Long categoryId) {
+		return categoryDao.getCategoryById(categoryId);
 	}
 }
