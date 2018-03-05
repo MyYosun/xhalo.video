@@ -14,25 +14,6 @@
 		<result column="address" jdbcType="VARCHAR" property="address" />
 		<result column="view" jdbcType="VARCHAR" property="view" />
 		<result column="duration" jdbcType="INTEGER" property="duration" />
-		<association property="category" javaType="net.xhalo.video.model.Category">
-			<id property="id" column="category_id" />
-			<result property="name" column="category_name" />
-		</association>
-		<association property="author" javaType="net.xhalo.video.model.User">
-			<id property="id" column="author_id" />
-			<result property="username" column="author_username" />
-		</association>
-	</resultMap>
-
-	<resultMap type="net.xhalo.video.model.Video" id="VideoMapDetail">
-		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="title" jdbcType="VARCHAR" property="title" />
-		<result column="click" jdbcType="INTEGER" property="click" />
-		<result column="date" jdbcType="TIMESTAMP" property="date"
-			javaType="java.util.Date" />
-		<result column="address" jdbcType="VARCHAR" property="address" />
-		<result column="view" jdbcType="VARCHAR" property="view" />
-		<result column="duration" jdbcType="INTEGER" property="duration" />
 		<result column="info" jdbcType="VARCHAR" property="info" />
 		<association property="category" javaType="net.xhalo.video.model.Category">
 			<id property="id" column="category_id" />
@@ -41,6 +22,8 @@
 		<association property="author" javaType="net.xhalo.video.model.User">
 			<id property="id" column="author_id" />
 			<result property="username" column="author_username" />
+			<result property="nickname" column="author_nickname" />
+			<result property="headImg" column="author_head_img" />
 		</association>
 	</resultMap>
 
@@ -80,10 +63,13 @@
 		a.address,
 		a.view,
 		a.duration,
+		a.info,
 		b.id category_id,
 		b.name category_name,
 		c.id author_id,
-		c.username author_username
+		c.username author_username,
+		c.nickname author_nickname,
+		c.head_img author_head_img
 		FROM
 		videotable a,
 		categorytable b,
@@ -104,10 +90,13 @@
 		a.address,
 		a.view,
 		a.duration,
+		a.info,
 		b.id category_id,
 		b.name category_name,
 		c.id author_id,
-		c.username author_username
+		c.username author_username,
+		c.nickname author_nickname,
+		c.head_img author_head_img
 		FROM
 		videotable a,
 		categorytable b,
@@ -130,10 +119,13 @@
 		a.address,
 		a.view,
 		a.duration,
+		a.info,
 		b.id category_id,
 		b.name category_name,
 		c.id author_id,
-		c.username author_username
+		c.username author_username,
+		c.nickname author_nickname,
+		c.head_img author_head_img
 		FROM
 		videotable a,
 		categorytable b,
@@ -147,7 +139,7 @@
 		ORDER BY ${orderItem} DESC
 	</select>
 
-	<select id="getVideoById" parameterType="INTEGER" resultMap="VideoMapDetail">
+	<select id="getVideoById" parameterType="INTEGER" resultMap="VideoMap">
 		SELECT
 		a.id,
 		a.title,
@@ -160,7 +152,9 @@
 		b.id category_id,
 		b.name category_name,
 		c.id author_id,
-		c.username author_username
+		c.username author_username,
+		c.nickname author_nickname,
+		c.head_img author_head_img
 		FROM
 		videotable a,
 		categorytable b,

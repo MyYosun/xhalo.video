@@ -12,29 +12,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
-import static net.xhalo.video.config.ConstantConfig.IMAGE_SIZE;
+import static net.xhalo.video.config.ConstantConfig.DEFAULT_IMAGE_SIZE;
+import static net.xhalo.video.config.ConstantConfig.IMAGE_SIZE_BIG;
 import static net.xhalo.video.config.FilePathConfig.*;
 
 public class FFmpegUtil {
 
 	private static Logger logger = LogManager.getLogger(FFmpegUtil.class);
 
+	//普通视频截图接口
+	public static boolean videoCutImg(String inputVideoPath, String inputImageOutPath) {
+		return makeScreenCut(VIDEO_SAVE_PATH + inputVideoPath, IMAGE_SAVE_PATH + inputImageOutPath, DEFAULT_IMAGE_SIZE, "10");
+	}
 
-	public static boolean makeScreenCut(String videoPath, String imageOutPath) {
+	//首页推荐视频截图接口
+	public static boolean videoCutImgBig(String inputVideoPath, String inputImageOutPath) {
+		return makeScreenCut(VIDEO_SAVE_PATH + inputVideoPath, BIG_IMAGE_SAVE_PATH + inputImageOutPath, IMAGE_SIZE_BIG, "10");
+	}
+
+	public static boolean makeScreenCut(String videoPath, String imageOutPath, String imageSize, String when) {
 		List<String> command = new ArrayList<String>();
 		command.add(FFMPEG_PATH);
 		command.add("-i");
-		command.add(VIDEO_SAVE_PATH + videoPath);
+		command.add(videoPath);
 		command.add("-y");
 		command.add("-f");
 		command.add("image2");
 		command.add("-ss");
-		command.add("8");     //截图位置
+		command.add(when);     //截图位置
 		command.add("-t");
 		command.add("0.001");  //截图时长
 		command.add("-s");
-		command.add(IMAGE_SIZE);  //截图大小
-		command.add(IMAGE_SAVE_PATH + imageOutPath);
+		command.add(imageSize);  //截图大小
+		command.add(imageOutPath);
 
 		try {
 			ProcessBuilder builder = new ProcessBuilder();
@@ -73,6 +83,7 @@ public class FFmpegUtil {
 		return 0;
 	}
 
+	//处理视频是否转码以及怎么转码的接口
 	public static boolean processMediaCode(String videoName) {
 		String videoPath = VIDEO_SAVE_PATH + videoName;
 		Integer bitrate = Integer.parseInt(getDetailInfo(videoPath, 1, 3));

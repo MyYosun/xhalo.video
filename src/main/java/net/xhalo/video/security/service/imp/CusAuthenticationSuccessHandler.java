@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
-public class CusAuthenticationSucessHandler implements AuthenticationSuccessHandler{
+public class CusAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
     @Autowired
     UserDao userDao;
 

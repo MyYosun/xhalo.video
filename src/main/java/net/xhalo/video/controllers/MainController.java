@@ -22,8 +22,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.xhalo.video.config.FilePathConfig.IMAGE_SAVE_PATH;
-import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
+import static net.xhalo.video.config.FilePathConfig.*;
 
 @Controller
 public class MainController {
@@ -94,8 +93,12 @@ public class MainController {
     }
 
     @RequestMapping(value = "showImg")
-    public void showImage(@RequestParam(name = "video.view") String imgFile, HttpServletResponse response) throws IOException {
+    public void showImage(@RequestParam(name = "video.view") String imgFile,
+                          @RequestParam(name = "isBig", required = false, defaultValue = "false") Boolean isBig,
+                          HttpServletResponse response) throws IOException {
         String imgSavePath = IMAGE_SAVE_PATH + imgFile;
+        if(isBig)
+            imgSavePath = BIG_IMAGE_SAVE_PATH + imgFile;
         File image = new File(imgSavePath);
         if(!image.exists()){
             logger.error("IMAGE FILE NOT FOUND!");

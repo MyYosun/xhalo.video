@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IVideoService {
     Video addVideo(MultipartFile upload, Video video);
-    List<Video> getNewVideos(HttpServletRequest request, int pageNum, int pageSize);
+    List<Video> getNewVideos(int pageNum, int pageSize);
+    List<Video> getRecommendVideos(int pageNum, int pageSize);
     List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize);
     Video getVideoById(Integer videoId);
     List<Video> getVideosByCategory(Video video, int pageNum, int pageSize);

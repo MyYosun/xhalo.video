@@ -91,7 +91,7 @@ function showNew(json) {
 		var divThird_img_a = document.createElement('a');
 		divThird_img_a.setAttribute("href", "video-" + video.id + ".html");
 		divThird_img.appendChild(divThird_img_a);
-		divThird_img_a.innerHTML = "<img height='300px' src='showImg?video.view=" + video.view + "' alt='' />";
+		divThird_img_a.innerHTML = "<img class='img-rounded' height='300px' src='showImg?video.view=" + video.view + "' alt='' />";
 
 		var divThird_img_time = document.createElement('div');
 		divThird_img_time.setAttribute("class", "time");
@@ -154,7 +154,7 @@ function showRecommendFirst(json, id) {
 		var divThird_img_a = document.createElement('a');
 		divThird_img_a.setAttribute("href", "video-" + video.id + ".html");
 		divThird_img.appendChild(divThird_img_a);
-		divThird_img_a.innerHTML = "<img stye='height:220px;' src='showImg?video.view=" + video.view + "' alt='' />";
+		divThird_img_a.innerHTML = "<img class='img-rounded' style='height:220px;' src='showImg?video.view=" + video.view + "' alt='' />";
 
 		var divThird_img_time = document.createElement('div');
 		divThird_img_time.setAttribute("class", "time small-time slider-time");
@@ -217,7 +217,7 @@ function showPopular(json) {
 		var divThird_1_a = document.createElement('a');
 		divThird_1_a.setAttribute("href", "video-" + video.id + ".html");
 		divThird_1.appendChild(divThird_1_a);
-		divThird_1_a.innerHTML = "<img style='height:9%;' src='showImg?video.view=" + video.view + "' alt='' />";
+		divThird_1_a.innerHTML = "<img class='img-rounded' style='height:9%;' src='showImg?video.view=" + video.view + "' alt='' />";
 		var divThird_2 = document.createElement('div');
 		divThird_2.setAttribute("class", "col-md-8 single-right-grid-right");
 		divSecond.appendChild(divThird_2);
@@ -343,7 +343,7 @@ function showResultVideos(json) {
 		else
 			relaxNum = videoListLength % 4;
 		for (var x = 0; x < relaxNum; x++) {
-			video = videoList[x];
+			video = videoList[i*4 + x];
 
 			var divThird_md3 = document.createElement('div');
 			divThird_md3.setAttribute("class", "col-md-3 resent-grid recommended-grid movie-video-grid");
@@ -356,7 +356,7 @@ function showResultVideos(json) {
 			var divFifth_a = document.createElement('a');
 			divFifth_a.setAttribute("href", "video-" + video.id + ".html");
 			divForth_img.appendChild(divFifth_a);
-			divFifth_a.innerHTML = "<img style='height:220px;' src='showImg?video.view=" + video.view + "' alt='' />";
+			divFifth_a.innerHTML = "<img class='img-rounded' style='height:220px;' src='showImg?video.view=" + video.view + "' alt='' />";
 
 			var divFifth_time = document.createElement('div');
 			divFifth_time.setAttribute("class", "time small-time show-time movie-time");
@@ -484,6 +484,108 @@ function login() {
 
 }
 
-function openLoginModal() {
-	$('#loginForm').css("display","block");
+
+
+//从这里开始
+function createNewVideoModel(video) {
+    var divTop = $("<div></div>");
+    divTop.addClass("col-sm-6 col-md-4");
+
+    var divSecond = $("<div></div>");
+    divTop.append(divSecond);
+    divSecond.addClass("thumbnail");
+
+    var imgAndA = $("<a></a>");
+    divSecond.append(imgAndA);
+    imgAndA.addClass("lightBox");
+    imgAndA.attr("href","/video-" + video.id + ".html");
+	var videoImg = $("<img></img>");
+	imgAndA.append(videoImg);
+	videoImg.attr("src","/showImg?video.view=" + video.view);
+	videoImg.attr("alt",video.title);
+
+	var divInfo = $("<div></div>");
+	divSecond.append(divInfo);
+	divInfo.addClass("caption");
+	var divTitle = $("<div></div>");
+	divInfo.append(divTitle);
+	divTitle.addClass("video-title");
+	var title = $("<h3></h3>");
+	divTitle.append(title);
+	title.html("<span class='badge'>" + video.click + "views</span> " + video.title + "");
+	var divVideoInfo = $("<div></div>");
+    divInfo.append(divVideoInfo);
+    divVideoInfo.addClass("video-info");
+    var videoInfoP = $("<p></p>");
+    divVideoInfo.append(videoInfoP);
+    videoInfoP.text(video.info);
+	var otherInfo = $("<ul></ul>");
+	divInfo.append(otherInfo);
+	var otherInfoUser = $("<li></li>");
+	otherInfo.append(otherInfoUser);
+	var userLogo = $("<span></span>");
+	otherInfoUser.append(userLogo);
+    userLogo.addClass("glyphicon glyphicon-user");
+    var userName = $("<span></span>");
+    otherInfoUser.append(userName);
+    userName.html("<a href='/user-" + video.author.id + "'>" + video.author.nickname + "</a>");
+    var otherInfoDuration = $("<li></li>");
+	otherInfo.append(otherInfoDuration);
+	otherInfoDuration.addClass("right-list");
+    var timeLogo = $("<span></span>");
+    otherInfoDuration.append(timeLogo);
+    timeLogo.addClass("glyphicon glyphicon-time");
+    var duration = $("<span></span>");
+    otherInfoDuration.append(duration);
+    duration.html(formatTime(video.duration));
+
+    return divTop;
 }
+
+function getPopularVideos() {
+	$.ajax({
+        type:"get",
+        url:"getLatestVideos",
+        // contentType:"application/json",
+        async:true,
+		success : showPopularVideos
+	});
+}
+
+function showPopularVideos(videoList) {
+	for(var i = 0; i < videoList.length; i++) {
+        var divTop = createNewVideoModel(videoList[i]);
+        $('#mostPopular').append(divTop);
+	}
+}
+
+function getRecommendVideos() {
+    $.ajax({
+        type:"get",
+        url:"getRecommendVideos",
+        // contentType:"application/json",
+        async:true,
+        success : showRecommendVideos
+    });
+}
+
+function showRecommendVideos(videoList) {
+	for(var i = 0; i < videoList.length; i++) {
+		var video = videoList[i];
+		if(i == 0) {
+            $('#carousel-indicators').append($('<li data-target="#myCarousel" data-slide-to="' + i + '" class="active"></li>'));
+            var divSingle = $('<div class="item active"></div>');
+            divSingle.append($('<img src="/showImg?isBig=true&video.view=' + video.view + '" alt="First slide"></img>'));
+            divSingle.append($('<div class="carousel-caption">' + video.title + '</div>'));
+            $('#carousel-inner').append(divSingle);
+        } else {
+            $('#carousel-indicators').append($('<li data-target="#myCarousel" data-slide-to="' + i + '"></li>'));
+            var divSingle = $('<div class="item"></div>');
+            divSingle.append($('<img src="/showImg?isBig=true&video.view=' + video.view + '" alt="First slide"></img>'));
+            divSingle.append($('<div class="carousel-caption">' + video.title + '</div>'));
+            $('#carousel-inner').append(divSingle);
+		}
+
+	}
+}
+

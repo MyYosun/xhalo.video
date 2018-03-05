@@ -52,18 +52,18 @@
                 <li><a href="#"><span class="glyphicon glyphicon-upload	"></span> 上传视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
                 <sec:authorize access="!hasRole('ROLE_USER')">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_USER')">
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> 注销登录</a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
                 </sec:authorize>
             </ul>
 
-            <form class="navbar-form navbar-right" role="search">
+            <form class="navbar-form navbar-right" role="search" action="/search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search...">
+                    <input type="text" name="title" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">搜索</button>
+                        <button class="btn btn-default" type="submit">搜索</button>
                     </span>
                 </div>
             </form>

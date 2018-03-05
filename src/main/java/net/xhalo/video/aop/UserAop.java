@@ -20,7 +20,7 @@ public class UserAop {
     @Autowired
     UserDao userDao;
 
-    @Pointcut("execution(* net.xhalo.video.security.service.imp.CusAuthenticationSucessHandler.onAuthenticationSuccess(..))")
+    @Pointcut("execution(* net.xhalo.video.security.service.imp.CusAuthenticationSuccessHandler.onAuthenticationSuccess(..))")
     public void loginSuccess() {}
 
     @AfterReturning(pointcut = "loginSuccess()")

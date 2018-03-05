@@ -1,0 +1,13 @@
+.page-header ul {
+    margin: 0 0 16px 0;
+    padding: 0;
+}
+.page-header ul li {
+    list-style: none;
+    float: left;
+    width: 49%!important;
+    text-align: left;
+}
+.li-right {
+    text-align: right!important;
+}

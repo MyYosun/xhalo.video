@@ -1,98 +1,101 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-	<base href="<%=basePath%>">
-
-	<title>Video—${video.title}</title>
-
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-        <link rel="stylesheet" type="text/css" href="styles.css">
-        -->
-	<link href="css/video-js.min.css" rel="stylesheet">
-	<script src="js/video.min.js"></script>
+    <title>${video.title}</title>
+    <link href="css/video-js.min.css" rel="stylesheet">
+    <script src="js/video.min.js"></script>
+    <link href="css/xhalo-video.css" rel="stylesheet">
 </head>
 <body>
-
-<jsp:include page="nav.jsp"></jsp:include>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	<div class="show-top-grids">
-		<div class="col-sm-8 single-left">
-			<div class="song" style="width:100%;">
-				<div class="song-info">
-					<h3>
-						${video.title}
-					</h3>
-				</div>
-				<div class="video-grid" style=" width:100%; position:relative; padding-bottom:56.25%; height: 0;">
-					<video id="my-player"
-						   class="video-js vjs-default-skin vjs-big-play-centered" controls
-						   preload="auto" data-setup='{}'
-						   src="videoPlay?videoAddress=${video.address}"
-						   style="position: absolute;top:0;left: 0;width: 100%;height: 100%;">
-						<p class="vjs-no-js">
-							To view this video please enable JavaScript, and consider
-							upgrading to a web browser that <a
-								href="http://videojs.com/html5-video-support/" target="_blank">
-							supports HTML5 video </a>
-						</p>
-					</video>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			<div class="published">
-				<script src="js/jquery-1.11.1.min.js"></script>
-				<script>
-                    $(document).ready(function () {
-                        size_li = $("#myList li").size();
-                        x=1;
-                        $('#myList li:lt('+x+')').show();
-                        $('#loadMore').click(function () {
-                            x= (x+1 <= size_li) ? x+1 : size_li;
-                            $('#myList li:lt('+x+')').show();
-                        });
-                        $('#showLess').click(function () {
-                            x=(x-1<0) ? 1 : x-1;
-                            $('#myList li').not(':lt('+x+')').hide();
-                        });
-                    });
-				</script>
-				<div class="load_more">
-					<ul id="myList">
-						<li>
-							<h4>
-								Published on
-								${video.date}
-							</h4>
-							<p>
-								${video.info}
-							</p>
-						</li>
-
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-4 single-right">
-			<h3>Most Popular</h3>
-			<div class="single-grid-right" id="popularVideos"></div>
-		</div>
-		<div class="clearfix"></div>
-	</div>
+<jsp:include page="head.jsp"></jsp:include>
+<div class="col-sm-12 col-md-12 col-lg-12">
+    <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+           controls preload="auto" style="width:100%!important;" height="600"
+           data-setup='{"example_option":true}'>
+        <source src="videoPlay?videoAddress=${video.address}" type='video/mp4' />
+    </video>
 </div>
-<script type="text/javascript">
-    getPopular();
-</script>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+            <div class="page-header">
+                <h3>
+                    ${video.title}<small>&nbsp;&nbsp;&nbsp;${video.click}次观看</small>
+                </h3><br/>
+                <ul class="list-unstyled">
+                    <li>
+                        <p><fmt:formatDate type="date" dateStyle="long" value="${video.date}"/>发布</p>
+                    </li>
+                    <li class="li-right">112223</li>
+                </ul>
+            </div>
+            <p>
+
+                是一个分布式的版本控制系统，最初由 <strong>Linus Torvalds</strong> 编写，用作Linux内核代码的管理。在推出后，Git在其它项目中也取得了很大成功，尤其是在 <small>Ruby</small> 社区中。
+            </p> <button type="button" class="btn btn-default">按钮</button>
+            <h3>
+                h3. 这是一套可视化布局系统.
+            </h3>
+            <ul class="list-unstyled">
+                <li>
+                    Lorem ipsum dolor sit amet
+                </li>
+                <li>
+                    Consectetur adipiscing elit
+                </li>
+                <li>
+                    Integer molestie lorem at massa
+                </li>
+                <li>
+                    Facilisis in pretium nisl aliquet
+                </li>
+                <li>
+                    Nulla volutpat aliquam velit
+                </li>
+                <li>
+                    Faucibus porta lacus fringilla vel
+                </li>
+                <li>
+                    Aenean sit amet erat nunc
+                </li>
+                <li>
+                    Eget porttitor lorem
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 column">
+            <h3>
+                h3. 这是一套可视化布局系统.
+            </h3>
+            <ul class="list-unstyled">
+                <li>
+                    Lorem ipsum dolor sit amet
+                </li>
+                <li>
+                    Consectetur adipiscing elit
+                </li>
+                <li>
+                    Integer molestie lorem at massa
+                </li>
+                <li>
+                    Facilisis in pretium nisl aliquet
+                </li>
+                <li>
+                    Nulla volutpat aliquam velit
+                </li>
+                <li>
+                    Faucibus porta lacus fringilla vel
+                </li>
+                <li>
+                    Aenean sit amet erat nunc
+                </li>
+                <li>
+                    Eget porttitor lorem
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>

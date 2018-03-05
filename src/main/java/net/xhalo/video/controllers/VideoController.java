@@ -51,11 +51,21 @@ public class VideoController {
             return "error";
     }
 
-    @RequestMapping(value = "getNewVideos")
+    @RequestMapping(value = "getLatestVideos")
     @ResponseBody
-    public List<Video> getNewVideos(HttpServletRequest request) {
+    public List<Video> getNewVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                    @RequestParam(required = false, defaultValue = "9") Integer pageSize) {
         List<Video> newVideoList = null;
-        newVideoList = videoService.getNewVideos(request, NUM_ONE, NUM_THREE);
+        newVideoList = videoService.getNewVideos(pageNum, pageSize);
+        return newVideoList;
+    }
+
+    @RequestMapping(value = "getRecommendVideos")
+    @ResponseBody
+    public List<Video> getRecommendVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+        List<Video> newVideoList = null;
+        newVideoList = videoService.getRecommendVideos(pageNum, pageSize);
         return newVideoList;
     }
 

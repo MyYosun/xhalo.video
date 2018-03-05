@@ -22,6 +22,7 @@
     <mvc:view-controller path="/index.html" view-name="redirect:/index" />
     <mvc:view-controller path="/" view-name="redirect:/index" />
     <mvc:view-controller path="/head" view-name="/head" />
+    <mvc:view-controller path="/index_self" view-name="/index_self" />
     <!--出错页面配置-->
     <mvc:view-controller path="/404" view-name="/error/404" />
     <mvc:view-controller path="/403" view-name="/error/403" />

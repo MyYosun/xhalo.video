@@ -20,7 +20,8 @@ public class VideoAop {
             Video video = (Video) returnValue;
             String videoName = video.getAddress();
             String imageName = video.getView();
-            FFmpegUtil.makeScreenCut(videoName, imageName);
+            FFmpegUtil.videoCutImg(videoName, imageName);
+            FFmpegUtil.videoCutImgBig(videoName, imageName);
             FFmpegUtil.processMediaCode(videoName);
         }
     }
