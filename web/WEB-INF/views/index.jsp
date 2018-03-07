@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>XHalo Video</title>
-    <link rel="stylesheet" href="css/baguetteBox.min.css">
-    <link rel="stylesheet" href="css/thumbnail-gallery.css">
+    <link rel="stylesheet" href="/css/baguetteBox.min.css">
+    <link rel="stylesheet" href="/css/thumbnail-gallery.css">
     <style>
         #myCarousel {
             margin: 50px 0 0 0;

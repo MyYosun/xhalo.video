@@ -241,62 +241,6 @@ function showPopular(json) {
 	}
 }
 
-function getCategory() {
-	var request = getRequest();
-	var action = "getAllCategories";
-	request.open("get", action, true);
-	request.send();
-	request.onreadystatechange = function() {
-		if (request.readyState == 4 && request.status == 200) {
-			var json = request.responseText;
-			showCategory(json);
-		}
-	};
-}
-
-function showCategory(json) {
-	var categoryList = eval('(' + json + ')');
-	for (var i = 0; i < categoryList.length; i++) {
-		var category = categoryList[i];
-		var id = "category" + (i + 1).toString();
-		var li = document.getElementById(id);
-		if ((i + 1) != 1)
-			li.innerHTML = "<a href='category-" + category.id + ".html" + "'>" + category.name + "</a>";
-		else
-			li.innerHTML = "<a href='category-" +
-				category.id + ".html" + "' class='user-icon'><span class='glyphicon glyphicon-home glyphicon-blackboard' aria-hidden='true'></span>" +
-				category.name + "</a>";
-	}
-}
-
-function getCategory1() {
-	var request = getRequest();
-	var action = "getAllCategories";
-	request.open("get", action, true);
-	request.send();
-	request.onreadystatechange = function() {
-		if (request.readyState == 4 && request.status == 200) {
-			var json = request.responseText;
-			showCategory1(json);
-		}
-	};
-}
-
-function showCategory1(json) {
-	var categoryList = eval('(' + json + ')');
-	var otherVideos = document.getElementById("categoryOther");
-	for (var i = 0; i < categoryList.length; i++) {
-        var category = categoryList[i];
-		if(!category.belongToOther){
-			continue;
-		}
-		var id = "category" + (i + 1).toString();
-		var li = document.createElement("li");
-		otherVideos.appendChild(li);
-		li.innerHTML = "<a href='category-" + category.id + ".html" + "'>" + category.name + "</a>";
-	}
-}
-
 
 function getResultVideos() {
 	var request = getRequest();
@@ -400,30 +344,6 @@ function showResultVideos(json) {
 		document.getElementById("getMoreBtn").setAttribute("disabled", "disabled");
 }
 
-function getCategoryOption() {
-	var request = getRequest();
-	var action = "getAllCategories";
-	request.open("get", action, true);
-	request.send();
-	request.onreadystatechange = function() {
-		if (request.readyState == 4 && request.status == 200) {
-			var json = request.responseText;
-			showCategoryOption(json);
-		}
-	};
-}
-function showCategoryOption(json) {
-	var categoryList = eval('(' + json + ')');
-	var select = document.getElementById('categoryId');
-	for (var i = 0; i < categoryList.length; i++) {
-		var category = categoryList[i];
-		var option1 = document.createElement('option');
-		option1.setAttribute("value", category.id);
-		option1.innerHTML = category.name;
-		select.appendChild(option1);
-	}
-}
-
 
 function regist() {
 	var request = getRequest();
@@ -487,6 +407,51 @@ function login() {
 
 
 //从这里开始
+//设置提示框的参数
+toastr.options = {
+    closeButton: false,
+    debug: false,
+    progressBar: false,
+    positionClass: "toast-bottom-right", //显示位置
+    onclick: null,
+    showDuration: "300",
+    hideDuration: "1000",
+    timeOut: "5000",
+    extendedTimeOut: "1000",
+    showEasing: "swing",
+    hideEasing: "linear",
+    showMethod: "fadeIn",
+    hideMethod: "fadeOut"
+};
+
+function getCategory() {
+    var request = getRequest();
+    var action = "getAllCategories";
+    request.open("get", action, true);
+    request.send();
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            var json = request.responseText;
+            showCategory(json);
+        }
+    };
+}
+
+function showCategory(json) {
+    var categoryList = eval('(' + json + ')');
+    var otherVideos = document.getElementById("categoryOther");
+    for (var i = 0; i < categoryList.length; i++) {
+        var category = categoryList[i];
+        if(!category.belongToOther){
+            continue;
+        }
+        var id = "category" + (i + 1).toString();
+        var li = document.createElement("li");
+        otherVideos.appendChild(li);
+        li.innerHTML = "<a href='category-" + category.id + ".html" + "'>" + category.name + "</a>";
+    }
+}
+
 function createNewVideoModel(video) {
     var divTop = $("<div></div>");
     divTop.addClass("col-sm-6 col-md-4");
@@ -586,6 +551,55 @@ function showRecommendVideos(videoList) {
             $('#carousel-inner').append(divSingle);
 		}
 
+	}
+}
+
+//TODO
+function likeVideo(btnId) {
+
+}
+
+function lightHeart(btnId) {
+    $("#"+btnId).css("color","red");
+    $("#"+btnId).children().removeClass("glyphicon-heart-empty");
+    $("#"+btnId).children().addClass("glyphicon-heart");
+}
+
+function clearHeart(btnId) {
+    $("#"+btnId).css("color","black");
+    $("#"+btnId).children().removeClass("glyphicon-heart");
+    $("#"+btnId).children().addClass("glyphicon-heart-empty");
+}
+
+function getPopularList() {
+    $.ajax({
+        type:"get",
+        url:"getRecommendVideos?pageSize=6",
+        // contentType:"application/json",
+        async:true,
+        success : showPopularList
+    });
+}
+
+function showPopularList(videoList) {
+	for(var i = 0; i < videoList.length; i++) {
+		var video = videoList[i];
+		var li = $("<li class='video-li'></li>");
+		$("#popular-list").append(li);
+		var div_top = $('<div class="media"></div>');
+		li.append(div_top);
+		var a_img = $('<a class="media-left"></a>');
+		div_top.append(a_img);
+		a_img.attr("href","video-" + video.id + ".html");
+		a_img.append($('<img class="media-object img-rounded video-img" src="/showImg?video.view=' + video.view + '" alt="head">'));
+		var div_info = $('<div class="media-body"></div>');
+		div_top.append(div_info);
+		div_info.append($('<p class="media-heading video-title">' + video.title + '</p>'));
+		var info_p = $("<p></p>");
+		div_info.append(info_p);
+		info_p.append($('<span class="video-info">' + video.author.nickname + '</span>'));
+		info_p.append($('<br>'));
+		info_p.append($('<span class="video-info">' + video.click + '次观看</span>'));
 	}
 }
 

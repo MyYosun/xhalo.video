@@ -11,3 +11,22 @@
 .li-right {
     text-align: right!important;
 }
+.video-li {
+    margin:15px 0 0 0;
+}
+.video-img {
+    height:100px;
+    width:140px;
+}
+.video-title {
+    height: 62px!important;
+    overflow: hidden;
+    word-wrap:break-word;
+    word-break:break-all;
+    font-size:16px;
+    padding: 0;
+}
+.video-info {
+    color:#7e7e7e;
+    font-size:12px;
+}

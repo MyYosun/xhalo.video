@@ -18,25 +18,40 @@
             <div class="col-sm-6 col-lg-6">
                 <h4>Xhalo-Video Website</h4>
                 <p>欢迎你观赏，这里有你想要的.</p>
+                <p>欢迎你上传，这里是每个人的平台.</p>
             </div>
             <div class="col-sm-6  col-lg-5 col-lg-offset-1">
                 <div class="row about">
-                    <div class="col-xs-3">
-                        <h4>关于</h4>
+                    <div class="col-xs-4">
+                        <h4>XHalo-Video</h4>
                         <ul class="list-unstyled">
                             <li>
-                                <a href="">关于我</a>
+                                <a href="">关于本站</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-xs-3">
-                        <h4>联系方式</h4>
+                    <div class="col-xs-4">
+                        <h4>联系我吧</h4>
                         <ul class="list-unstyled">
                             <li>
                                 <a target="_blank" title="新浪微博" href="http://weibo.com/xhalo">新浪微博</a>
                             </li>
                             <li>
                                 <a href="mailto:602704853@qq.com">电子邮件</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4">
+                        <h4>相关链接</h4>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a target="_blank" title="YouTube" href="https://www.youtube.com/">YouTube</a>
+                            </li>
+                            <li>
+                                <a target="_blank" title="Vimeo" href="https://vimeo.com/watch">Vimeo</a>
+                            </li>
+                            <li>
+                                <a target="_blank" title="哔哩哔哩动画" href="https://www.bilibili.com/">哔哩哔哩动画</a>
                             </li>
                         </ul>
                     </div>

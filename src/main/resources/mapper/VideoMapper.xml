@@ -161,6 +161,10 @@
 		usertable c
 		WHERE
 		a.id=#{videoId}
+		AND
+		a.author=c.id
+		AND
+		a.category=b.id
 	</select>
 
 

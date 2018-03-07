@@ -9,8 +9,10 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/toastr.min.css"/>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/toastr.min.js"></script>
     <script src="/js/index.js"></script>
 </head>
 <body>
@@ -74,7 +76,8 @@
     </div>
 </nav>
 <script>
-    getCategory1();
+
+    getCategory();
 </script>
 </body>
 </html>

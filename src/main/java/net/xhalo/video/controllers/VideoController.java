@@ -54,7 +54,7 @@ public class VideoController {
     @RequestMapping(value = "getLatestVideos")
     @ResponseBody
     public List<Video> getNewVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                    @RequestParam(required = false, defaultValue = "9") Integer pageSize) {
+                                    @RequestParam(required = false, defaultValue = "6") Integer pageSize) {
         List<Video> newVideoList = null;
         newVideoList = videoService.getNewVideos(pageNum, pageSize);
         return newVideoList;
