@@ -13,6 +13,6 @@ public interface IVideoService {
     List<Video> getRecommendVideos(int pageNum, int pageSize);
     List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize);
     Video getVideoById(Integer videoId);
-    List<Video> getVideosByCategory(Video video, int pageNum, int pageSize);
-    List<Video> getVideosByTitle(Video video, int pageNum, int pageSize);
+    List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
+    List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
 }

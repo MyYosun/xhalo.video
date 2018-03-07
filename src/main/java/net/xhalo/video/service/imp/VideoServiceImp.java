@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import static net.xhalo.video.config.ConstantConfig.*;
 import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
 import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
 import static net.xhalo.video.config.MaginNumberConfig.NUM_ZERO;
@@ -57,7 +58,7 @@ public class VideoServiceImp implements IVideoService {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if(StringUtils.isEmpty(md5))
                 return null;
-            address = video.getTitle() + md5 + ".mp4";
+            address = video.getTitle() + md5 + VIDEO_FILE_FORMAT;
             videoPath = VIDEO_SAVE_PATH + address;
             File target = new File(videoPath);
             upload.transferTo(target);
@@ -66,7 +67,7 @@ public class VideoServiceImp implements IVideoService {
             e.printStackTrace();
             return null;
         }
-        view = video.getTitle() + md5 + ".jpg";
+        view = video.getTitle() + md5 + IMAGE_FILE_FORMAT;
         Video obj = new Video();
         obj.setTitle(video.getTitle());
         obj.setAuthor(author);
@@ -86,20 +87,20 @@ public class VideoServiceImp implements IVideoService {
     @Cacheable(value = "video", key = "#root.methodName+'_'+#pageNum+'_'+#pageSize")
     public List<Video> getNewVideos(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return videoDao.getVideosOrderByWhat("date");
+        return videoDao.getVideosOrderByWhat(VIDEO_DATE);
     }
 
     @Override
     public List<Video> getRecommendVideos(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return videoDao.getVideosOrderByWhat("click");
+        return videoDao.getVideosOrderByWhat(VIDEO_CLICK);
     }
 
     @Override
     @Cacheable(value = "video", key = "'category_'+#video.category.id+'_'+#pageNum+'_'+#pageSize")
     public List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return videoDao.getVideosByCategoryAndOrderByWhat(video, "click");
+        return videoDao.getVideosByCategoryAndOrderByWhat(video, null, VIDEO_CLICK);
     }
 
     @Override
@@ -109,14 +110,41 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
-    public List<Video> getVideosByCategory(Video video, int pageNum, int pageSize) {
+    public List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return videoDao.getVideosByCategoryAndOrderByWhat(video, "date");
+        String sqlEL = translateOptionDuration(optionDuration);
+        if(!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
+            return null;
+        return videoDao.getVideosByCategoryAndOrderByWhat(video, sqlEL, optionOrder);
     }
 
     @Override
-    public List<Video> getVideosByTitle(Video video, int pageNum, int pageSize) {
+    public List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return videoDao.getVideosByTitleAndOrderByWhat(video, "date");
+        String sqlEL = translateOptionDuration(optionDuration);
+        if(!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
+            return null;
+        return videoDao.getVideosByTitleAndOrderByWhat(video, sqlEL, optionOrder);
+    }
+
+    private String translateOptionDuration(String optionDuration) {
+        String sqlEL = null;
+        switch (optionDuration) {
+            case VIDEO_DURATION_ALL :
+                break;
+            case VIDEO_DURATION_SHORT :
+                sqlEL = VIDEO_DURATION_SHORT_SQL;
+                break;
+            case VIDEO_DURATION_MEDIUM :
+                sqlEL = VIDEO_DURATION_MEDIUM_SQL;
+                break;
+            case VIDEO_DURATION_LONG :
+                sqlEL = VIDEO_DURATION_LONG_SQL;
+                break;
+            case VIDEO_DURATION_OTHER :
+                sqlEL = VIDEO_DURATION_OTHER_SQL;
+                break;
+        }
+        return sqlEL;
     }
 }

@@ -107,6 +107,9 @@
 		a.category=b.id
 		AND
 		a.author=c.id
+		<if test="optionDurationSql != null">
+			${optionDurationSql}
+		</if>
 		ORDER BY ${orderItem} DESC
 	</select>
 
@@ -136,6 +139,9 @@
 		a.category=b.id
 		AND
 		a.author=c.id
+		<if test="optionDurationSql != null">
+			${optionDurationSql}
+		</if>
 		ORDER BY ${orderItem} DESC
 	</select>
 

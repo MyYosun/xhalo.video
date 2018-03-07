@@ -101,16 +101,20 @@ public class VideoController {
     @ResponseBody
     public List<Video> getVideoByCategory(Video video,
                                           @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                          @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
-        return videoService.getVideosByCategory(video, pageNum, pageSize);
+                                          @RequestParam(required = false, defaultValue = "9") Integer pageSize,
+                                          @RequestParam(required = false, defaultValue = "all") String optionDuration,
+                                          @RequestParam(required = false, defaultValue = "date") String optionOrder) {
+        return videoService.getVideosByCategory(video, optionDuration, optionOrder, pageNum, pageSize);
     }
 
     @RequestMapping(value = "getVideosByTitleAndPage")
     @ResponseBody
     public List<Video> getVideosByTitle(Video video,
                                         @RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                        @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
-        return videoService.getVideosByTitle(video, pageNum, pageSize);
+                                        @RequestParam(required = false, defaultValue = "9") Integer pageSize,
+                                        @RequestParam(required = false, defaultValue = "all") String optionDuration,
+                                        @RequestParam(required = false, defaultValue = "date") String optionOrder) {
+        return videoService.getVideosByTitle(video, optionDuration, optionOrder, pageNum, pageSize);
     }
 
 
