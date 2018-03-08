@@ -1,6 +1,6 @@
 package net.xhalo.video.config;
 
-public class MaginNumberConfig {
+public class MaginNumberProperties {
     public static final int NUM_ZERO = 0;
     public static final int NUM_ONE = 1;
     public static final int NUM_TWO = 2;

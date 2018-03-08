@@ -1,6 +1,6 @@
 package net.xhalo.video.config;
 
-public class ConstantConfig {
+public class ConstantProperties {
     public static final String AUTHORITY_USER = "user";
     public static final String AUTHORITY_ADMIN = "admin";
     public static final String DEFAULT_IMAGE_SIZE = "800x600";

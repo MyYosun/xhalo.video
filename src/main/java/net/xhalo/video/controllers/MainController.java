@@ -22,7 +22,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.xhalo.video.config.FilePathConfig.*;
+import static net.xhalo.video.config.FilePathProperties.*;
 
 @Controller
 public class MainController {

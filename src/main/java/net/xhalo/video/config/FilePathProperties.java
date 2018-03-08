@@ -1,6 +1,6 @@
 package net.xhalo.video.config;
 
-public class FilePathConfig {
+public class FilePathProperties {
     public static final String VIDEO_SAVE_PATH = "D:\\media\\video\\";
     public static final String IMAGE_SAVE_PATH = "D:\\media\\image\\";
     public static final String BIG_IMAGE_SAVE_PATH = "D:\\media\\image\\big\\";

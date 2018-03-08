@@ -10,8 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ZERO;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_ONE;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_ZERO;
 
 @Component
 @Aspect

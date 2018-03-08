@@ -1,12 +1,7 @@
 package net.xhalo.video.controllers;
 
-import com.github.pagehelper.PageHelper;
 import net.xhalo.video.model.Video;
 import net.xhalo.video.service.IVideoService;
-import net.xhalo.video.utils.HashCodeUtil;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +9,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
-import java.util.Random;
-
-import static net.xhalo.video.config.FilePathConfig.IMAGE_SAVE_PATH;
-import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_THREE;
 
 @Controller
 public class VideoController {

@@ -25,10 +25,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import static net.xhalo.video.config.ConstantConfig.*;
-import static net.xhalo.video.config.FilePathConfig.VIDEO_SAVE_PATH;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ZERO;
+import static net.xhalo.video.config.ConstantProperties.*;
+import static net.xhalo.video.config.FilePathProperties.VIDEO_SAVE_PATH;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_ONE;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_ZERO;
 
 @Service
 @Transactional

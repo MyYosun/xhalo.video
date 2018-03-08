@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
-import static net.xhalo.video.config.ConstantConfig.DEFAULT_IMAGE_SIZE;
-import static net.xhalo.video.config.ConstantConfig.IMAGE_SIZE_BIG;
-import static net.xhalo.video.config.FilePathConfig.*;
+import static net.xhalo.video.config.ConstantProperties.DEFAULT_IMAGE_SIZE;
+import static net.xhalo.video.config.ConstantProperties.IMAGE_SIZE_BIG;
+import static net.xhalo.video.config.FilePathProperties.*;
 
 public class FFmpegUtil {
 

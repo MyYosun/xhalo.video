@@ -9,9 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static net.xhalo.video.config.ConstantConfig.AUTHORITY_USER;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ONE;
-import static net.xhalo.video.config.MaginNumberConfig.NUM_ZERO;
+import static net.xhalo.video.config.ConstantProperties.AUTHORITY_USER;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_ONE;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_ZERO;
 
 @Service
 @Transactional
