@@ -24,7 +24,7 @@
         <logout invalidate-session="true" logout-url="/logout"
                     logout-success-url="/index?logout=true"/>
         <csrf disabled="true" token-repository-ref="csrfTokenRepository" />
-        <remember-me key="authorition" remember-me-parameter="remember-me" remember-me-cookie="login-user"/>
+        <remember-me key="authorition" remember-me-parameter="remember-me" remember-me-cookie="login-user" token-validity-seconds="604800"/>
     </http>
     <!-- 配置用户和相应的权限 -->
     <authentication-manager>

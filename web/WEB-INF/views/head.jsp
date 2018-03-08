@@ -18,7 +18,7 @@
     <script src="/js/xhalo-video.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top navbar-static-top" role="navigation">
+<nav id="head" class="navbar navbar-fixed-top navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -56,7 +56,7 @@
 
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-upload	"></span> 上传视频</a></li>
+                <li><a href="/upload"><span class="glyphicon glyphicon-upload"></span> 上传视频</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
                 <sec:authorize access="!hasRole('ROLE_USER')">
                     <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
@@ -77,8 +77,8 @@
         </div>
     </div>
 </nav>
+</body>
 <script>
     getCategory();
 </script>
-</body>
 </html>

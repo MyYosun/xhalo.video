@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="/css/thumbnail-gallery.css">
 </head>
 <style>
-    body {
-        background-color: rgb(250,250,250)!important;
-    }
     .page-header ul {
         padding:0;
     }
@@ -25,7 +22,7 @@
 <input type="hidden" value="${video.title}" id="video-title"/>
 <input type="hidden" value="${category.id}" id="category-id"/>
 <input type="hidden" value="1" id="pageNum"/>
-<div class="container" style="margin-top:50px;">
+<div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">
@@ -101,6 +98,7 @@
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 <script>
+    $('#head').removeClass("navbar-fixed-top");
     getResultVideos();
 </script>
 </html>

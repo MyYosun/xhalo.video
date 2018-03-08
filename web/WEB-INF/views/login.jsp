@@ -27,7 +27,7 @@
                             <input id="login_password" name="password" type="password" class="input" data-type="password">
                         </div>
                         <div class="group">
-                            <input id="check" name="remember-me" type="checkbox" class="check" unChecked>
+                            <input id="check" name="remember-me" type="checkbox" class="check" value="false">
                             <label for="check"><span class="icon"></span> Keep me Signed in</label>
                         </div>
                     </form>
@@ -36,7 +36,8 @@
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
-                        <label for="tab-2"/>还未拥有账号?注册一个</a>
+                        <label for="tab-2"><a>还未拥有账号?注册一个</a></label><br>
+                        <a style="font-size:36px;" class="htmleaf-icon icon-htmleaf-home-outline" href="/index"></a>
                     </div>
                 </div>
                 <div class="sign-up-htm">
@@ -59,7 +60,8 @@
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
-                        <label for="tab-1"/>已经拥有账号?立即登录</a>
+                        <label for="tab-1"/><a>已经拥有账号?立即登录</a><br>
+                        <a style="font-size:36px;" class="htmleaf-icon icon-htmleaf-home-outline" href="/index"></a>
                     </div>
                 </div>
             </div>
@@ -71,6 +73,13 @@
     if(getQueryString("error")) {
         toastr.error("账号密码不匹配!");
     }
+    $('#check').on("change", function(){
+        if($('#check').val() == "true")
+            $('#check').val(false);
+        else
+            $('#check').val(true);
+    });
+
     //实时验证用户名是否被注册
     $('#register_username').blur(function(e){
         $.ajax({

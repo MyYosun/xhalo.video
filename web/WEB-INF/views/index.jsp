@@ -14,10 +14,6 @@
             height: 400px!important;
             width: 80%;
         }
-        body {
-            /*background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);*/
-            background-color: rgb(250,250,250)!important;
-        }
     </style>
 </head>
 <body>

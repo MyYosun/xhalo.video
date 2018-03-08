@@ -1,124 +1,58 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<base href="<%=basePath%>">
-
-<title>Upload</title>
-
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-<link rel="stylesheet"
-	href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-
+    <title>Upload Video</title>
 </head>
-
 <body>
-	<jsp:include page="nav.jsp"></jsp:include>
-	<!-- upload -->
-	<div class="upload">
-		<!-- container -->
-		<div class="container">
-			<div class="upload-grids">
-				<div class="upload-right">
-					<div class="upload-file">
-						<form class="form-horizontal" id="uploadVideoForm" action="addVideo" method="post"
-							enctype="multipart/form-data">
-							<fieldset style=" float:relative;margin-left:40%; width:200px;">
-								<div id="legend" class="">
-									<legend>添加视频</legend>
-								</div>
-
-
-								<div class="control-group">
-
-									<!-- Text input-->
-									<label class="control-label" for="input01">视频名称</label>
-									<div class="controls">
-										<input type="text" placeholder="如:五月天MV" class="input-xlarge"
-											name="video.title" id="title" style="width:200px;">
-									</div>
-								</div>
-								<div class="control-group">
-									<!-- Select Basic -->
-									<label class="control-label">视频类型</label>
-									<div class="controls">
-										<select class="input-xlarge" name="video.category.id"
-											id="categoryId" style="width:200px;">
-
-										</select>
-									</div>
-
-								</div>
-
-								<div class="control-group">
-									<label class="control-label">视频文件</label>
-
-									<!-- File Upload -->
-									<div class="controls">
-										<input class="input-file" id="upload" type="file"
-											name="upload">
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">简介</label>
-
-									<!-- File Upload -->
-									<div class="controls">
-										<input class="input-text" type="text" id="video.info"
-											name="video.info" size="31" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<label class="control-label"></label>
-
-									<!-- Button -->
-									<div class="controls">
-										<button class="btn btn-success" id="uploadBtn" type="submit" disabled="disabled">提交</button>
-									</div>
-								</div>
-
-							</fieldset>
-						</form>
-					</div>
-					<div class="upload-info">
-						<br>
-						<br>
-						<h5>选择视频文件上传</h5>
-						<span>（支持mp4,avi,flv,3gp,wmv,mpg,asf,asx）格式的视频，另外一定要记得选择好看的封面哦！</span>
-						<br> <br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-					</div>
-				</div>
-
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		<!-- //container -->
-	</div>
-	<!-- //upload -->
+<jsp:include page="head.jsp"></jsp:include>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-6 column col-md-offset-3" style="background-color: white;">
+            <h3 class="text-center">
+                上传视频
+            </h3>
+            <hr>
+            <form role="form" id="upload-form" method="post">
+                <div class="form-group">
+                    <label for="video-title">视频标题</label>
+                    <input type="text" name="title" class="form-control" id="video-title" />
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                视频类别
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" id="category-list">
+                                <!--使用jquery生成，下为单例-->
+                                <%--<li><a href="#">类别1</a></li>--%>
+                            </ul>
+                        </div>
+                        <input type="text" id="category-name" class="form-control" readonly="true">
+                        <input type="hidden" id="category-id" name="category.id" class="form-control" value="1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="video-info">视频简介</label>
+                    <textarea id="video-info" name="info" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="upload-file">视频文件</label>
+                    <input type="file" name="upload" id="upload-file" />
+                    <p class="help-block">
+                       支持上传1GB以内的视频文件,只允许上传mp4格式视频哦!
+                    </p>
+                </div>
+                <button type="button" onclick="uploadAction()" class="btn btn-default">上传视频</button>
+            </form>
+        </div>
+    </div>
+</div>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 <script>
-  	getCategoryOption();
-  	uploadCheck();
+    $('#head').removeClass("navbar-fixed-top");
+    loadCategories();
 </script>
 </html>

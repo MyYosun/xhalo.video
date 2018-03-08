@@ -8,7 +8,7 @@ import java.util.Date;
 public class Video implements Serializable {
 	private Long id;
 	@NotNull
-	@Size(min = 1, max = 30)
+	@Size(min = 2, max = 30)
 	private String title;
 	private Integer click;
 	private Category category;

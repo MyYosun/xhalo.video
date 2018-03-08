@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-<div class="footer ">
+<div class="footer" style="margin-top:20px;">
     <div class="container">
         <div class="row footer-top">
             <div class="col-sm-6 col-lg-6">
@@ -68,7 +68,7 @@
         <hr>
         <div class="row footer-bottom">
             <ul class="list-inline text-center">
-                <li>Copyright &copy;2018 XieHao. All Rights Reserved. Designed By XieHao</li>
+                <li>Copyright<i class="fa-copyright" aria-hidden="true"></i> 2018 XieHao. All Rights Reserved. Designed By XieHao</li>
             </ul>
         </div>
     </div>

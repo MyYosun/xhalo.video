@@ -11,4 +11,7 @@
 
 body {
     font-family: "FontAwesome"!important;
+    background-color: rgb(250,250,250)!important;
+    margin:0;
+    padding:0;
 }

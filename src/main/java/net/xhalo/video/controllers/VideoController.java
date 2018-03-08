@@ -26,14 +26,15 @@ public class VideoController {
      * 上传文件和表单时注意接受表单的对象不要加注解
      */
     @RequestMapping(value = "uploadVideo", method = RequestMethod.POST)
+    @ResponseBody
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
                            Errors errors) {
         if(null == upload || upload.isEmpty() || errors.hasErrors())
-            return "error";
+            return "formatError";
         if(videoService.addVideo(upload, video) != null)
-            return "index";
+            return "uploadSuccess";
         else
-            return "error";
+            return "uploadFail";
     }
 
     @RequestMapping(value = "getLatestVideos")

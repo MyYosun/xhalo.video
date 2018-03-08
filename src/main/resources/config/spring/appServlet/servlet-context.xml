@@ -21,7 +21,7 @@
     <mvc:view-controller path="/register" view-name="/register" />
     <mvc:view-controller path="/index.html" view-name="redirect:/index" />
     <mvc:view-controller path="/" view-name="redirect:/index" />
-    <mvc:view-controller path="/head" view-name="/head" />
+    <mvc:view-controller path="/upload" view-name="/upload" />
     <!--出错页面配置-->
     <mvc:view-controller path="/404" view-name="/error/404" />
     <mvc:view-controller path="/403" view-name="/error/403" />
