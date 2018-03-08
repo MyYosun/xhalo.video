@@ -93,12 +93,17 @@ public class MainController {
     }
 
     @RequestMapping(value = "showImg")
-    public void showImage(@RequestParam(name = "video.view") String imgFile,
+    public void showImage(@RequestParam(name = "view") String imgFile,
                           @RequestParam(name = "isBig", required = false, defaultValue = "false") Boolean isBig,
+                          @RequestParam(name = "isHead", required = false, defaultValue = "false") Boolean isHead,
                           HttpServletResponse response) throws IOException {
         String imgSavePath = IMAGE_SAVE_PATH + imgFile;
+        if(isBig && isHead)
+            return;
         if(isBig)
             imgSavePath = BIG_IMAGE_SAVE_PATH + imgFile;
+        if(isHead)
+            imgSavePath = HEAD_IMAGE_SAVE_PATH + imgFile;
         File image = new File(imgSavePath);
         if(!image.exists()){
             logger.error("IMAGE FILE NOT FOUND!");

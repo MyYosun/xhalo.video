@@ -97,7 +97,6 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
-    @Cacheable(value = "video", key = "'category_'+#video.category.id+'_'+#pageNum+'_'+#pageSize")
     public List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosByCategoryAndOrderByWhat(video, null, VIDEO_CLICK);

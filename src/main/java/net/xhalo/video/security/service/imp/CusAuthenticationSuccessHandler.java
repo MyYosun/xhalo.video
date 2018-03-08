@@ -19,6 +19,6 @@ public class CusAuthenticationSuccessHandler implements AuthenticationSuccessHan
     //使用AOP分离更新登录时间，见UserAop
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        httpServletResponse.sendRedirect("/index");
+        httpServletResponse.sendRedirect("/index?loginSuccess=true");
     }
 }

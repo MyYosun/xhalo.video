@@ -20,9 +20,9 @@
         <intercept-url pattern="/**" access="permitAll" />
         <form-login login-page="/login" login-processing-url="/processLogin" username-parameter="username"
                     password-parameter="password" authentication-success-handler-ref="cusAuthenticationSuccessHandler"
-                    authentication-failure-url="/login?error=1"/>
+                    authentication-failure-url="/login?error=true"/>
         <logout invalidate-session="true" logout-url="/logout"
-                    logout-success-url="/index"/>
+                    logout-success-url="/index?logout=true"/>
         <csrf disabled="true" token-repository-ref="csrfTokenRepository" />
         <remember-me key="authorition" remember-me-parameter="remember-me" remember-me-cookie="login-user"/>
     </http>

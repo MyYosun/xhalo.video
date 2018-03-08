@@ -35,7 +35,7 @@
             </div>
             <div class="media">
                 <a class="media-left" href="#">
-                    <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                    <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?isHead=true&view=${video.author.headImg}"
                          alt="head">
                 </a>
                 <div class="media-body">
@@ -54,7 +54,7 @@
                     <li>
                         <div class="media" style="margin-top:15px;">
                             <a class="media-left" href="#">
-                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
                                      alt="head">
                             </a>
                             <div class="media-body">
@@ -68,7 +68,7 @@
                     <li>
                         <div class="media"  style="margin-top:15px;">
                             <a class="media-left" href="#">
-                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
                                      alt="head">
                             </a>
                             <div class="media-body">
@@ -82,7 +82,7 @@
                     <li>
                         <div class="media" style="margin-top:15px;">
                             <a class="media-left" href="#">
-                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
                                      alt="head">
                             </a>
                             <div class="media-body">
@@ -105,7 +105,7 @@
                 <%--<li class="video-li">
                     <div class="media">
                         <a class="media-left" href="#">
-                            <img class="media-object img-rounded video-img" src="/showImg?video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                            <img class="media-object img-rounded video-img" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
                                  alt="head">
                         </a>
                         <div class="media-body">

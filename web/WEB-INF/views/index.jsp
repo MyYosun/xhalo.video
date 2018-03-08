@@ -33,11 +33,11 @@
     <div class="carousel-inner" id="carousel-inner">
         <!--使用jquery动态生成，下面为单例示例-->
         <%--<div class="item active">
-            <img src="/showImg?isBig=true&video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
+            <img src="/showImg?isBig=true&view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
             <div class="carousel-caption">标题 1</div>
         </div>
         <div class="item">
-            <img src="/showImg?isBig=true&video.view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="Second slide">
+            <img src="/showImg?isBig=true&view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="Second slide">
             <div class="carousel-caption">标题 2</div>
         </div>--%>
     </div>
@@ -59,7 +59,7 @@
             <%--<div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a class="lightBox" href="images/park.jpg">
-                        <img src="/showImg?video.view=12313213cfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
+                        <img src="/showImg?view=12313213cfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
                     </a>
                     <div class="caption">
                         <div class="video-title">
@@ -84,5 +84,9 @@
     $('#myCarousel').carousel('cycle');
     getRecommendVideos();
     getLatestVideos();
+    if(getQueryString("loginSuccess"))
+        toastr.info("登录成功");
+    if(getQueryString("logout"))
+        toastr.info("登出成功");
 </script>
 </html>

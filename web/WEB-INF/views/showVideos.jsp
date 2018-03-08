@@ -74,7 +74,7 @@
                     <%--<div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
                             <a class="lightBox" href="images/park.jpg">
-                                <img src="/showImg?video.view=12313213cfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
+                                <img src="/showImg?view=12313213cfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
                             </a>
                             <div class="caption">
                                 <div class="video-title">

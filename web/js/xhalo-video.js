@@ -8,6 +8,13 @@ function formatTime(seconds) {
         .replace(/\b(\d)\b/g, "0$1");
 }
 
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
+
 //从这里开始
 //设置提示框的参数
 toastr.options = {
@@ -64,7 +71,7 @@ function createNewVideoModel(video) {
     imgAndA.attr("href","/video-" + video.id + ".html");
     var videoImg = $("<img></img>");
     imgAndA.append(videoImg);
-    videoImg.attr("src","/showImg?video.view=" + video.view);
+    videoImg.attr("src","/showImg?view=" + video.view);
     videoImg.attr("alt",video.title);
 
     var divInfo = $("<div></div>");
@@ -138,13 +145,13 @@ function showRecommendVideos(videoList) {
         if(i == 0) {
             $('#carousel-indicators').append($('<li data-target="#myCarousel" data-slide-to="' + i + '" class="active"></li>'));
             var divSingle = $('<div class="item active"></div>');
-            divSingle.append($('<a href="/video-' + video.id + '.html"><img src="/showImg?isBig=true&video.view=' + video.view + '" alt="First slide"></a>'));
+            divSingle.append($('<a href="/video-' + video.id + '.html"><img src="/showImg?isBig=true&view=' + video.view + '" alt="First slide"></a>'));
             divSingle.append($('<div class="carousel-caption">' + video.title + '</div>'));
             $('#carousel-inner').append(divSingle);
         } else {
             $('#carousel-indicators').append($('<li data-target="#myCarousel" data-slide-to="' + i + '"></li>'));
             var divSingle = $('<div class="item"></div>');
-            divSingle.append($('<a href="/video-' + video.id + '.html"><img src="/showImg?isBig=true&video.view=' + video.view + '" alt="First slide"></a>'));
+            divSingle.append($('<a href="/video-' + video.id + '.html"><img src="/showImg?isBig=true&view=' + video.view + '" alt="First slide"></a>'));
             divSingle.append($('<div class="carousel-caption">' + video.title + '</div>'));
             $('#carousel-inner').append(divSingle);
         }
@@ -193,7 +200,7 @@ function createPopularVideo(video) {
     var a_img = $('<a class="media-left"></a>');
     div_top.append(a_img);
     a_img.attr("href","video-" + video.id + ".html");
-    a_img.append($('<img class="media-object img-rounded video-img" src="/showImg?video.view=' + video.view + '" alt="head">'));
+    a_img.append($('<img class="media-object img-rounded video-img" src="/showImg?view=' + video.view + '" alt="head">'));
     var div_info = $('<div class="media-body"></div>');
     div_top.append(div_info);
     div_info.append($('<p class="media-heading video-title">' + video.title + '</p>'));
@@ -260,4 +267,56 @@ function showResultVideos(videoList) {
     else {
         $("#load-btn").attr("onclick", "getResultVideos()");
     }
+}
+
+function loginAction() {
+    var loginUsername = $('#login_username').val();
+    var loginPassword = $('#login_password').val();
+    if(loginUsername.length < 2 || loginUsername.length > 20) {
+        toastr.error("用户名长度为2-20之间!");
+        return;
+    }
+    if(loginPassword.length < 6 || loginPassword.length > 20) {
+        toastr.error("密码长度为6-20之间!");
+        return;
+    }
+    $('#loginForm').submit();
+}
+
+function registerAction() {
+    var registerUsername = $('#register_username').val();
+    var registerPassword = $('#register_password').val();
+    var registerNickname = $('#register_nickname').val();
+    if(registerUsername.length < 2 || registerUsername.length > 20) {
+        toastr.error("用户名长度为2-20之间!");
+        return;
+    }
+    if(!(registerUsername[0] >= 'A' && registerUsername[0] <= 'z')){
+        toastr.error("用户名格式不正确!");
+        return;
+    }
+    if(registerPassword.length < 6 || registerPassword.length > 20) {
+        toastr.error("密码长度为6-20之间!");
+        return;
+    }
+    if(registerNickname.length > 20 || registerNickname.length < 2) {
+        toastr.error("昵称长度为2-20之间!");
+        return;
+    }
+    $('#registerForm').ajaxSubmit({
+        url: "/processRegister",
+        type: "post",
+        success: function (data) {
+            if(data == "registerSuccess") {
+                toastr.info("注册成功,即将自动登录,请勿关闭页面.");
+                setTimeout(function() {
+                    $('#login_username').val(registerUsername);
+                    $('#login_password').val(registerPassword);
+                    loginAction();
+                }, 4000);
+            } else {
+                toastr.error("注册失败,请检查用户信息的格式和长度!");
+            }
+        }
+    });
 }

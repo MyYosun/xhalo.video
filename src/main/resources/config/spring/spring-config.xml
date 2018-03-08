@@ -100,12 +100,6 @@
         <constructor-arg name="cacheConfig" ref="defaultRedisCacheConfiguration"/>
     </bean>
 
-    <bean id="userRedisCache" class="org.springframework.data.redis.cache.RedisCache">
-        <constructor-arg name="name" value="user"/>
-        <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
-        <constructor-arg name="cacheConfig" ref="defaultRedisCacheConfiguration"/>
-    </bean>
-
     <bean id="categoryRedisCache" class="org.springframework.data.redis.cache.RedisCache">
         <constructor-arg name="name" value="category"/>
         <constructor-arg name="cacheWriter" ref="redisCacheWriter"/>
@@ -116,7 +110,6 @@
     <bean id="redisCacheManager" class="org.springframework.cache.support.SimpleCacheManager" >
         <property name="caches" >
             <set>
-                <ref bean="userRedisCache" />
                 <ref bean="videoRedisCache" />
                 <ref bean="categoryRedisCache" />
             </set>

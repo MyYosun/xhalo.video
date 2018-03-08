@@ -12,7 +12,7 @@ public class User implements Serializable {
 	private String username;
 	@Size(min = 6, max = 20)
 	private String password;
-	@Size(min = 1, max = 20)
+	@Size(min = 2, max = 20)
 	private String nickname;
 	private boolean enabled;
 	private String authority;

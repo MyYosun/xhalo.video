@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/css/checkbox.css">
     <link rel="stylesheet" href="/css/all.css"/>
     <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/jquery.form.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/toastr.min.js"></script>
     <script src="/js/xhalo-video.js"></script>
@@ -77,7 +78,6 @@
     </div>
 </nav>
 <script>
-
     getCategory();
 </script>
 </body>

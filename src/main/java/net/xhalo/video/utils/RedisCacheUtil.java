@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.data.redis.cache.RedisCache;
 
-public class RedisCacheUtils {
+public class RedisCacheUtil {
     @Autowired
     SimpleCacheManager redisCacheManager;
 
