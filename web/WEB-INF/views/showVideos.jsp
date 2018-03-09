@@ -22,7 +22,7 @@
 <input type="hidden" value="${video.title}" id="video-title"/>
 <input type="hidden" value="${category.id}" id="category-id"/>
 <input type="hidden" value="1" id="pageNum"/>
-<div class="container">
+<div class="container" style="min-height: 50%;">
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">

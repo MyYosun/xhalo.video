@@ -3,6 +3,7 @@ package net.xhalo.video.controllers;
 import net.xhalo.video.model.Video;
 import net.xhalo.video.service.IVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Scope(value = "prototype")
 public class VideoController {
     @Autowired
     private IVideoService videoService;
@@ -29,6 +31,9 @@ public class VideoController {
     @ResponseBody
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
                            Errors errors) {
+        if(errors.hasErrors()) {
+            return "uploadFail";
+        }
         if(null == upload || upload.isEmpty() || errors.hasErrors())
             return "formatError";
         if(videoService.addVideo(upload, video) != null)

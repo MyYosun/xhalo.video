@@ -3,6 +3,7 @@ package net.xhalo.video.controllers;
 import net.xhalo.video.model.Category;
 import net.xhalo.video.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
+@Scope(value = "prototype")
 public class CategoryController {
 	@Autowired
 	private ICategoryService categoryService;

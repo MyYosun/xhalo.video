@@ -14,4 +14,12 @@ public interface UserDao {
 	User findByUsername(@Param("username") String username);
 
 	void updateLoginTime(User user);
+
+	User getUserByUsername(User user);
+
+	Integer updateUserInfoByIdAndUsername(User user);
+
+	Integer updateUserHeadImgByIdAndUsername(User user);
+
+	Integer updateUserPasswordByIdAndUsernameAndPassword(@Param("user") User user);
 }

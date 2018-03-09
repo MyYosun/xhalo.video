@@ -2,6 +2,7 @@ package net.xhalo.video.aop;
 
 import net.xhalo.video.dao.UserDao;
 import net.xhalo.video.utils.ImageUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -40,6 +41,9 @@ public class UserAop {
 
     @Pointcut("execution(* net.xhalo.video.service.imp.UserServiceImp.addUser(..))")
     public void processUserRegister() {}
+
+    @Pointcut("execution(* net.xhalo.video.service.imp.UserServiceImp.updateUser*(..))")
+    public void validateUserUpdate() {}
 
     @AfterReturning(pointcut = "loginSuccess()")
     public void updateLoginTime(JoinPoint point) {
@@ -99,4 +103,28 @@ public class UserAop {
         }
         return false;
     }
+
+    @Around("validateUserUpdate()")
+    public boolean validateUserInfo(ProceedingJoinPoint proceedingJoinPoint) {
+        Object[] args = proceedingJoinPoint.getArgs();
+        for(Object arg : args) {
+            if(arg instanceof net.xhalo.video.model.User) {
+                net.xhalo.video.model.User user = (net.xhalo.video.model.User) arg;
+                if(user == null || StringUtils.isEmpty(user.getId().toString()) || StringUtils.isEmpty(user.getUsername())) {
+                    return false;
+                }
+                net.xhalo.video.model.User userDetail = userDao.getUserByUsername(user);
+                if(!(StringUtils.equals(userDetail.getId().toString(), user.getId().toString())))
+                    return false;
+            }
+        }
+        try {
+            boolean result = (boolean) proceedingJoinPoint.proceed(args);
+            return result;
+        } catch (Throwable throwable) {
+            logger.error("AFTER VALIDATE USER INFO ERROR:", throwable);
+            return false;
+        }
+    }
+
 }

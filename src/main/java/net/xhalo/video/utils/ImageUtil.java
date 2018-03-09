@@ -23,8 +23,8 @@ public class ImageUtil {
         Graphics g = image.getGraphics();
         g.setClip(0, 0, width, height);
         g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, width, height);// 先用黑色填充整张图片,也就是背景
-        g.setColor(Color.white);// 在换成黑色
+        g.fillRect(0, 0, width, height);// 先用灰色填充整张图片,也就是背景
+        g.setColor(Color.white);
         g.setFont(font);// 设置画笔字体
         /** 用于获得垂直居中y */
         Rectangle clip = g.getClipBounds();
@@ -42,5 +42,11 @@ public class ImageUtil {
                     "1.FORMAT ERROR. 2.OUT FILE DIRECTORY NOT EXIST");
         }
     }
+
+/*     public static void main(String[] args) throws Exception {
+         createImage(" 谢 ",
+                 new Font("黑体", Font.BOLD, 60),
+                 new File("D:\\1.png"), 100, 100);
+     }*/
 
 }

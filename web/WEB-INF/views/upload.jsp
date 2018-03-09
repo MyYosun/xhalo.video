@@ -5,9 +5,23 @@
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button style="display:none;" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+
+            <div class="modal-body">
+                正在上传，请不要关闭界面并耐心等待...
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row clearfix">
-        <div class="col-md-6 column col-md-offset-3" style="background-color: white;">
+        <div class="col-md-6 column col-md-offset-3" style="background-color: white; border-radius: 10px;">
             <h3 class="text-center">
                 上传视频
             </h3>
@@ -39,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label for="upload-file">视频文件</label>
-                    <input type="file" name="upload" id="upload-file" />
+                    <input type="file" accept="video/mp4" name="upload" id="upload-file" />
                     <p class="help-block">
                        支持上传1GB以内的视频文件,只允许上传mp4格式视频哦!
                     </p>

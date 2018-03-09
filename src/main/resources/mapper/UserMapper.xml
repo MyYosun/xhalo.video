@@ -75,4 +75,97 @@
 		enabled = TRUE
 	</select>
 
+	<select id="getUserByUsername" parameterType="net.xhalo.video.model.User" resultMap="UserMap">
+		SELECT
+		id,
+		username,
+		password,
+		nickname,
+		enabled,
+		authority,
+		sign,
+		head_img,
+		create_time
+		FROM
+		usertable
+		WHERE
+		username=#{username}
+	</select>
+
+	<update id="updateUserInfoByIdAndUsername" parameterType="net.xhalo.video.model.User">
+		UPDATE
+		usertable
+		SET
+		nickname=#{nickname},
+		sign=#{sign}
+		WHERE
+		1=1
+		<if test="username==null">
+			AND
+			1=2
+		</if>
+		<if test="id==null">
+			AND
+			1=2
+		</if>
+		<if test="username!=null">
+			AND
+			username = #{username}
+		</if>
+		<if test="id!=null">
+			AND
+			id = #{id}
+		</if>
+	</update>
+
+	<update id="updateUserHeadImgByIdAndUsername" parameterType="net.xhalo.video.model.User">
+		UPDATE
+		usertable
+		SET
+		head_img=#{headImg}
+		WHERE
+		1=1
+		<if test="username==null">
+			AND
+			1=2
+		</if>
+		<if test="id==null">
+			AND
+			1=2
+		</if>
+		<if test="username!=null">
+			AND
+			username = #{username}
+		</if>
+		<if test="id!=null">
+			AND
+			id = #{id}
+		</if>
+	</update>
+
+	<update id="updateUserPasswordByIdAndUsernameAndPassword">
+		UPDATE
+		usertable
+		SET
+		password=#{user.password}
+		WHERE
+		1=1
+		<if test="user.username==null">
+			AND
+			1=2
+		</if>
+		<if test="user.id==null">
+			AND
+			1=2
+		</if>
+		<if test="user.username!=null">
+			AND
+			username = #{user.username}
+		</if>
+		<if test="user.id!=null">
+			AND
+			id = #{user.id}
+		</if>
+	</update>
+
 </mapper>

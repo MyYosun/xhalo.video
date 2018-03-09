@@ -1,10 +1,10 @@
 package net.xhalo.video.service.imp;
 
 import com.github.pagehelper.PageHelper;
-import net.xhalo.video.dao.UserDao;
 import net.xhalo.video.dao.VideoDao;
 import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
+import net.xhalo.video.service.IUserService;
 import net.xhalo.video.service.IVideoService;
 import net.xhalo.video.utils.FFmpegUtil;
 import net.xhalo.video.utils.HashCodeUtil;
@@ -40,7 +40,7 @@ public class VideoServiceImp implements IVideoService {
     private VideoDao videoDao;
 
     @Autowired
-    private UserDao userDao;
+    private IUserService userService;
 
     @Override
     @CacheEvict(value = "video", allEntries = true , beforeInvocation = true)
@@ -53,7 +53,7 @@ public class VideoServiceImp implements IVideoService {
             return null;
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User author = null;
-        author = userDao.findByUsername(userDetails.getUsername());
+        author = userService.findByUsername(userDetails.getUsername());
         try {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if(StringUtils.isEmpty(md5))

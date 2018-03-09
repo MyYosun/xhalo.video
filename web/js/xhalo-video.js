@@ -15,6 +15,7 @@ function getQueryString(name) {
     return null;
 }
 
+
 //从这里开始
 //设置提示框的参数
 toastr.options = {
@@ -33,6 +34,7 @@ toastr.options = {
     hideMethod: "fadeOut"
 };
 
+/**head开始**/
 function getCategory() {
     $.ajax({
         type:"get",
@@ -56,7 +58,9 @@ function showCategory(categoryList) {
         li.html("<a href='category-" + category.id + ".html" + "'>" + category.name + "</a>");
     }
 }
+/**head结束**/
 
+/**通用方法开始**/
 function createNewVideoModel(video) {
     var divTop = $("<div></div>");
     divTop.addClass("col-sm-6 col-md-4");
@@ -111,7 +115,9 @@ function createNewVideoModel(video) {
 
     return divTop;
 }
+/**通用方法结束**/
 
+/**主页方法开始**/
 function getLatestVideos() {
     $.ajax({
         type:"get",
@@ -158,7 +164,9 @@ function showRecommendVideos(videoList) {
 
     }
 }
+/**主页方法开始**/
 
+/**视频展示开始**/
 //TODO
 function likeVideo(btnId) {
 
@@ -211,7 +219,9 @@ function createPopularVideo(video) {
     info_p.append($('<span class="video-info">' + video.click + '次观看</span>'));
     return li;
 }
+/**视频展示结束**/
 
+/**视频结果展示开始**/
 //视频搜索
 function getResultVideos(isReload) {
 	$("#load-btn").button("loading");
@@ -268,7 +278,9 @@ function showResultVideos(videoList) {
         $("#load-btn").attr("onclick", "getResultVideos()");
     }
 }
+/**视频结果展示结束**/
 
+/**登录注册开始**/
 function loginAction() {
     var loginUsername = $('#login_username').val();
     var loginPassword = $('#login_password').val();
@@ -320,7 +332,9 @@ function registerAction() {
         }
     });
 }
+/**登录注册结束**/
 
+/**上传开始**/
 function loadCategories() {
     $.ajax({
         type:"get",
@@ -371,7 +385,12 @@ function uploadAction() {
     $('#upload-form').ajaxSubmit({
         url: "uploadVideo",
         type: "post",
+        beforeSubmit: function() {
+            $('#myModal').modal({backdrop:"static",
+                keyboard: false});
+        },
         success: function(data) {
+            $('#myModal').modal("hide");
             if(data == "formatError") {
                 toastr.info("视频信息填写错误!");
             }else if(data == "uploadFail") {
@@ -384,4 +403,157 @@ function uploadAction() {
             }
         }
     });
+    return false;
 }
+/**上传结束**/
+
+/**个人中心开始**/
+function getPersonalInfo() {
+    $.ajax({
+        type: "get",
+        url: "getLoginUserInfo",
+        // contentType:"application/json;charset=utf-8",
+        async: true,
+        success : showPersonalInfo
+    });
+}
+
+function showPersonalInfo(userInfo) {
+    $('#user-id').val(userInfo.id);
+    $('#pwd-user-id').val(userInfo.id);
+    $('#user-username').val(userInfo.username);
+    $('#pwd-user-username').val(userInfo.username);
+    $('#user-nickname').val(userInfo.nickname);
+    $('#user-sign').val(userInfo.sign);
+    $('#user-head').attr("src", "/showImg?isHead=true&view=" + userInfo.headImg);
+}
+
+function updateUserInfoAction() {
+    var userNickname = $('#user-nickname').val();
+    var userSign = $('#user-sign').val();
+    if(userNickname.length < 2 || userNickname.length > 20) {
+        toastr.error("昵称长度为2-20之间!");
+        return;
+    }
+    if(userSign.length > 50) {
+        toastr.error("签名的长度应小于50!");
+        return;
+    }
+    $('#userInfoForm').ajaxSubmit({
+        url: "updateLoginUserInfo",
+        type: "post",
+        success: function (data) {
+            if(data == "userNotLogin") {
+                toastr.error("请先登录!");
+                return;
+            }
+            if(data == "usernameNotMatch") {
+                toastr.error("用户名不匹配!");
+                return;
+            }
+            if(data == "updateUserInfoFail") {
+                toastr.error("修改失败!");
+                return;
+            }
+            if(data == "updateUserInfoSuccess") {
+                toastr.info("修改成功!");
+                getPersonalInfo();
+            }
+        }
+    });
+}
+
+function clickFileBtn() {
+    $('#upload-head').click();
+}
+
+function updateHeadImg() {
+    var filePath = $('#upload-head').val();
+    var extStart = filePath.lastIndexOf(".");
+    var ext = filePath.substring(extStart, filePath.length).toUpperCase();
+    if(ext != ".PNG" && ext != ".JPG" && ext != ".JPEG" && ext != ".GIF" && ext != ".BMP") {
+        toastr.error("上传图片格式不正确!");
+        return;
+    }
+    var data = new FormData();
+    data.append("upload", document.getElementById('upload-head').files[0]);
+    data.append("id", $('#user-id').val());
+    data.append("username", $('#user-username').val());
+    $.ajax({
+        url: "updateLoginUserHeadImg",
+        type: "post",
+        cache: false,
+        data: data,
+        /**
+         *必须false才会自动加上正确的Content-Type
+         */
+        contentType: false,
+        /**
+         * 必须false才会避开jQuery对 formdata 的默认处理
+         * XMLHttpRequest会对 formdata 进行正确的处理
+         */
+        processData: false,
+        success: function(data) {
+            if(data == "userNotLogin") {
+                toastr.error("请先登录!");
+                return;
+            }
+            if(data == "usernameNotMatch") {
+                toastr.error("用户名不匹配!");
+                return;
+            }
+            if(data == "updateUserHeadImgFail") {
+                toastr.error("修改失败!");
+                return;
+            }
+            if(data == "updateUserHeadImgSuccess") {
+                toastr.info("修改成功!");
+                getPersonalInfo();
+            }
+        }
+    });
+}
+
+function updateUserPasswordAction() {
+    if($('#remeber-me-user').val() == 1) {
+        toastr.error("请先验证身份");
+        setTimeout(function() {
+            window.location.href = "/login";
+        }, 2000);
+        return;
+    }
+    var userNewPsd = $('#user-password').val();
+    var userNewPsdRe = $('#user-password-repeat').val();
+    if(userNewPsd.length > 20 || userNewPsd.length < 6) {
+        toastr.error("密码长度为6-20之间!");
+        return;
+    }
+    if(userNewPsdRe != userNewPsd) {
+        toastr.error("两次密码输入不一致!");
+        return;
+    }
+    $('#userPasswordForm').ajaxSubmit({
+        url: "updateLoginUserPassword",
+        type: "post",
+        success: function(data) {
+            if(data == "userNotLogin") {
+                toastr.error("请先登录!");
+                return;
+            }
+            if(data == "usernameNotMatch") {
+                toastr.error("用户名不匹配!");
+                return;
+            }
+            if(data == "updateUserPasswordFail") {
+                toastr.error("修改失败!");
+                return;
+            }
+            if(data == "updateUserPasswordSuccess") {
+                toastr.info("修改成功!");
+                getPersonalInfo();
+            }
+        }
+    });
+}
+
+

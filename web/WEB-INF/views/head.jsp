@@ -57,7 +57,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/upload"><span class="glyphicon glyphicon-upload"></span> 上传视频</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                <li><a href="/user-page"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
                 <sec:authorize access="!hasRole('ROLE_USER')">
                     <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                 </sec:authorize>
@@ -66,11 +66,11 @@
                 </sec:authorize>
             </ul>
 
-            <form class="navbar-form navbar-right" role="search" action="/search">
+            <form class="navbar-form navbar-right" id="search-form" role="search" action="/search">
                 <div class="input-group">
-                    <input type="text" name="title" class="form-control" placeholder="Search...">
+                    <input type="text" name="title" id="search-title" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">搜索</button>
+                        <button class="btn btn-default" onclick="searchAction()" type="button">搜索</button>
                     </span>
                 </div>
             </form>
@@ -80,5 +80,13 @@
 </body>
 <script>
     getCategory();
+    function searchAction() {
+        var searchTitle = $('#search-title').val();
+        if(searchTitle == null || searchTitle == undefined || searchTitle == "") {
+            toastr.error("请输入搜索内容!");
+            return;
+        }
+        $('#search-form').submit();
+    }
 </script>
 </html>
