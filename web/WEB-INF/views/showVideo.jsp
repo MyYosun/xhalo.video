@@ -105,7 +105,7 @@
                 <%--<li class="video-li">
                     <div class="media">
                         <a class="media-left" href="#">
-                            <img class="media-object img-rounded video-img" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                            <img class="media-object img-rounded video-img" src="/showImg?view=${video.view}"
                                  alt="head">
                         </a>
                         <div class="media-body">

@@ -102,9 +102,9 @@ public class VideoServiceImp implements IVideoService {
         return videoDao.getVideosByCategoryAndOrderByWhat(video, null, VIDEO_CLICK);
     }
 
+    //使用Aop实现点击量增加
     @Override
-    @Cacheable(value = "video", key = "#videoId")
-    public Video getVideoById(Integer videoId) {
+    public Video getVideoById(Long videoId) {
         return videoDao.getVideoById(videoId);
     }
 
@@ -145,5 +145,10 @@ public class VideoServiceImp implements IVideoService {
                 break;
         }
         return sqlEL;
+    }
+
+    @Override
+    public boolean addClickById(Long videoId) {
+        return videoDao.addClickById(videoId) == 1;
     }
 }

@@ -45,4 +45,14 @@ public class RedisCacheUtil {
         redisCache.evict(key);
         return true;
     }
+
+    public boolean clearCache(String cacheName) {
+        if(null == cacheName)
+            return false;
+        if(!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
+            return false;
+        RedisCache redisCache = (RedisCache) redisCacheManager.getCache(cacheName);
+        redisCache.clear();
+        return true;
+    }
 }

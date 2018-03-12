@@ -71,7 +71,7 @@ public class VideoController {
     }
 
     @RequestMapping(value = "video-{videoId}.html")
-    public String getVideoById(@PathVariable(value = "videoId") Integer videoId, Model model) {
+    public String getVideoById(@PathVariable(value = "videoId") Long videoId, Model model) {
         Video result = null;
         result = videoService.getVideoById(videoId);
         if(result == null)

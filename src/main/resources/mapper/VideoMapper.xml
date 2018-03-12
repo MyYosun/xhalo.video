@@ -145,7 +145,7 @@
 		ORDER BY ${orderItem} DESC
 	</select>
 
-	<select id="getVideoById" parameterType="INTEGER" resultMap="VideoMap">
+	<select id="getVideoById" parameterType="LONG" resultMap="VideoMap">
 		SELECT
 		a.id,
 		a.title,
@@ -173,5 +173,12 @@
 		a.category=b.id
 	</select>
 
-
+	<update id="addClickById" parameterType="LONG">
+		UPDATE
+		videotable
+		SET
+		click = click + 1
+		WHERE
+		id = #{videoId}
+	</update>
 </mapper>

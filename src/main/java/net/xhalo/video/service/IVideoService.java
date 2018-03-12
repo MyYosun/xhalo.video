@@ -15,9 +15,11 @@ public interface IVideoService {
 
     List<Video> getRecommendVideosByCategoryAndPage(Video video, int pageNum, int pageSize);
 
-    Video getVideoById(Integer videoId);
+    Video getVideoById(Long videoId);
 
     List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
 
     List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
+
+    boolean addClickById(Long videoId);
 }

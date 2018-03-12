@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>Personal Page</title>
+    <link href="/css/xhalo-video.css" rel="stylesheet">
+
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
@@ -79,7 +81,27 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="jmeter" style="font-size:16px;margin:30px 0 0 0;">
-                <p>jMeter 是一款开源的测试软件。它是 100% 纯 Java 应用程序，用于负载和性能测试。</p>
+                <div class="col-sm-12">
+                    <ul class="list-unstyled" id="popular-list">
+                        <!--下列列表由jquery动态生成，以下为单例示例-->
+                        <li class="video-li">
+                            <div class="media">
+                                <a class="media-left" href="#">
+                                    <img class="media-object img-rounded video-img" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
+                                         alt="head">
+                                </a>
+                                <div class="media-body">
+                                    <p class="media-heading video-title">
+                                        Test的视频列表，这个长度不够长，我要多加一些
+                                    </p>
+                                    <p>
+                                        <span class="video-info">${video.click}次观看</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="tab-pane fade" id="ejb" style="font-size:16px;margin:30px 0 0 0;">
                 <p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
