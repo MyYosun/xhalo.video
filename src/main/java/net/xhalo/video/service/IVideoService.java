@@ -18,6 +18,8 @@ public interface IVideoService {
 
     Video getVideoById(Long videoId);
 
+    Video getVideoByIdNotAddClick(Long videoId);
+
     List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
 
     List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);

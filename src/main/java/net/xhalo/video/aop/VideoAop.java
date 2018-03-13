@@ -4,6 +4,7 @@ import net.xhalo.video.model.Video;
 import net.xhalo.video.service.IUserVideoService;
 import net.xhalo.video.service.IVideoService;
 import net.xhalo.video.utils.FFmpegUtil;
+import org.apache.commons.io.FileUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
@@ -14,6 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.io.File;
+
+import static net.xhalo.video.config.FilePathProperties.BIG_IMAGE_SAVE_PATH;
+import static net.xhalo.video.config.FilePathProperties.IMAGE_SAVE_PATH;
+import static net.xhalo.video.config.FilePathProperties.VIDEO_SAVE_PATH;
 
 @Component
 @Aspect
@@ -75,9 +82,19 @@ public class VideoAop {
             }
         }
         try {
+            video = videoService.getVideoByIdNotAddClick(video.getId());
+            if(null == video) {
+                return false;
+            }
             boolean result = (boolean) proceedingJoinPoint.proceed(args);
             if(result) {
                 userVideoService.deleteLikeVideo(video);
+                File videoFile = new File(VIDEO_SAVE_PATH + video.getAddress());
+                File imageFile = new File(IMAGE_SAVE_PATH + video.getView());
+                File bigImageFile = new File(BIG_IMAGE_SAVE_PATH + video.getView());
+                FileUtils.deleteQuietly(videoFile);
+                FileUtils.deleteQuietly(imageFile);
+                FileUtils.deleteQuietly(bigImageFile);
             }
             return result;
         } catch (Throwable throwable) {

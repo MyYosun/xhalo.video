@@ -109,6 +109,11 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
+    public Video getVideoByIdNotAddClick(Long videoId) {
+        return videoDao.getVideoById(videoId);
+    }
+
+    @Override
     public List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         String sqlEL = translateOptionDuration(optionDuration);
@@ -165,7 +170,7 @@ public class VideoServiceImp implements IVideoService {
         return videoDao.getVideosByAuthor(author);
     }
 
-    //使用Aop删除关联的用户喜欢视频
+    //使用Aop删除关联的用户喜欢视频和文件
     @Override
     public boolean deleteUserUploadVideo(Video video) {
         User author = securityUserUtil.getLoginCusUser();
