@@ -4,7 +4,8 @@ import com.github.pagehelper.PageHelper;
 import net.xhalo.video.dao.VideoDao;
 import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
-import net.xhalo.video.service.IUserService;
+import net.xhalo.video.security.utils.SecurityUserUtil;
+import net.xhalo.video.service.IUserVideoService;
 import net.xhalo.video.service.IVideoService;
 import net.xhalo.video.utils.FFmpegUtil;
 import net.xhalo.video.utils.HashCodeUtil;
@@ -14,8 +15,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,7 +39,10 @@ public class VideoServiceImp implements IVideoService {
     private VideoDao videoDao;
 
     @Autowired
-    private IUserService userService;
+    private IUserVideoService userVideoService;
+
+    @Autowired
+    private SecurityUserUtil securityUserUtil;
 
     @Override
     @CacheEvict(value = "video", allEntries = true , beforeInvocation = true)
@@ -49,11 +51,9 @@ public class VideoServiceImp implements IVideoService {
         String address = null;
         String view = null;
         String videoPath = null;
-        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
+        User author = securityUserUtil.getLoginCusUser();
+        if(author == null)
             return null;
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User author = null;
-        author = userService.findByUsername(userDetails.getUsername());
         try {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if(StringUtils.isEmpty(md5))
@@ -154,11 +154,9 @@ public class VideoServiceImp implements IVideoService {
 
     @Override
     public List<Video> getUserUploadVideos() {
-        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
+        User author = securityUserUtil.getLoginCusUser();
+        if(author == null)
             return null;
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User author = null;
-        author = userService.findByUsername(userDetails.getUsername());
         return getVideosByAuthor(author);
     }
 
@@ -167,13 +165,12 @@ public class VideoServiceImp implements IVideoService {
         return videoDao.getVideosByAuthor(author);
     }
 
+    //使用Aop删除关联的用户喜欢视频
     @Override
     public boolean deleteUserUploadVideo(Video video) {
-        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
+        User author = securityUserUtil.getLoginCusUser();
+        if(null == author)
             return false;
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User author = null;
-        author = userService.findByUsername(userDetails.getUsername());
         video.setAuthor(author);
         return deleteVideoByAuthorAndId(video);
     }
@@ -181,5 +178,19 @@ public class VideoServiceImp implements IVideoService {
     @Override
     public boolean deleteVideoByAuthorAndId(Video video) {
         return videoDao.deleteVideoByAuthorAndId(video) == NUM_ONE;
+    }
+
+    @Override
+    public List<Video> getUserLikeVideos() {
+        User user = securityUserUtil.getLoginCusUser();
+        if(null == user) {
+            return null;
+        }
+        return videoDao.getLikeVideosByUser(user);
+    }
+
+    @Override
+    public boolean deleteUserLikeVideo(Video video) {
+        return userVideoService.deleteLoginUserLikeVideo(video);
     }
 }

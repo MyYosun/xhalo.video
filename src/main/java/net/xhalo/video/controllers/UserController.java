@@ -1,6 +1,7 @@
 package net.xhalo.video.controllers;
 
 import net.xhalo.video.model.User;
+import net.xhalo.video.security.utils.SecurityUserUtil;
 import net.xhalo.video.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +22,9 @@ import javax.validation.Valid;
 public class UserController {
 	@Autowired
 	private IUserService userService;
+
+	@Autowired
+	private SecurityUserUtil securityUserUtil;
 
 	@RequestMapping(value = "/processRegister")
 	@ResponseBody
@@ -51,12 +54,7 @@ public class UserController {
 	@RequestMapping(value = "getLoginUserInfo")
 	@ResponseBody
 	public User getLoginUser() {
-		if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
-			return null;
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = new User();
-		user.setUsername(userDetails.getUsername());
-		user = userService.getUserByUsername(user);
+		User user = securityUserUtil.getLoginCusUser();
 		user.setPassword(null);
 		return user;
 	}
@@ -67,10 +65,10 @@ public class UserController {
 		if(errors.hasErrors()) {
 			return "updateUserInfoFail";
 		}
-		if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails)) {
+		UserDetails userDetails = securityUserUtil.getLoginSecurityUser();
+		if(null == userDetails) {
 			return "userNotLogin";
 		}
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(! StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
 			return "usernameNotMatch";
 		}
@@ -86,10 +84,10 @@ public class UserController {
 		if(errors.hasErrors()) {
 			return "updateUserHeadImgFail";
 		}
-		if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails)) {
+		UserDetails userDetails = securityUserUtil.getLoginSecurityUser();
+		if(null == userDetails) {
 			return "userNotLogin";
 		}
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(! StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
 			return "usernameNotMatch";
 		}
@@ -117,4 +115,5 @@ public class UserController {
 		}
 		return "updateUserPasswordFail";
 	}
+
 }

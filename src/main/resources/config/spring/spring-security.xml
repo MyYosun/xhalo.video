@@ -15,8 +15,7 @@
     <!-- 资源所需要的权限 -->
     <http use-expressions="true" auto-config="true">
         <intercept-url pattern="/user*" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/updateLoginUser*" access="hasRole('ROLE_USER')" />
-        <intercept-url pattern="/deleteLoginUser*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/*User*" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/upload*" access="hasRole('ROLE_USER')" />
         <intercept-url pattern="/**" access="permitAll" />

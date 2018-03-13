@@ -240,4 +240,36 @@
 		AND
 		author=#{author.id}
 	</delete>
+
+	<select id="getLikeVideosByUser" parameterType="net.xhalo.video.model.User" resultMap="VideoMap">
+		SELECT
+		a.id,
+		a.title,
+		a.click,
+		a.date,
+		a.address,
+		a.view,
+		a.duration,
+		a.info,
+		b.id category_id,
+		b.name category_name,
+		c.id author_id,
+		c.username author_username,
+		c.nickname author_nickname,
+		c.head_img author_head_img
+		FROM
+		video_table a,
+		category_table b,
+		user_table c,
+		user_like_video_table d
+		WHERE
+		d.user_id=#{id}
+		AND
+		a.id=d.video_id
+		AND
+		a.author=c.id
+		AND
+		a.category=b.id
+		ORDER BY a.date DESC ;
+	</select>
 </mapper>

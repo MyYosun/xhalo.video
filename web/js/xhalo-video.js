@@ -164,24 +164,63 @@ function showRecommendVideos(videoList) {
 
     }
 }
-/**主页方法开始**/
+/**主页方法结束**/
 
 /**视频展示开始**/
-//TODO
-function likeVideo(btnId) {
+function modifyLikeBtn(btnId) {
+    var videoId = $('#videoId').val();
+    $.ajax({
+        url: "validateUserLikeVideo",
+        type: "post",
+        data: {id:videoId},
+        success : function(data) {
+            if(data == "like") {
+                lightHeart(btnId);
+            }
+        }
+    });
+}
 
+function likeVideo(btnId) {
+    var videoId = $('#videoId').val();
+    $.ajax({
+        url: "userAddLikeVideo",
+        type: "post",
+        data: {id:videoId},
+        success : function (data) {
+            if(data == "addSuccess") {
+                lightHeart(btnId);
+            }
+        }
+    });
+}
+
+function dislikeVideo(btnId) {
+    var videoId = $('#videoId').val();
+    $.ajax({
+        url: "userDeleteLikeVideo",
+        type: "post",
+        data: {id:videoId},
+        success : function (data) {
+            if(data == "deleteSuccess") {
+                clearHeart(btnId);
+            }
+        }
+    });
 }
 
 function lightHeart(btnId) {
     $("#"+btnId).css("color","red");
     $("#"+btnId).children().removeClass("glyphicon-heart-empty");
     $("#"+btnId).children().addClass("glyphicon-heart");
+    $('#'+btnId).attr("onclick", "dislikeVideo('"+btnId+"')");
 }
 
 function clearHeart(btnId) {
     $("#"+btnId).css("color","black");
     $("#"+btnId).children().removeClass("glyphicon-heart");
     $("#"+btnId).children().addClass("glyphicon-heart-empty");
+    $('#'+btnId).attr("onclick", "likeVideo('"+btnId+"')");
 }
 
 function getPopularList() {
@@ -572,6 +611,22 @@ function showUploadVideoList(videoList) {
     }
 }
 
+function getLikeVideoList() {
+    $.ajax({
+        url: "getUserLikeVideos",
+        type: "get",
+        success: showLikeVideoList,
+        async: true
+    });
+}
+
+function showLikeVideoList(videoList) {
+    for(var i = 0; i < videoList.length; i++) {
+        var video = videoList[i];
+        $('#like-list').append(createLittleVideo(video, "like"));
+    }
+}
+
 function createLittleVideo(video, which) {
     var whichVideo = '';
     var deleteTip = '';
@@ -599,7 +654,7 @@ function createLittleVideo(video, which) {
     divTop.append(ul);
     var li = $('<li></li>');
     ul.append(li);
-    li.append($('<a href="javascript:void(0)" onclick="deleteInfo(\'upload\',' + video.id + ')" data-toggle="modal" data-target="#modal-confirm">' +
+    li.append($('<a href="javascript:void(0)" onclick="deleteInfo(\'' + which + '\',' + video.id + ')" data-toggle="modal" data-target="#modal-confirm">' +
         '<i class="fa fa-trash-o fa-lg"></i> ' + deleteTip + '</a>'));
     return liTop;
 }
@@ -608,7 +663,7 @@ function deleteInfo(which, id) {
     if(which == "upload")
         $('#confirm-btn').attr("onclick", "deleteUploadVideo(" + id + ")");
     if(which == "like")
-        $('#confirm-btn').attr("onclick",deleteLikeVideo(id));
+        $('#confirm-btn').attr("onclick","deleteLikeVideo(" + id + ")");
     return;
 }
 
@@ -631,7 +686,20 @@ function deleteUploadVideo(id) {
 
 //TODO
 function deleteLikeVideo(id) {
-
+    $.ajax({
+        url: "deleteUserLikeVideo?id=" + id,
+        type: "get",
+        async: false,
+        success: function(data) {
+            $('#modal-confirm').modal('toggle');
+            if(data == "deleteSuccess") {
+                toastr.info("删除成功!");
+                $('#likeVideo'+id).remove();
+            }
+            if(data == "deleteFail")
+                toastr.error("删除失败!");
+        }
+    });
 }
 
 

@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserVideoDao {
     Integer addUserLikeVideo(@Param("user") User user, @Param("video") Video video);
+    Integer deleteUserLikeVideo(@Param("user") User user, @Param("video") Video video);
+    Integer validateUserLikeVideo(@Param("user") User user, @Param("video") Video video);
 }

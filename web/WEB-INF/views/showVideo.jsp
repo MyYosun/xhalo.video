@@ -9,6 +9,7 @@
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
+<input type="hidden" value="${video.id}" id="videoId"/>
 <div style="width: 100%;">
     <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
            controls preload="auto" style="width:100%!important;" height="600"
@@ -124,7 +125,6 @@
         </div>
     </div>
 </div>
-
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 <script src="/js/jquery.zclip.js"></script>
@@ -139,5 +139,6 @@
         }
     });
     getPopularList();
+    modifyLikeBtn('likeBtn');
 </script>
 </html>

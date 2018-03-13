@@ -17,4 +17,5 @@ public interface VideoDao {
     Integer addClickById(Long videoId);
     List<Video> getVideosByAuthor(User author);
     Integer deleteVideoByAuthorAndId(Video video);
+    List<Video> getLikeVideosByUser(User user);
 }

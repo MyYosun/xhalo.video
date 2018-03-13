@@ -31,4 +31,8 @@ public interface IVideoService {
     boolean deleteUserUploadVideo(Video video);
 
     boolean deleteVideoByAuthorAndId(Video video);
+
+    List<Video> getUserLikeVideos();
+
+    boolean deleteUserLikeVideo(Video video);
 }

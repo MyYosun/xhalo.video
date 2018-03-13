@@ -159,5 +159,6 @@
     $('#head').removeClass("navbar-fixed-top");
     getPersonalInfo();
     getUploadVideoList();
+    getLikeVideoList();
 </script>
 </html>

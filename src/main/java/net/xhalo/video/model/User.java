@@ -22,7 +22,6 @@ public class User implements Serializable {
 	private String headImg;
 	private Date createTime;
 	private Date lastLoginTime;
-	private List<Video> likeVideos;
 
 	public Long getId() {
 		return id;
@@ -104,11 +103,4 @@ public class User implements Serializable {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public List<Video> getLikeVideos() {
-		return likeVideos;
-	}
-
-	public void setLikeVideos(List<Video> likeVideos) {
-		this.likeVideos = likeVideos;
-	}
 }

@@ -123,4 +123,19 @@ public class VideoController {
         return "deleteFail";
     }
 
+    @RequestMapping(value = "getUserLikeVideos")
+    @ResponseBody
+    public List<Video> getUserLikeVideos() {
+        return videoService.getUserLikeVideos();
+    }
+
+    @RequestMapping(value = "deleteUserLikeVideo")
+    @ResponseBody
+    public String deleteUserLikeVideos(Video video) {
+        if(videoService.deleteUserLikeVideo(video)) {
+            return "deleteSuccess";
+        }
+        return "deleteFail";
+    }
+
 }
