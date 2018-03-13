@@ -24,7 +24,6 @@
     <mvc:view-controller path="/user-page" view-name="/userInfo" />
     <!--出错页面配置-->
     <mvc:view-controller path="/404" view-name="/error/404" />
-    <mvc:view-controller path="/403" view-name="/error/403" />
     <mvc:view-controller path="/500" view-name="/error/500" />
 
 

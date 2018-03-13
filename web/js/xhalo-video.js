@@ -230,6 +230,8 @@ function submitComment() {
         success: function(data) {
             if(data == "addSuccess") {
                 toastr.info("评论成功!");
+                $('#comment-ul').html("");
+                getCommentList();
             } else {
                 toastr.error("评论失败,请重试!");
             }
@@ -466,12 +468,14 @@ function uploadAction() {
         toastr.error("上传视频格式不正确!");
         return;
     }
+    var uploadBtn = $('#uploadBtn');
     $('#upload-form').ajaxSubmit({
         url: "uploadVideo",
         type: "post",
         beforeSubmit: function() {
             $('#myModal').modal({backdrop:"static",
                 keyboard: false});
+            uploadBtn.attr("disabled","disabled");
         },
         success: function(data) {
             $('#myModal').modal("hide");

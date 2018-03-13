@@ -58,7 +58,7 @@
                        支持上传1GB以内的视频文件,只允许上传mp4格式视频哦!
                     </p>
                 </div>
-                <button type="button" onclick="uploadAction()" class="btn btn-default">上传视频</button>
+                <button type="button" id="uploadBtn" onclick="uploadAction()" class="btn btn-default">上传视频</button>
             </form>
         </div>
     </div>
