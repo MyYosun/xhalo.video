@@ -64,7 +64,7 @@ public class UserServiceImp implements IUserService {
     @Override
     @CacheEvict(value = "video", allEntries = true, beforeInvocation = true)
     public boolean updateUserInfoByIdAndUsername(User user) {
-        return userDao.updateUserInfoByIdAndUsername(user) == 1;
+        return userDao.updateUserInfoByIdAndUsername(user) == NUM_ONE;
     }
 
     @Override
@@ -89,6 +89,6 @@ public class UserServiceImp implements IUserService {
     public boolean updateUserPasswordByIdAndUsername(User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userDao.updateUserPasswordByIdAndUsernameAndPassword(user) == 1;
+        return userDao.updateUserPasswordByIdAndUsernameAndPassword(user) == NUM_ONE;
     }
 }

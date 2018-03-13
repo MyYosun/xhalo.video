@@ -550,10 +550,89 @@ function updateUserPasswordAction() {
             }
             if(data == "updateUserPasswordSuccess") {
                 toastr.info("修改成功!");
-                getPersonalInfo();
+                $('#userPasswordForm').resetForm();
             }
         }
     });
 }
+
+function getUploadVideoList() {
+    $.ajax({
+        url: "getUserUploadVideos",
+        type: "get",
+        success: showUploadVideoList,
+        async: true
+    });
+}
+
+function showUploadVideoList(videoList) {
+    for(var i = 0; i < videoList.length; i++) {
+        var video = videoList[i];
+        $('#upload-list').append(createLittleVideo(video, "upload"));
+    }
+}
+
+function createLittleVideo(video, which) {
+    var whichVideo = '';
+    var deleteTip = '';
+    if(which == "upload") {
+        whichVideo = 'uploadVideo';
+        deleteTip = '删除';
+    }
+    if(which == "like") {
+        whichVideo = 'likeVideo';
+        deleteTip = '移除';
+    }
+    var liTop = $("<li class='col-sm-3' style='margin-top:20px;' id='" + whichVideo + video.id + "'></li>");
+    var divTop = $("<div class='col-sm-12'></div>");
+    liTop.append(divTop);
+    var aTop = $("<a href='video-" + video.id + ".html' style='text-decoration:none;'></a>");
+    divTop.append(aTop);
+    aTop.append($('<img class="media-object img-rounded video-img-detail"' +
+        ' src="/showImg?view=' + video.view + '">'));
+    var divTitle = $('<div></div>');
+    aTop.append(divTitle);
+    divTitle.append($('<p class="media-heading video-title-detail">' +
+        '<span class="badge">' + video.click + 'views</span> ' + video.title +
+        '</p>'));
+    var ul = $('<ul class="list-inline" style="font-size:12px;"></ul>');
+    divTop.append(ul);
+    var li = $('<li></li>');
+    ul.append(li);
+    li.append($('<a href="javascript:void(0)" onclick="deleteInfo(\'upload\',' + video.id + ')" data-toggle="modal" data-target="#modal-confirm">' +
+        '<i class="fa fa-trash-o fa-lg"></i> ' + deleteTip + '</a>'));
+    return liTop;
+}
+
+function deleteInfo(which, id) {
+    if(which == "upload")
+        $('#confirm-btn').attr("onclick", "deleteUploadVideo(" + id + ")");
+    if(which == "like")
+        $('#confirm-btn').attr("onclick",deleteLikeVideo(id));
+    return;
+}
+
+function deleteUploadVideo(id) {
+    $.ajax({
+        url: "deleteUserUploadVideo?id=" + id,
+        type: "get",
+        async: false,
+        success: function(data) {
+            $('#modal-confirm').modal('toggle');
+            if(data == "deleteSuccess") {
+                toastr.info("删除成功!");
+                $('#uploadVideo'+id).remove();
+            }
+            if(data == "deleteFail")
+                toastr.error("删除失败!");
+        }
+    });
+}
+
+//TODO
+function deleteLikeVideo(id) {
+
+}
+
 
 

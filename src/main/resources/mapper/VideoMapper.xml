@@ -6,7 +6,7 @@
 <mapper namespace="net.xhalo.video.dao.VideoDao">
 
 	<resultMap type="net.xhalo.video.model.Video" id="VideoMap">
-		<id column="id" jdbcType="INTEGER" property="id" />
+		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="click" jdbcType="INTEGER" property="click" />
 		<result column="date" jdbcType="TIMESTAMP" property="date"
@@ -27,9 +27,30 @@
 		</association>
 	</resultMap>
 
+	<resultMap type="net.xhalo.video.model.Video" id="DetailVideoMap">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="click" jdbcType="INTEGER" property="click" />
+		<result column="date" jdbcType="TIMESTAMP" property="date"
+				javaType="java.util.Date" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="view" jdbcType="VARCHAR" property="view" />
+		<result column="duration" jdbcType="INTEGER" property="duration" />
+		<result column="info" jdbcType="VARCHAR" property="info" />
+		<association property="category" javaType="net.xhalo.video.model.Category">
+			<id property="id" column="category_id" />
+			<result property="name" column="category_name" />
+		</association>
+		<association property="author" javaType="net.xhalo.video.model.User">
+			<id property="id" column="author_id" />
+			<result property="username" column="author_username" />
+			<result property="nickname" column="author_nickname" />
+			<result property="headImg" column="author_head_img" />
+		</association>
+	</resultMap>
 
 	<insert id="addVideo" parameterType="net.xhalo.video.model.Video">
-		INSERT INTO videotable(
+		INSERT INTO video_table(
 		title,
 		click,
 		date,
@@ -71,9 +92,9 @@
 		c.nickname author_nickname,
 		c.head_img author_head_img
 		FROM
-		videotable a,
-		categorytable b,
-		usertable c
+		video_table a,
+		category_table b,
+		user_table c
 		WHERE
 		a.category=b.id
 		AND
@@ -98,9 +119,9 @@
 		c.nickname author_nickname,
 		c.head_img author_head_img
 		FROM
-		videotable a,
-		categorytable b,
-		usertable c
+		video_table a,
+		category_table b,
+		user_table c
 		WHERE
 		a.category=#{video.category.id}
 		AND
@@ -130,9 +151,9 @@
 		c.nickname author_nickname,
 		c.head_img author_head_img
 		FROM
-		videotable a,
-		categorytable b,
-		usertable c
+		video_table a,
+		category_table b,
+		user_table c
 		WHERE
 		a.title like CONCAT(CONCAT('%', #{video.title}), '%')
 		AND
@@ -162,9 +183,9 @@
 		c.nickname author_nickname,
 		c.head_img author_head_img
 		FROM
-		videotable a,
-		categorytable b,
-		usertable c
+		video_table a,
+		category_table b,
+		user_table c
 		WHERE
 		a.id=#{videoId}
 		AND
@@ -175,10 +196,48 @@
 
 	<update id="addClickById" parameterType="LONG">
 		UPDATE
-		videotable
+		video_table
 		SET
 		click = click + 1
 		WHERE
 		id = #{videoId}
 	</update>
+
+	<select id="getVideosByAuthor" parameterType="net.xhalo.video.model.User" resultMap="VideoMap">
+		SELECT
+		a.id,
+		a.title,
+		a.click,
+		a.date,
+		a.address,
+		a.view,
+		a.duration,
+		a.info,
+		b.id category_id,
+		b.name category_name,
+		c.id author_id,
+		c.username author_username,
+		c.nickname author_nickname,
+		c.head_img author_head_img
+		FROM
+		video_table a,
+		category_table b,
+		user_table c
+		WHERE
+		a.author=#{id}
+		AND
+		a.author=c.id
+		AND
+		a.category=b.id
+		ORDER BY a.date DESC ;
+	</select>
+
+	<delete id="deleteVideoByAuthorAndId">
+		DELETE FROM
+		video_table
+		WHERE
+		id=#{id}
+		AND
+		author=#{author.id}
+	</delete>
 </mapper>

@@ -149,6 +149,37 @@ public class VideoServiceImp implements IVideoService {
 
     @Override
     public boolean addClickById(Long videoId) {
-        return videoDao.addClickById(videoId) == 1;
+        return videoDao.addClickById(videoId) == NUM_ONE;
+    }
+
+    @Override
+    public List<Video> getUserUploadVideos() {
+        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
+            return null;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User author = null;
+        author = userService.findByUsername(userDetails.getUsername());
+        return getVideosByAuthor(author);
+    }
+
+    @Override
+    public List<Video> getVideosByAuthor(User author) {
+        return videoDao.getVideosByAuthor(author);
+    }
+
+    @Override
+    public boolean deleteUserUploadVideo(Video video) {
+        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
+            return false;
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User author = null;
+        author = userService.findByUsername(userDetails.getUsername());
+        video.setAuthor(author);
+        return deleteVideoByAuthorAndId(video);
+    }
+
+    @Override
+    public boolean deleteVideoByAuthorAndId(Video video) {
+        return videoDao.deleteVideoByAuthorAndId(video) == NUM_ONE;
     }
 }

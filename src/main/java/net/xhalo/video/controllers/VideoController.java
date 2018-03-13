@@ -108,5 +108,19 @@ public class VideoController {
         return videoService.getVideosByTitle(video, optionDuration, optionOrder, pageNum, pageSize);
     }
 
+    @RequestMapping(value = "getUserUploadVideos")
+    @ResponseBody
+    public List<Video> getUserUploadVideos() {
+        return videoService.getUserUploadVideos();
+    }
+
+    @RequestMapping(value = "deleteUserUploadVideo")
+    @ResponseBody
+    public String deleteUserUploadVideos(Video video) {
+        if(videoService.deleteUserUploadVideo(video)) {
+            return "deleteSuccess";
+        }
+        return "deleteFail";
+    }
 
 }

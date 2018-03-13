@@ -1,5 +1,6 @@
 package net.xhalo.video.service;
 
+import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,4 +23,12 @@ public interface IVideoService {
     List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
 
     boolean addClickById(Long videoId);
+
+    List<Video> getUserUploadVideos();
+
+    List<Video> getVideosByAuthor(User author);
+
+    boolean deleteUserUploadVideo(Video video);
+
+    boolean deleteVideoByAuthorAndId(Video video);
 }

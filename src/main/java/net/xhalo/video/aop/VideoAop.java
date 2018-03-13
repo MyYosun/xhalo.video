@@ -41,7 +41,6 @@ public class VideoAop {
         if (null != returnValue && returnValue instanceof Video) {
             Video result = (Video) returnValue;
             videoService.addClickById(result.getId());
-            return;
         }
     }
 

@@ -30,4 +30,18 @@
     color:#7e7e7e;
     font-size:12px;
 }
+.video-title-detail {
+    height: 42px!important;
+    overflow: hidden;
+    word-wrap:break-word;
+    word-break:break-all;
+    font-size:14px;
+    padding: 0;
+}
+span.badge {
+    background-color : #f17c67;
+}
+.video-img-detail {
+    width:100%!important;
+}
 

@@ -6,7 +6,7 @@
 <mapper namespace="net.xhalo.video.dao.UserDao">
 
 	<resultMap type="net.xhalo.video.model.User" id="UserMap">
-		<id column="id" jdbcType="INTEGER" property="id" />
+		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="username" jdbcType="VARCHAR" property="username" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
 		<result column="nickname" jdbcType="VARCHAR" property="nickname" />
@@ -19,7 +19,7 @@
 	</resultMap>
 
 	<insert id="addUser" parameterType="net.xhalo.video.model.User">
-		INSERT INTO usertable(
+		INSERT INTO user_table(
 		username,
 		password,
 		nickname,
@@ -45,7 +45,7 @@
 		SELECT
 		COUNT(id)
 		FROM
-		usertable
+		user_table
 		WHERE
 		username=#{username}
 		AND
@@ -54,7 +54,7 @@
 
 	<update id="updateLoginTime" parameterType="net.xhalo.video.model.User">
 		UPDATE
-		usertable
+		user_table
 		SET
 		last_login_time = CURRENT_TIMESTAMP
 		WHERE
@@ -68,7 +68,7 @@
 		password,
 		authority
 		FROM
-		usertable
+		user_table
 		WHERE
 		username=#{username}
 		AND
@@ -87,14 +87,14 @@
 		head_img,
 		create_time
 		FROM
-		usertable
+		user_table
 		WHERE
 		username=#{username}
 	</select>
 
 	<update id="updateUserInfoByIdAndUsername" parameterType="net.xhalo.video.model.User">
 		UPDATE
-		usertable
+		user_table
 		SET
 		nickname=#{nickname},
 		sign=#{sign}
@@ -120,7 +120,7 @@
 
 	<update id="updateUserHeadImgByIdAndUsername" parameterType="net.xhalo.video.model.User">
 		UPDATE
-		usertable
+		user_table
 		SET
 		head_img=#{headImg}
 		WHERE
@@ -145,7 +145,7 @@
 
 	<update id="updateUserPasswordByIdAndUsernameAndPassword">
 		UPDATE
-		usertable
+		user_table
 		SET
 		password=#{user.password}
 		WHERE

@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
 	private Long id;
@@ -21,6 +22,7 @@ public class User implements Serializable {
 	private String headImg;
 	private Date createTime;
 	private Date lastLoginTime;
+	private List<Video> likeVideos;
 
 	public Long getId() {
 		return id;
@@ -100,5 +102,13 @@ public class User implements Serializable {
 
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
+	}
+
+	public List<Video> getLikeVideos() {
+		return likeVideos;
+	}
+
+	public void setLikeVideos(List<Video> likeVideos) {
+		this.likeVideos = likeVideos;
 	}
 }

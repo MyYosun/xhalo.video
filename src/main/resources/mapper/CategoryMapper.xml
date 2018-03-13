@@ -5,7 +5,7 @@
 
 <mapper namespace="net.xhalo.video.dao.CategoryDao">
 	<resultMap type="net.xhalo.video.model.Category" id="CategoryMap">
-		<id column="id" jdbcType="INTEGER" property="id" />
+		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="belong_to_other" jdbcType="BOOLEAN" property="belongToOther" />
 	</resultMap>
@@ -16,7 +16,7 @@
 		name,
 		belong_to_other
 		FROM
-		categorytable
+		category_table
 		WHERE
 		id=#{id}
 	</select>
@@ -27,7 +27,7 @@
 		name,
 		belong_to_other
 		FROM
-		categorytable
+		category_table
 		ORDER BY id ASC
 	</select>
 </mapper>
