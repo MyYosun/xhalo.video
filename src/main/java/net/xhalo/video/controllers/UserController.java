@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,6 +116,15 @@ public class UserController {
 			return "updateUserPasswordSuccess";
 		}
 		return "updateUserPasswordFail";
+	}
+
+	@RequestMapping(value = "author-{username}")
+	public String getAuthorInfo(@PathVariable String username, Model model) {
+		User user = new User();
+		user.setUsername(username);
+		user = userService.getUserByUsername(user);
+		model.addAttribute("author", user);
+		return "authorInfo";
 	}
 
 }

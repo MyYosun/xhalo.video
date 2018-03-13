@@ -1,6 +1,6 @@
 package net.xhalo.video.controllers;
 
-import net.xhalo.video.model.User;
+import net.xhalo.video.model.Comment;
 import net.xhalo.video.model.Video;
 import net.xhalo.video.service.IUserVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Scope("prototype")
@@ -44,5 +45,23 @@ public class UserVideoController {
             return "like";
         }
         return "unlike";
+    }
+
+    @RequestMapping(value = "userAddVideoComment")
+    @ResponseBody
+    public String addVideoComment(@Valid Comment comment, Errors errors) {
+        if(errors.hasErrors()) {
+            return "addFail";
+        }
+        if(userVideoService.userAddVideoComment(comment)) {
+            return "addSuccess";
+        }
+        return "addFail";
+    }
+
+    @RequestMapping(value = "getVideoCommentByVideo")
+    @ResponseBody
+    public List<Comment> getVideoComment(Video video) {
+        return userVideoService.getVideoCommentByVideo(video);
     }
 }

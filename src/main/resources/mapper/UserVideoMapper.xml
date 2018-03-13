@@ -4,6 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="net.xhalo.video.dao.UserVideoDao">
+    <resultMap id="CommentMapper" type="net.xhalo.video.model.Comment">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+        <association property="user" javaType="net.xhalo.video.model.User">
+            <id column="user_id" jdbcType="BIGINT" property="id" />
+            <result column="username" jdbcType="VARCHAR" property="username" />
+            <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+            <result column="authority" jdbcType="VARCHAR" property="authority" />
+            <result column="sign" jdbcType="VARCHAR" property="sign" />
+            <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+        </association>
+    </resultMap>
 
     <insert id="addUserLikeVideo">
         INSERT INTO
@@ -40,4 +53,49 @@
         video_id=#{video.id}
     </select>
 
+    <insert id="addVideoComment">
+        INSERT INTO
+        video_comment_table(
+        user_id,
+        video_id,
+        content,
+        date
+        )
+        VALUES (
+        #{user.id},
+        #{video.id},
+        #{content},
+        CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <delete id="deleteVideoCommentByVideo">
+        DELETE FROM
+        video_comment_table
+        WHERE
+        video_id=#{id}
+    </delete>
+
+    <select id="selectVideoCommentByVideo" resultMap="CommentMapper">
+        SELECT
+        a.id id,
+        a.content content,
+        a.date date,
+        a.user_id user_id,
+        b.username username,
+        b.nickname nickname,
+        b.authority authority,
+        b.sign sign,
+        b.head_img head_img
+        FROM
+        video_comment_table a
+        INNER JOIN
+        user_table b
+        ON
+        a.user_id=b.id
+        WHERE
+        video_id=#{id}
+        ORDER BY
+        a.date DESC
+    </select>
 </mapper>

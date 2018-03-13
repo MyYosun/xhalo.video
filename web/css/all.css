@@ -20,3 +20,9 @@ a {
     cursor: pointer;
     text-decoration:none;
 }
+
+p{
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}

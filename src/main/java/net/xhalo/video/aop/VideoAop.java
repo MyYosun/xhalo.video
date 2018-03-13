@@ -89,6 +89,7 @@ public class VideoAop {
             boolean result = (boolean) proceedingJoinPoint.proceed(args);
             if(result) {
                 userVideoService.deleteLikeVideo(video);
+                userVideoService.deleteVideoCommentByVideo(video);
                 File videoFile = new File(VIDEO_SAVE_PATH + video.getAddress());
                 File imageFile = new File(IMAGE_SAVE_PATH + video.getView());
                 File bigImageFile = new File(BIG_IMAGE_SAVE_PATH + video.getView());

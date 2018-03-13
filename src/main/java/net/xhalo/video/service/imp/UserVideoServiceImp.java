@@ -1,6 +1,7 @@
 package net.xhalo.video.service.imp;
 
 import net.xhalo.video.dao.UserVideoDao;
+import net.xhalo.video.model.Comment;
 import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
 import net.xhalo.video.security.utils.SecurityUserUtil;
@@ -8,6 +9,8 @@ import net.xhalo.video.service.IUserVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static net.xhalo.video.config.MaginNumberProperties.NUM_ONE;
 import static net.xhalo.video.config.MaginNumberProperties.NUM_ZERO;
@@ -71,5 +74,30 @@ public class UserVideoServiceImp implements IUserVideoService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Comment> getVideoCommentByVideo(Video video) {
+        return userVideoDao.selectVideoCommentByVideo(video);
+    }
+
+    @Override
+    public boolean deleteVideoCommentByVideo(Video video) {
+        return userVideoDao.deleteVideoCommentByVideo(video) == NUM_ONE;
+    }
+
+    @Override
+    public boolean addVideoComment(Comment comment) {
+        return userVideoDao.addVideoComment(comment) == NUM_ONE;
+    }
+
+    @Override
+    public boolean userAddVideoComment(Comment comment) {
+        User user = securityUserUtil.getLoginCusUser();
+        if(null == user) {
+            return false;
+        }
+        comment.setUser(user);
+        return addVideoComment(comment);
     }
 }

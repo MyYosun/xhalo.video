@@ -44,4 +44,11 @@ span.badge {
 .video-img-detail {
     width:100%!important;
 }
+.media p {
+    font-weight: 300;
+}
+.media .small-img {
+    height:50px;
+    width:50px;
+}
 

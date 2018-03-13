@@ -14,7 +14,7 @@
     <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
            controls preload="auto" style="width:100%!important;" height="600"
            data-setup='{"example_option":true}'>
-        <source src="videoPlay?videoAddress=${video.address}" type='video/mp4' />
+        <source src="videoPlay?videoAddress=${video.address}" type='video/mp4'/>
     </video>
 </div>
 <div class="container">
@@ -22,78 +22,68 @@
         <div class="col-md-8 column">
             <div class="page-header">
                 <h3>
-                    ${video.title}<small>&nbsp;&nbsp;<span class="label label-info">${video.click}次观看</span></small>
-                </h3><br/>
+                    ${video.title}
+                    <small>&nbsp;&nbsp;<span class="label label-info">${video.click}次观看</span></small>
+                </h3>
+                <br/>
                 <ul class="list-unstyled">
                     <li>
-                        <p><fmt:formatDate type="date" dateStyle="long" value="${video.date}"/>发布</p>
+                        <p style="font-weight: 300;"><fmt:formatDate type="date" dateStyle="long" value="${video.date}"/>发布</p>
                     </li>
                     <li class="li-right">
-                        <a href="javascript:void(0);" onclick="likeVideo('likeBtn')" id="likeBtn" style="color:black;"><span class="glyphicon glyphicon-heart-empty"></span></a>&nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-share-alt" id="shareBtn" ></span>
+                        <a href="javascript:void(0);" onclick="likeVideo('likeBtn')" id="likeBtn"
+                           style="color:black;"><span class="glyphicon glyphicon-heart-empty"></span></a>&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-share-alt" id="shareBtn"></span>
                     </li>
                 </ul>
             </div>
             <div class="media">
                 <a class="media-left" href="#">
-                    <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?isHead=true&view=${video.author.headImg}"
+                    <img class="media-object img-circle" style="height:80px;width:80px;"
+                         src="/showImg?isHead=true&view=${video.author.headImg}"
                          alt="head">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">
                         ${video.author.nickname}
                     </h4>
-                    ${video.info}
+                    <p style="font-weight: 300;"> ${video.info}</p>
                 </div>
             </div>
             <hr>
             <div id="comment-content">
-                <h4>
+                <div class="media" style="margin-top:10px;">
+                    <form role="form" id="comment-form">
+                        <div class="form-group">
+                            <label for="comment"><h4>发表你的评论</h4></label>
+                            <textarea id="comment" name="content" class="form-control" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" value="${video.id}" name="video.id"/>
+                        <div class="form-group" id="comment-submit" style="display: none">
+                            <button type="button" id="comment-btn" onclick="submitComment()" class="btn btn-default">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                <h4 style="margin: 15px 0 20px 0;">
                     网友评论
                 </h4>
-                <ul class="list-unstyled">
-                    <li>
+                <ul class="list-unstyled" id="comment-ul">
+                    <!--使用jquery动态创建，下为单例-->
+                    <%--<li>
                         <div class="media" style="margin-top:15px;">
                             <a class="media-left" href="#">
-                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
-                                     alt="head">
+                                <img class="media-object img-circle small-img"
+                                     src="/showImg?isHead=true&view=user.headImg">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading">
-                                    ${video.author.nickname}
+                                    user.nickname
                                 </h4>
-                                ${video.info}
+                                <p>content</p>
                             </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="media"  style="margin-top:15px;">
-                            <a class="media-left" href="#">
-                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
-                                     alt="head">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    ${video.author.nickname}
-                                </h4>
-                                ${video.info}
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="media" style="margin-top:15px;">
-                            <a class="media-left" href="#">
-                                <img class="media-object img-circle" style="height:80px;width:80px;" src="/showImg?view=123qqqqcfcfba869d7cf8ed654a3aa676eebbd1.jpg"
-                                     alt="head">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    ${video.author.nickname}
-                                </h4>
-                                ${video.info}
-                            </div>
-                        </div>
-                    </li>
+                    </li>--%>
                 </ul>
             </div>
         </div>
@@ -138,7 +128,11 @@
             toastr.info("链接已复制到剪切板!");
         }
     });
+    $('#comment').on("click",function () {
+        $('#comment-submit').show(200);
+    });
     getPopularList();
     modifyLikeBtn('likeBtn');
+    getCommentList();
 </script>
 </html>

@@ -1,5 +1,6 @@
 package net.xhalo.video.controllers;
 
+import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
 import net.xhalo.video.service.IVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,12 @@ public class VideoController {
     @ResponseBody
     public List<Video> getUserUploadVideos() {
         return videoService.getUserUploadVideos();
+    }
+
+    @RequestMapping(value = "getUploadVideosByAuthor")
+    @ResponseBody
+    public List<Video> getUploadVideosByAuthor(User author) {
+        return videoService.getVideosByAuthor(author);
     }
 
     @RequestMapping(value = "deleteUserUploadVideo")

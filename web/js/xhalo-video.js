@@ -102,7 +102,7 @@ function createNewVideoModel(video) {
     userLogo.addClass("glyphicon glyphicon-user");
     var userName = $("<span></span>");
     otherInfoUser.append(userName);
-    userName.html("<a href='/user-" + video.author.id + "'>" + video.author.nickname + "</a>");
+    userName.html("<a href='/author-" + video.author.username + "'>" + video.author.nickname + "</a>");
     var otherInfoDuration = $("<li></li>");
     otherInfo.append(otherInfoDuration);
     otherInfoDuration.addClass("right-list");
@@ -221,6 +221,51 @@ function clearHeart(btnId) {
     $("#"+btnId).children().removeClass("glyphicon-heart");
     $("#"+btnId).children().addClass("glyphicon-heart-empty");
     $('#'+btnId).attr("onclick", "likeVideo('"+btnId+"')");
+}
+
+function submitComment() {
+    $('#comment-form').ajaxSubmit({
+        url: "userAddVideoComment",
+        type: "post",
+        success: function(data) {
+            if(data == "addSuccess") {
+                toastr.info("评论成功!");
+            } else {
+                toastr.error("评论失败,请重试!");
+            }
+        }
+    });
+}
+
+function getCommentList() {
+    var videoId = $('#videoId').val();
+    $.ajax({
+        url: "getVideoCommentByVideo",
+        type: "post",
+        data: {id:videoId},
+        success : showCommentList
+    });
+}
+
+function showCommentList(commentList) {
+    for(var i = 0; i < commentList.length; i++) {
+        $('#comment-ul').append(createCommentSingle(commentList[i]));
+    }
+}
+
+function createCommentSingle(comment) {
+    var liTop = $('<li></li>');
+    var divTop = $('<div class="media" style="margin-top:15px;"></div>');
+    liTop.append(divTop);
+    var userA = $('<a class="media-left" href="/author-' + comment.user.username + '"></a>');
+    divTop.append(userA);
+    userA.append($('<img class="media-object img-circle small-img" ' +
+        'src="/showImg?isHead=true&view=' + comment.user.headImg + '">'));
+    var divComment = $('<div class="media-body"></div>');
+    divTop.append(divComment);
+    divComment.append($('<h4 class="media-heading">' + comment.user.nickname + '</h4>'));
+    divComment.append($('<p>' + comment.content + '</p>'));
+    return liTop;
 }
 
 function getPopularList() {
@@ -607,7 +652,7 @@ function getUploadVideoList() {
 function showUploadVideoList(videoList) {
     for(var i = 0; i < videoList.length; i++) {
         var video = videoList[i];
-        $('#upload-list').append(createLittleVideo(video, "upload"));
+        $('#upload-list').append(createLittleVideo(video, "upload", true));
     }
 }
 
@@ -623,11 +668,11 @@ function getLikeVideoList() {
 function showLikeVideoList(videoList) {
     for(var i = 0; i < videoList.length; i++) {
         var video = videoList[i];
-        $('#like-list').append(createLittleVideo(video, "like"));
+        $('#like-list').append(createLittleVideo(video, "like", true));
     }
 }
 
-function createLittleVideo(video, which) {
+function createLittleVideo(video, which,isDelete) {
     var whichVideo = '';
     var deleteTip = '';
     if(which == "upload") {
@@ -650,12 +695,14 @@ function createLittleVideo(video, which) {
     divTitle.append($('<p class="media-heading video-title-detail">' +
         '<span class="badge">' + video.click + 'views</span> ' + video.title +
         '</p>'));
-    var ul = $('<ul class="list-inline" style="font-size:12px;"></ul>');
-    divTop.append(ul);
-    var li = $('<li></li>');
-    ul.append(li);
-    li.append($('<a href="javascript:void(0)" onclick="deleteInfo(\'' + which + '\',' + video.id + ')" data-toggle="modal" data-target="#modal-confirm">' +
-        '<i class="fa fa-trash-o fa-lg"></i> ' + deleteTip + '</a>'));
+    if(isDelete == true) {
+        var ul = $('<ul class="list-inline" style="font-size:12px;"></ul>');
+        divTop.append(ul);
+        var li = $('<li></li>');
+        ul.append(li);
+        li.append($('<a href="javascript:void(0)" onclick="deleteInfo(\'' + which + '\',' + video.id + ')" data-toggle="modal" data-target="#modal-confirm">' +
+            '<i class="fa fa-trash-o fa-lg"></i> ' + deleteTip + '</a>'));
+    }
     return liTop;
 }
 
@@ -684,7 +731,6 @@ function deleteUploadVideo(id) {
     });
 }
 
-//TODO
 function deleteLikeVideo(id) {
     $.ajax({
         url: "deleteUserLikeVideo?id=" + id,
@@ -700,6 +746,23 @@ function deleteLikeVideo(id) {
                 toastr.error("删除失败!");
         }
     });
+}
+
+function getAuthorUploadVideoList() {
+    var authorId = $('#authorId').val();
+    $.ajax({
+        url: "getUploadVideosByAuthor?id=" + authorId,
+        type: "get",
+        success: showAuthorUploadVideoList,
+        async: true
+    });
+}
+
+function showAuthorUploadVideoList(videoList) {
+    for(var i = 0; i < videoList.length; i++) {
+        var video = videoList[i];
+        $('#upload-list').append(createLittleVideo(video, "upload",false));
+    }
 }
 
 
