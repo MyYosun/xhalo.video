@@ -13,8 +13,16 @@
 **使用技术:**
 
 `此项目使用maven作为项目依赖管理工具，使用Spring、SpringMvc、MyBatis、SpringSecurity框架，使用JavaxValidation作为验证工具、
-使用Redis作为数据缓存服务器、使用Mysql作为数据存储服务器，前端使用bootstrap作为开发框架，使用jquery和其他插件:jquery-form.js、
+使用Redis作为数据缓存服务器、使用Mysql作为数据存储服务器，使用ffmpeg工具做视频和图片处理，前端使用bootstrap作为开发框架，使用jquery和其他插件:jquery-form.js、
 jquery-zclip.js、toastr.js、video.js
 `
 
+**开始前配置:**
+
+`需要搭建环境java + tomcat8 + mysql + redis + ffmpeg
+项目数据库使用jndi获取，需要修改tomcat服务器conf/context.xml
+添加<Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" name="jdbc/video" password="your password" type="javax.sql.DataSource" url="jdbc:mysql://your sql ip/video?serverTimezone=GMT%2B8" username="your username"/>，
+启动项目前需开启Redis服务器，Redis的设置根据配置修改，配置文件为resources/config/properties/redis.properties，启动项目需要搭建ffmpeg工具，
+并在resources/config/properties/path.properties修改ffmpeg的启动路径，
+请根据需求创建媒体存储目录，并在resources/config/properties/path.properties中修改相应路径`
 
