@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>XHalo Video</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/thumbnail-gallery.css">
     <style>

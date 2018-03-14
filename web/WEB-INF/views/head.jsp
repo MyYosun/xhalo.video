@@ -5,6 +5,9 @@
 <head>
     <meta charset="utf-8">
     <title>Head</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/toastr.min.css"/>
     <link rel="stylesheet" href="/css/buttons.css"/>
@@ -28,7 +31,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index">Xhalo-Video</a>
+            <a class="navbar-brand" href="/index"><img style="height:150%; margin-top:-3px;" src="/images/logo.png"/></a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar">

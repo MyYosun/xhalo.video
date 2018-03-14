@@ -3,6 +3,9 @@
 <html>
 <head>
     <title>${video.title}</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
     <link href="/css/video-js.min.css" rel="stylesheet">
     <script src="/js/video.min.js"></script>
     <link href="/css/xhalo-video.css" rel="stylesheet">

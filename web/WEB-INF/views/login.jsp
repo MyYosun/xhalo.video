@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="/css/login.css"/>
     <link rel="stylesheet" href="/css/toastr.min.css"/>
     <script src="/js/jquery-3.3.1.min.js"></script>

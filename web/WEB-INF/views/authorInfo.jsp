@@ -3,6 +3,9 @@
 <html>
 <head>
     <title>${author.nickname}的频道</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
     <link href="/css/xhalo-video.css" rel="stylesheet">
 </head>
 <body>
