@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>404 NOT FOUND</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <style type="text/css">
         body {
             margin: 0px;
