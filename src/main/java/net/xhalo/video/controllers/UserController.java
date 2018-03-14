@@ -22,109 +22,109 @@ import javax.validation.Valid;
 @Controller
 @Scope(value = "prototype")
 public class UserController {
-	@Autowired
-	private IUserService userService;
+    @Autowired
+    private IUserService userService;
 
-	@Autowired
-	private SecurityUserUtil securityUserUtil;
+    @Autowired
+    private SecurityUserUtil securityUserUtil;
 
-	@RequestMapping(value = "/processRegister")
-	@ResponseBody
-	public String addUser(@Valid User user, Errors errors) {
-		String result = "registerFail";
-		if(errors.hasErrors()) {
-			return result;
-		}
-		if (userService.validateUsername(user)) {
-			if (userService.addUser(user))
-				result = "registerSuccess";
-		} else
-			result = "userExist";
-		return result;
-	}
+    @RequestMapping(value = "/processRegister")
+    @ResponseBody
+    public String addUser(@Valid User user, Errors errors) {
+        String result = "registerFail";
+        if (errors.hasErrors()) {
+            return result;
+        }
+        if (userService.validateUsername(user)) {
+            if (userService.addUser(user))
+                result = "registerSuccess";
+        } else
+            result = "userExist";
+        return result;
+    }
 
-	@RequestMapping(value = "validateUsername")
-	@ResponseBody
-	public String validateUsername(User user) {
-		if(userService.validateUsername(user)) {
-			return "userNotExist";
-		} else {
-			return "userExist";
-		}
-	}
+    @RequestMapping(value = "validateUsername")
+    @ResponseBody
+    public String validateUsername(User user) {
+        if (userService.validateUsername(user)) {
+            return "userNotExist";
+        } else {
+            return "userExist";
+        }
+    }
 
-	@RequestMapping(value = "getLoginUserInfo")
-	@ResponseBody
-	public User getLoginUser() {
-		User user = securityUserUtil.getLoginCusUser();
-		user.setPassword(null);
-		return user;
-	}
+    @RequestMapping(value = "getLoginUserInfo")
+    @ResponseBody
+    public User getLoginUser() {
+        User user = securityUserUtil.getLoginCusUser();
+        user.setPassword(null);
+        return user;
+    }
 
-	@RequestMapping(value = "updateLoginUserInfo")
-	@ResponseBody
-	public String updateLoginUserInfo(@Valid User user, Errors errors) {
-		if(errors.hasErrors()) {
-			return "updateUserInfoFail";
-		}
-		UserDetails userDetails = securityUserUtil.getLoginSecurityUser();
-		if(null == userDetails) {
-			return "userNotLogin";
-		}
-		if(! StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
-			return "usernameNotMatch";
-		}
-		if(userService.updateUserInfoByIdAndUsername(user)) {
-			return "updateUserInfoSuccess";
-		}
-		return "updateUserInfoFail";
-	}
+    @RequestMapping(value = "updateLoginUserInfo")
+    @ResponseBody
+    public String updateLoginUserInfo(@Valid User user, Errors errors) {
+        if (errors.hasErrors()) {
+            return "updateUserInfoFail";
+        }
+        UserDetails userDetails = securityUserUtil.getLoginSecurityUser();
+        if (null == userDetails) {
+            return "userNotLogin";
+        }
+        if (!StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
+            return "usernameNotMatch";
+        }
+        if (userService.updateUserInfoByIdAndUsername(user)) {
+            return "updateUserInfoSuccess";
+        }
+        return "updateUserInfoFail";
+    }
 
-	@RequestMapping(value = "updateLoginUserHeadImg", method = RequestMethod.POST)
-	@ResponseBody
-	public String updateLoginUserHeadImg(@Valid User user, Errors errors, MultipartFile upload) {
-		if(errors.hasErrors()) {
-			return "updateUserHeadImgFail";
-		}
-		UserDetails userDetails = securityUserUtil.getLoginSecurityUser();
-		if(null == userDetails) {
-			return "userNotLogin";
-		}
-		if(! StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
-			return "usernameNotMatch";
-		}
-		if(userService.updateUserHeadImgByIdAndUsername(user, upload)) {
-			return "updateUserHeadImgSuccess";
-		}
-		return "updateUserHeadImgFail";
-	}
+    @RequestMapping(value = "updateLoginUserHeadImg", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateLoginUserHeadImg(@Valid User user, Errors errors, MultipartFile upload) {
+        if (errors.hasErrors()) {
+            return "updateUserHeadImgFail";
+        }
+        UserDetails userDetails = securityUserUtil.getLoginSecurityUser();
+        if (null == userDetails) {
+            return "userNotLogin";
+        }
+        if (!StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
+            return "usernameNotMatch";
+        }
+        if (userService.updateUserHeadImgByIdAndUsername(user, upload)) {
+            return "updateUserHeadImgSuccess";
+        }
+        return "updateUserHeadImgFail";
+    }
 
-	@RequestMapping(value = "updateLoginUserPassword")
-	@ResponseBody
-	public String updateLoginUserPassword(@Valid User user, Errors errors) {
-		if(errors.hasErrors()) {
-			return "updateUserPasswordFail";
-		}
-		if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails)) {
-			return "userNotLogin";
-		}
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(! StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
-			return "usernameNotMatch";
-		}
-		if(userService.updateUserPasswordByIdAndUsername(user)) {
-			return "updateUserPasswordSuccess";
-		}
-		return "updateUserPasswordFail";
-	}
+    @RequestMapping(value = "updateLoginUserPassword")
+    @ResponseBody
+    public String updateLoginUserPassword(@Valid User user, Errors errors) {
+        if (errors.hasErrors()) {
+            return "updateUserPasswordFail";
+        }
+        if (!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails)) {
+            return "userNotLogin";
+        }
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!StringUtils.equals(user.getUsername(), userDetails.getUsername())) {
+            return "usernameNotMatch";
+        }
+        if (userService.updateUserPasswordByIdAndUsername(user)) {
+            return "updateUserPasswordSuccess";
+        }
+        return "updateUserPasswordFail";
+    }
 
-	@RequestMapping(value = "author-{username}")
-	public String getAuthorInfo(@PathVariable String username, Model model) {
-		User user = new User();
-		user.setUsername(username);
-		user = userService.getUserByUsername(user);
-		model.addAttribute("author", user);
-		return "authorInfo";
-	}
+    @RequestMapping(value = "author-{username}")
+    public String getAuthorInfo(@PathVariable String username, Model model) {
+        User user = new User();
+        user.setUsername(username);
+        user = userService.getUserByUsername(user);
+        model.addAttribute("author", user);
+        return "authorInfo";
+    }
 
 }

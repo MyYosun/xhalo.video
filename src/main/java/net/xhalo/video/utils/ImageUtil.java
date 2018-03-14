@@ -37,7 +37,7 @@ public class ImageUtil {
         }
         g.dispose();
         // 输出png图片
-        if(! ImageIO.write(image, IMAGE_HEAD_FORMAT, outFile)){
+        if (!ImageIO.write(image, IMAGE_HEAD_FORMAT, outFile)) {
             logger.error("ERROR WHEN PRODUCE USER HEAD, SOME REASONS:" +
                     "1.FORMAT ERROR. 2.OUT FILE DIRECTORY NOT EXIST");
         }

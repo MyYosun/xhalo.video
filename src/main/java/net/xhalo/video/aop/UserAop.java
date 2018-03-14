@@ -37,19 +37,22 @@ public class UserAop {
 
 
     @Pointcut("execution(* net.xhalo.video.security.service.imp.CusAuthenticationSuccessHandler.onAuthenticationSuccess(..))")
-    public void loginSuccess() {}
+    public void loginSuccess() {
+    }
 
     @Pointcut("execution(* net.xhalo.video.service.imp.UserServiceImp.addUser(..))")
-    public void processUserRegister() {}
+    public void processUserRegister() {
+    }
 
     @Pointcut("execution(* net.xhalo.video.service.imp.UserServiceImp.updateUser*(..))")
-    public void validateUserUpdate() {}
+    public void validateUserUpdate() {
+    }
 
     @AfterReturning(pointcut = "loginSuccess()")
     public void updateLoginTime(JoinPoint point) {
         Object[] args = point.getArgs();
-        for(int i = args.length - NUM_ONE; i >= NUM_ZERO; i++) {
-            if(args[i] instanceof Authentication) {
+        for (int i = args.length - NUM_ONE; i >= NUM_ZERO; i++) {
+            if (args[i] instanceof Authentication) {
                 Authentication authentication = (Authentication) args[i];
                 //小试反射
                 /*Object user = authentication.getPrincipal();
@@ -76,8 +79,8 @@ public class UserAop {
     @Around("processUserRegister()")
     public Object processUserRegister(ProceedingJoinPoint proceedingJoinPoint) {
         Object[] args = proceedingJoinPoint.getArgs();
-        for(Object arg : args) {
-            if(arg instanceof net.xhalo.video.model.User) {
+        for (Object arg : args) {
+            if (arg instanceof net.xhalo.video.model.User) {
                 net.xhalo.video.model.User user = (net.xhalo.video.model.User) arg;
                 PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -87,8 +90,8 @@ public class UserAop {
                 try {
                     Object result = null;
                     result = proceedingJoinPoint.proceed(modifiedArgs);
-                    if((boolean) result == true) {
-                        ImageUtil.createImage(" " + user.getNickname().substring(0,1) + " ",
+                    if ((boolean) result == true) {
+                        ImageUtil.createImage(" " + user.getNickname().substring(0, 1) + " ",
                                 new Font(IMAGE_HEAD_FONT_FORMAT, Font.BOLD, IMAGE_HEAD_FONT_SIZE),
                                 new File(HEAD_IMAGE_SAVE_PATH + user.getHeadImg()),
                                 IMAGE_HEAD_WIDTH, IMAGE_HEAD_HEIGHT);
@@ -107,14 +110,14 @@ public class UserAop {
     @Around("validateUserUpdate()")
     public boolean validateUserInfo(ProceedingJoinPoint proceedingJoinPoint) {
         Object[] args = proceedingJoinPoint.getArgs();
-        for(Object arg : args) {
-            if(arg instanceof net.xhalo.video.model.User) {
+        for (Object arg : args) {
+            if (arg instanceof net.xhalo.video.model.User) {
                 net.xhalo.video.model.User user = (net.xhalo.video.model.User) arg;
-                if(user == null || StringUtils.isEmpty(user.getId().toString()) || StringUtils.isEmpty(user.getUsername())) {
+                if (user == null || StringUtils.isEmpty(user.getId().toString()) || StringUtils.isEmpty(user.getUsername())) {
                     return false;
                 }
                 net.xhalo.video.model.User userDetail = userDao.getUserByUsername(user);
-                if(!(StringUtils.equals(userDetail.getId().toString(), user.getId().toString())))
+                if (!(StringUtils.equals(userDetail.getId().toString(), user.getId().toString())))
                     return false;
             }
         }

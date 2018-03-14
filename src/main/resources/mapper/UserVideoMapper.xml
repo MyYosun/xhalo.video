@@ -9,12 +9,12 @@
         <result property="content" column="content" jdbcType="VARCHAR"/>
         <result property="date" column="date" jdbcType="TIMESTAMP"/>
         <association property="user" javaType="net.xhalo.video.model.User">
-            <id column="user_id" jdbcType="BIGINT" property="id" />
-            <result column="username" jdbcType="VARCHAR" property="username" />
-            <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-            <result column="authority" jdbcType="VARCHAR" property="authority" />
-            <result column="sign" jdbcType="VARCHAR" property="sign" />
-            <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+            <id column="user_id" jdbcType="BIGINT" property="id"/>
+            <result column="username" jdbcType="VARCHAR" property="username"/>
+            <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+            <result column="authority" jdbcType="VARCHAR" property="authority"/>
+            <result column="sign" jdbcType="VARCHAR" property="sign"/>
+            <result column="head_img" jdbcType="VARCHAR" property="headImg"/>
         </association>
     </resultMap>
 

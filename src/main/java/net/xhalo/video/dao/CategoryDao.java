@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CategoryDao {
 
-	Category getCategoryById(@Param("id") Long id);
+    Category getCategoryById(@Param("id") Long id);
 
-	List<Category> getAllCategories();
+    List<Category> getAllCategories();
 }

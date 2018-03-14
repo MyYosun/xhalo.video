@@ -15,7 +15,7 @@ public class SecurityUserUtil {
 
     public UserDetails getLoginSecurityUser() {
         UserDetails userDetails = null;
-        if(!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
+        if (!(SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails))
             return userDetails;
         userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails;
@@ -23,7 +23,7 @@ public class SecurityUserUtil {
 
     public User getLoginCusUser() {
         UserDetails userDetails = getLoginSecurityUser();
-        if(null == userDetails)
+        if (null == userDetails)
             return null;
         User user = new User();
         user.setUsername(userDetails.getUsername());

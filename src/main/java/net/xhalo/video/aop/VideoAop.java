@@ -18,9 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 
-import static net.xhalo.video.config.FilePathProperties.BIG_IMAGE_SAVE_PATH;
-import static net.xhalo.video.config.FilePathProperties.IMAGE_SAVE_PATH;
-import static net.xhalo.video.config.FilePathProperties.VIDEO_SAVE_PATH;
+import static net.xhalo.video.config.FilePathProperties.*;
 
 @Component
 @Aspect
@@ -71,11 +69,11 @@ public class VideoAop {
     public boolean deleteLikeVideos(ProceedingJoinPoint proceedingJoinPoint) {
         Object[] args = proceedingJoinPoint.getArgs();
         Video video = null;
-        for(Object arg : args) {
-            if(null != arg && arg instanceof Video) {
+        for (Object arg : args) {
+            if (null != arg && arg instanceof Video) {
                 video = new Video();
                 Video argVideo = (Video) arg;
-                if(null == argVideo.getId()) {
+                if (null == argVideo.getId()) {
                     return false;
                 }
                 video.setId(argVideo.getId());
@@ -83,11 +81,11 @@ public class VideoAop {
         }
         try {
             video = videoService.getVideoByIdNotAddClick(video.getId());
-            if(null == video) {
+            if (null == video) {
                 return false;
             }
             boolean result = (boolean) proceedingJoinPoint.proceed(args);
-            if(result) {
+            if (result) {
                 userVideoService.deleteLikeVideo(video);
                 userVideoService.deleteVideoCommentByVideo(video);
                 File videoFile = new File(VIDEO_SAVE_PATH + video.getAddress());

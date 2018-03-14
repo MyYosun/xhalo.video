@@ -27,7 +27,7 @@ public class UserVideoServiceImp implements IUserVideoService {
 
     @Override
     public boolean addUserLikeVideo(User user, Video video) {
-        if(userVideoDao.validateUserLikeVideo(user, video) > NUM_ZERO) {
+        if (userVideoDao.validateUserLikeVideo(user, video) > NUM_ZERO) {
             return false;
         }
         return userVideoDao.addUserLikeVideo(user, video) == NUM_ONE;
@@ -36,7 +36,7 @@ public class UserVideoServiceImp implements IUserVideoService {
     @Override
     public boolean addLoginUserLikeVideo(Video video) {
         User user = securityUserUtil.getLoginCusUser();
-        if(null == user) {
+        if (null == user) {
             return false;
         }
         return addUserLikeVideo(user, video);
@@ -44,7 +44,7 @@ public class UserVideoServiceImp implements IUserVideoService {
 
     @Override
     public boolean deleteUserLikeVideo(User user, Video video) {
-        if(userVideoDao.validateUserLikeVideo(user, video) == NUM_ZERO) {
+        if (userVideoDao.validateUserLikeVideo(user, video) == NUM_ZERO) {
             return false;
         }
         return userVideoDao.deleteUserLikeVideo(user, video) == NUM_ONE;
@@ -58,7 +58,7 @@ public class UserVideoServiceImp implements IUserVideoService {
     @Override
     public boolean deleteLoginUserLikeVideo(Video video) {
         User user = securityUserUtil.getLoginCusUser();
-        if(null == user) {
+        if (null == user) {
             return false;
         }
         return deleteUserLikeVideo(user, video);
@@ -67,10 +67,10 @@ public class UserVideoServiceImp implements IUserVideoService {
     @Override
     public boolean validateUserLikeVideo(Video video) {
         User user = securityUserUtil.getLoginCusUser();
-        if(null == user) {
+        if (null == user) {
             return false;
         }
-        if(userVideoDao.validateUserLikeVideo(user, video) > NUM_ZERO) {
+        if (userVideoDao.validateUserLikeVideo(user, video) > NUM_ZERO) {
             return true;
         }
         return false;
@@ -94,7 +94,7 @@ public class UserVideoServiceImp implements IUserVideoService {
     @Override
     public boolean userAddVideoComment(Comment comment) {
         User user = securityUserUtil.getLoginCusUser();
-        if(null == user) {
+        if (null == user) {
             return false;
         }
         comment.setUser(user);

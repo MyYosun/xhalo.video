@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="/css/login.css"/>
     <link rel="stylesheet" href="/css/toastr.min.css"/>
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -27,7 +27,8 @@
                         </div>
                         <div class="group">
                             <label for="login_password" class="label">Password</label>
-                            <input id="login_password" name="password" type="password" class="input" data-type="password">
+                            <input id="login_password" name="password" type="password" class="input"
+                                   data-type="password">
                         </div>
                         <div class="group">
                             <input id="check" name="remember-me" type="checkbox" class="check" value="false">
@@ -51,7 +52,8 @@
                         </div>
                         <div class="group">
                             <label for="register_password" class="label">Password</label>
-                            <input id="register_password" name="password" type="password" class="input" data-type="password">
+                            <input id="register_password" name="password" type="password" class="input"
+                                   data-type="password">
                         </div>
                         <div class="group">
                             <label for="register_nickname" class="label">Nickname</label>
@@ -59,7 +61,8 @@
                         </div>
                     </form>
                     <div class="group">
-                        <input type="button" disabled id="register_btn" onclick="registerAction()" class="button" value="Sign Up">
+                        <input type="button" disabled id="register_btn" onclick="registerAction()" class="button"
+                               value="Sign Up">
                     </div>
                     <div class="hr"></div>
                     <div class="foot-lnk">
@@ -73,23 +76,23 @@
 </div>
 </body>
 <script>
-    if(getQueryString("error")) {
+    if (getQueryString("error")) {
         toastr.error("账号密码不匹配!");
     }
-    $('#check').on("change", function(){
-        if($('#check').val() == "true")
+    $('#check').on("change", function () {
+        if ($('#check').val() == "true")
             $('#check').val(false);
         else
             $('#check').val(true);
     });
 
     //实时验证用户名是否被注册
-    $('#register_username').blur(function(e){
+    $('#register_username').blur(function (e) {
         $.ajax({
             url: "validateUsername?username=" + $('#register_username').val(),
             type: "get",
-            success: function(data) {
-                if(data == "userExist") {
+            success: function (data) {
+                if (data == "userExist") {
                     toastr.error("用户名已被注册!");
                     $('#register_username').focus();
                     $('#register_btn').attr("disabled", true);

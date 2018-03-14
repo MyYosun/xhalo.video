@@ -41,7 +41,7 @@ public class MainController {
         Path video = Paths.get(VIDEO_SAVE_PATH, videoFilename);
 
         File file = video.toFile();
-        if(! (file.exists() || file.isFile()))
+        if (!(file.exists() || file.isFile()))
             return;
 
         int length = (int) Files.size(video);
@@ -98,14 +98,14 @@ public class MainController {
                           @RequestParam(name = "isHead", required = false, defaultValue = "false") Boolean isHead,
                           HttpServletResponse response) throws IOException {
         String imgSavePath = IMAGE_SAVE_PATH + imgFile;
-        if(isBig && isHead)
+        if (isBig && isHead)
             return;
-        if(isBig)
+        if (isBig)
             imgSavePath = BIG_IMAGE_SAVE_PATH + imgFile;
-        if(isHead)
+        if (isHead)
             imgSavePath = HEAD_IMAGE_SAVE_PATH + imgFile;
         File image = new File(imgSavePath);
-        if(!image.exists()){
+        if (!image.exists()) {
             logger.error("IMAGE FILE NOT FOUND!");
             return;
         }

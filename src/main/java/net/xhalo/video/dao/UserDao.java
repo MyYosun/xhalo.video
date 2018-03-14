@@ -7,19 +7,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
 
-	Integer addUser(User user);
+    Integer addUser(User user);
 
-	Integer validateUsername(User user);
+    Integer validateUsername(User user);
 
-	User findByUsername(@Param("username") String username);
+    User findByUsername(@Param("username") String username);
 
-	void updateLoginTime(User user);
+    void updateLoginTime(User user);
 
-	User getUserByUsername(User user);
+    User getUserByUsername(User user);
 
-	Integer updateUserInfoByIdAndUsername(User user);
+    Integer updateUserInfoByIdAndUsername(User user);
 
-	Integer updateUserHeadImgByIdAndUsername(User user);
+    Integer updateUserHeadImgByIdAndUsername(User user);
 
-	Integer updateUserPasswordByIdAndUsernameAndPassword(@Param("user") User user);
+    Integer updateUserPasswordByIdAndUsernameAndPassword(@Param("user") User user);
 }

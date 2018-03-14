@@ -23,7 +23,7 @@ public class SecurityUserService implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         net.xhalo.video.model.User user = userDao.findByUsername(username);
-        if(null != user) {
+        if (null != user) {
             List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             if (StringUtils.equals(user.getAuthority(), AUTHORITY_ADMIN))

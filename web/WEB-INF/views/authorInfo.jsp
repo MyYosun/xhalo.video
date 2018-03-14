@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>${author.nickname}的频道</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link href="/css/xhalo-video.css" rel="stylesheet">
 </head>
 <body>
@@ -40,7 +40,8 @@
                 <div class="col-sm-3 col-sm-offset-1" style="text-align:center;">
                     <label>他的头像</label>
                     <div class="col-sm-12" style="margin:10px 0 10px 0;">
-                        <img id="user-head" src="/showImg?isHead=true&view=${author.headImg}" class="img-circle" style="height:100px;width:100px;">
+                        <img id="user-head" src="/showImg?isHead=true&view=${author.headImg}" class="img-circle"
+                             style="height:100px;width:100px;">
                     </div>
                 </div>
             </div>

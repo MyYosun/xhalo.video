@@ -45,25 +45,25 @@ public class VideoServiceImp implements IVideoService {
     private SecurityUserUtil securityUserUtil;
 
     @Override
-    @CacheEvict(value = "video", allEntries = true , beforeInvocation = true)
+    @CacheEvict(value = "video", allEntries = true, beforeInvocation = true)
     public Video addVideo(MultipartFile upload, Video video) {
         String md5 = null;
         String address = null;
         String view = null;
         String videoPath = null;
         User author = securityUserUtil.getLoginCusUser();
-        if(author == null)
+        if (author == null)
             return null;
         try {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
-            if(StringUtils.isEmpty(md5))
+            if (StringUtils.isEmpty(md5))
                 return null;
             address = video.getTitle() + md5 + VIDEO_FILE_FORMAT;
             videoPath = VIDEO_SAVE_PATH + address;
             File target = new File(videoPath);
             upload.transferTo(target);
-        } catch (IOException e){
-            logger.error("ERROR GET MD5 FOR UPLOAD FILE:",e);
+        } catch (IOException e) {
+            logger.error("ERROR GET MD5 FOR UPLOAD FILE:", e);
             e.printStackTrace();
             return null;
         }
@@ -78,7 +78,7 @@ public class VideoServiceImp implements IVideoService {
         obj.setDate(new Date());
         obj.setView(view);
         obj.setDuration(FFmpegUtil.getDuration(videoPath));
-        if(videoDao.addVideo(obj) == NUM_ONE)
+        if (videoDao.addVideo(obj) == NUM_ONE)
             return obj;
         return null;
     }
@@ -117,7 +117,7 @@ public class VideoServiceImp implements IVideoService {
     public List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         String sqlEL = translateOptionDuration(optionDuration);
-        if(!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
+        if (!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
             return null;
         return videoDao.getVideosByCategoryAndOrderByWhat(video, sqlEL, optionOrder);
     }
@@ -126,7 +126,7 @@ public class VideoServiceImp implements IVideoService {
     public List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         String sqlEL = translateOptionDuration(optionDuration);
-        if(!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
+        if (!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
             return null;
         return videoDao.getVideosByTitleAndOrderByWhat(video, sqlEL, optionOrder);
     }
@@ -134,18 +134,18 @@ public class VideoServiceImp implements IVideoService {
     private String translateOptionDuration(String optionDuration) {
         String sqlEL = null;
         switch (optionDuration) {
-            case VIDEO_DURATION_ALL :
+            case VIDEO_DURATION_ALL:
                 break;
-            case VIDEO_DURATION_SHORT :
+            case VIDEO_DURATION_SHORT:
                 sqlEL = VIDEO_DURATION_SHORT_SQL;
                 break;
-            case VIDEO_DURATION_MEDIUM :
+            case VIDEO_DURATION_MEDIUM:
                 sqlEL = VIDEO_DURATION_MEDIUM_SQL;
                 break;
-            case VIDEO_DURATION_LONG :
+            case VIDEO_DURATION_LONG:
                 sqlEL = VIDEO_DURATION_LONG_SQL;
                 break;
-            case VIDEO_DURATION_OTHER :
+            case VIDEO_DURATION_OTHER:
                 sqlEL = VIDEO_DURATION_OTHER_SQL;
                 break;
         }
@@ -160,7 +160,7 @@ public class VideoServiceImp implements IVideoService {
     @Override
     public List<Video> getUserUploadVideos() {
         User author = securityUserUtil.getLoginCusUser();
-        if(author == null)
+        if (author == null)
             return null;
         return getVideosByAuthor(author);
     }
@@ -174,7 +174,7 @@ public class VideoServiceImp implements IVideoService {
     @Override
     public boolean deleteUserUploadVideo(Video video) {
         User author = securityUserUtil.getLoginCusUser();
-        if(null == author)
+        if (null == author)
             return false;
         video.setAuthor(author);
         return deleteVideoByAuthorAndId(video);
@@ -188,7 +188,7 @@ public class VideoServiceImp implements IVideoService {
     @Override
     public List<Video> getUserLikeVideos() {
         User user = securityUserUtil.getLoginCusUser();
-        if(null == user) {
+        if (null == user) {
             return null;
         }
         return videoDao.getLikeVideosByUser(user);

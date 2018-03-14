@@ -21,23 +21,21 @@ public class VideoController {
     private IVideoService videoService;
 
     /**
-     *
      * @param upload
      * @param video
      * @param errors
-     * @return
-     * 上传文件和表单时注意接受表单的对象不要加注解
+     * @return 上传文件和表单时注意接受表单的对象不要加注解
      */
     @RequestMapping(value = "uploadVideo", method = RequestMethod.POST)
     @ResponseBody
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
                            Errors errors) {
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             return "uploadFail";
         }
-        if(null == upload || upload.isEmpty() || errors.hasErrors())
+        if (null == upload || upload.isEmpty() || errors.hasErrors())
             return "formatError";
-        if(videoService.addVideo(upload, video) != null)
+        if (videoService.addVideo(upload, video) != null)
             return "uploadSuccess";
         else
             return "uploadFail";
@@ -55,7 +53,7 @@ public class VideoController {
     @RequestMapping(value = "getRecommendVideos")
     @ResponseBody
     public List<Video> getRecommendVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
-                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+                                          @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
         List<Video> newVideoList = null;
         newVideoList = videoService.getRecommendVideos(pageNum, pageSize);
         return newVideoList;
@@ -75,7 +73,7 @@ public class VideoController {
     public String getVideoById(@PathVariable(value = "videoId") Long videoId, Model model) {
         Video result = null;
         result = videoService.getVideoById(videoId);
-        if(result == null)
+        if (result == null)
             return "error/404";
         model.addAttribute("video", result);
         return "showVideo";
@@ -124,7 +122,7 @@ public class VideoController {
     @RequestMapping(value = "deleteUserUploadVideo")
     @ResponseBody
     public String deleteUserUploadVideos(Video video) {
-        if(videoService.deleteUserUploadVideo(video)) {
+        if (videoService.deleteUserUploadVideo(video)) {
             return "deleteSuccess";
         }
         return "deleteFail";
@@ -139,7 +137,7 @@ public class VideoController {
     @RequestMapping(value = "deleteUserLikeVideo")
     @ResponseBody
     public String deleteUserLikeVideos(Video video) {
-        if(videoService.deleteUserLikeVideo(video)) {
+        if (videoService.deleteUserLikeVideo(video)) {
             return "deleteSuccess";
         }
         return "deleteFail";

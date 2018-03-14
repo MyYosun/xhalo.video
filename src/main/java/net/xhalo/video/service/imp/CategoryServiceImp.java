@@ -14,16 +14,16 @@ import java.util.List;
 @Transactional
 public class CategoryServiceImp implements ICategoryService {
 
-	@Autowired
-	private CategoryDao categoryDao;
+    @Autowired
+    private CategoryDao categoryDao;
 
-	@Cacheable(value = "category", key = "#root.methodName")
-	public List<Category> getAllCategories() {
-		return categoryDao.getAllCategories();
-	}
+    @Cacheable(value = "category", key = "#root.methodName")
+    public List<Category> getAllCategories() {
+        return categoryDao.getAllCategories();
+    }
 
-	@Cacheable(value = "category", key = "#categoryId")
-	public Category getCategoryById(Long categoryId) {
-		return categoryDao.getCategoryById(categoryId);
-	}
+    @Cacheable(value = "category", key = "#categoryId")
+    public Category getCategoryById(Long categoryId) {
+        return categoryDao.getCategoryById(categoryId);
+    }
 }

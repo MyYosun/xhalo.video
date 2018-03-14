@@ -14,7 +14,7 @@ public class RedisCacheUtil {
     private Logger logger = LoggerFactory.getLogger(RedisCacheUtil.class);
 
     public Object get(String cacheName, Object key) {
-        if(!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
+        if (!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
             return null;
         RedisCache redisCache = (RedisCache) redisCacheManager.getCache(cacheName);
         try {
@@ -27,9 +27,9 @@ public class RedisCacheUtil {
     }
 
     public boolean put(String cacheName, Object key, Object value) {
-        if(null == key || null == value)
+        if (null == key || null == value)
             return false;
-        if(!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
+        if (!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
             return false;
         RedisCache redisCache = (RedisCache) redisCacheManager.getCache(cacheName);
         redisCache.put(key, value);
@@ -37,9 +37,9 @@ public class RedisCacheUtil {
     }
 
     public boolean delete(String cacheName, Object key) {
-        if(null == key)
+        if (null == key)
             return false;
-        if(!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
+        if (!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
             return false;
         RedisCache redisCache = (RedisCache) redisCacheManager.getCache(cacheName);
         redisCache.evict(key);
@@ -47,9 +47,9 @@ public class RedisCacheUtil {
     }
 
     public boolean clearCache(String cacheName) {
-        if(null == cacheName)
+        if (null == cacheName)
             return false;
-        if(!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
+        if (!(redisCacheManager.getCache(cacheName) instanceof RedisCache))
             return false;
         RedisCache redisCache = (RedisCache) redisCacheManager.getCache(cacheName);
         redisCache.clear();

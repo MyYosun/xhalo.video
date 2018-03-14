@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>XHalo Video</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/thumbnail-gallery.css">
     <style>
@@ -12,9 +12,10 @@
             margin: 50px 0 0 0;
             height: 400px;
         }
-        .carousel-inner img{
+
+        .carousel-inner img {
             margin: 0 auto;
-            height: 400px!important;
+            height: 400px !important;
             width: 80%;
         }
     </style>
@@ -83,9 +84,9 @@
     $('#myCarousel').carousel('cycle');
     getRecommendVideos();
     getLatestVideos();
-    if(getQueryString("loginSuccess"))
+    if (getQueryString("loginSuccess"))
         toastr.info("登录成功");
-    if(getQueryString("logout"))
+    if (getQueryString("logout"))
         toastr.info("登出成功");
 </script>
 </html>

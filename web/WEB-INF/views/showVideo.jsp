@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>${video.title}</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link href="/css/video-js.min.css" rel="stylesheet">
     <script src="/js/video.min.js"></script>
     <link href="/css/xhalo-video.css" rel="stylesheet">
@@ -31,7 +31,8 @@
                 <br/>
                 <ul class="list-unstyled">
                     <li>
-                        <p style="font-weight: 300;"><fmt:formatDate type="date" dateStyle="long" value="${video.date}"/>发布</p>
+                        <p style="font-weight: 300;"><fmt:formatDate type="date" dateStyle="long"
+                                                                     value="${video.date}"/>发布</p>
                     </li>
                     <li class="li-right">
                         <a href="javascript:void(0);" onclick="likeVideo('likeBtn')" id="likeBtn"
@@ -63,7 +64,9 @@
                         </div>
                         <input type="hidden" value="${video.id}" name="video.id"/>
                         <div class="form-group" id="comment-submit" style="display: none">
-                            <button type="button" id="comment-btn" onclick="submitComment()" class="btn btn-default">提交</button>
+                            <button type="button" id="comment-btn" onclick="submitComment()" class="btn btn-default">
+                                提交
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -131,7 +134,7 @@
             toastr.info("链接已复制到剪切板!");
         }
     });
-    $('#comment').on("click",function () {
+    $('#comment').on("click", function () {
         $('#comment-submit').show(200);
     });
     getPopularList();

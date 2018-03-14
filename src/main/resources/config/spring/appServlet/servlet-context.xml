@@ -16,15 +16,15 @@
     <mvc:default-servlet-handler/>
 
     <!--跳转jsp页面-->
-    <mvc:view-controller path="/index" view-name="/index" />
-    <mvc:view-controller path="/login" view-name="/login" />
-    <mvc:view-controller path="/index.html" view-name="redirect:/index" />
-    <mvc:view-controller path="/" view-name="redirect:/index" />
-    <mvc:view-controller path="/upload" view-name="/upload" />
-    <mvc:view-controller path="/user-page" view-name="/userInfo" />
+    <mvc:view-controller path="/index" view-name="/index"/>
+    <mvc:view-controller path="/login" view-name="/login"/>
+    <mvc:view-controller path="/index.html" view-name="redirect:/index"/>
+    <mvc:view-controller path="/" view-name="redirect:/index"/>
+    <mvc:view-controller path="/upload" view-name="/upload"/>
+    <mvc:view-controller path="/user-page" view-name="/userInfo"/>
     <!--出错页面配置-->
-    <mvc:view-controller path="/404" view-name="/error/404" />
-    <mvc:view-controller path="/500" view-name="/error/500" />
+    <mvc:view-controller path="/404" view-name="/error/404"/>
+    <mvc:view-controller path="/500" view-name="/error/500"/>
 
 
     <!-- 视图解析器 -->

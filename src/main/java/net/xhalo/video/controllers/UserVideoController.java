@@ -23,7 +23,7 @@ public class UserVideoController {
     @RequestMapping(value = "userAddLikeVideo")
     @ResponseBody
     public String userAddLikeVideo(Video video) {
-        if(userVideoService.addLoginUserLikeVideo(video)) {
+        if (userVideoService.addLoginUserLikeVideo(video)) {
             return "addSuccess";
         }
         return "addFail";
@@ -32,7 +32,7 @@ public class UserVideoController {
     @RequestMapping(value = "userDeleteLikeVideo")
     @ResponseBody
     public String userDeleteLikeVideo(Video video) {
-        if(userVideoService.deleteLoginUserLikeVideo(video)) {
+        if (userVideoService.deleteLoginUserLikeVideo(video)) {
             return "deleteSuccess";
         }
         return "deleteFail";
@@ -41,7 +41,7 @@ public class UserVideoController {
     @RequestMapping(value = "validateUserLikeVideo")
     @ResponseBody
     public String validateUserLikeVideo(Video video) {
-        if(userVideoService.validateUserLikeVideo(video)) {
+        if (userVideoService.validateUserLikeVideo(video)) {
             return "like";
         }
         return "unlike";
@@ -50,10 +50,10 @@ public class UserVideoController {
     @RequestMapping(value = "userAddVideoComment")
     @ResponseBody
     public String addVideoComment(@Valid Comment comment, Errors errors) {
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             return "addFail";
         }
-        if(userVideoService.userAddVideoComment(comment)) {
+        if (userVideoService.userAddVideoComment(comment)) {
             return "addSuccess";
         }
         return "addFail";

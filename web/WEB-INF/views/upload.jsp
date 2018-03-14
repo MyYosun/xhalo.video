@@ -2,9 +2,9 @@
 <html>
 <head>
     <title>Upload Video</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
@@ -32,7 +32,7 @@
             <form role="form" id="upload-form" method="post">
                 <div class="form-group">
                     <label for="video-title">视频标题</label>
-                    <input type="text" name="title" class="form-control" id="video-title" />
+                    <input type="text" name="title" class="form-control" id="video-title"/>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
@@ -56,9 +56,9 @@
                 </div>
                 <div class="form-group">
                     <label for="upload-file">视频文件</label>
-                    <input type="file" accept="video/mp4" name="upload" id="upload-file" />
+                    <input type="file" accept="video/mp4" name="upload" id="upload-file"/>
                     <p class="help-block">
-                       支持上传1GB以内的视频文件,只允许上传mp4格式视频哦!
+                        支持上传1GB以内的视频文件,只允许上传mp4格式视频哦!
                     </p>
                 </div>
                 <button type="button" id="uploadBtn" onclick="uploadAction()" class="btn btn-default">上传视频</button>

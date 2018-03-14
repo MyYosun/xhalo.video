@@ -9,8 +9,9 @@
             padding: 19px 0;
             background-color: #f5f5f5;
         }
+
         a {
-            text-decoration:none;
+            text-decoration: none;
             out-line: none;
             color: #777;
         }
@@ -40,10 +41,13 @@
                         <h4>联系我吧</h4>
                         <ul class="list-unstyled">
                             <li>
-                                <a target="_blank" title="新浪微博" href="http://weibo.com/xhalo"><i class="fa fa-weibo" aria-hidden="true"></i> 新浪微博</a>
+                                <a target="_blank" title="新浪微博" href="http://weibo.com/xhalo"><i class="fa fa-weibo"
+                                                                                                 aria-hidden="true"></i>
+                                    新浪微博</a>
                             </li>
                             <li>
-                                <a href="mailto:602704853@qq.com"><i class="fa fa-mail-forward" aria-hidden="true"></i> 电子邮件</a>
+                                <a href="mailto:602704853@qq.com"><i class="fa fa-mail-forward" aria-hidden="true"></i>
+                                    电子邮件</a>
                             </li>
                         </ul>
                     </div>
@@ -51,13 +55,17 @@
                         <h4>相关链接</h4>
                         <ul class="list-unstyled">
                             <li>
-                                <a target="_blank" title="YouTube" href="https://www.youtube.com/"><i class="fa fa-youtube-play" aria-hidden="true"></i> YouTube</a>
+                                <a target="_blank" title="YouTube" href="https://www.youtube.com/"><i
+                                        class="fa fa-youtube-play" aria-hidden="true"></i> YouTube</a>
                             </li>
                             <li>
-                                <a target="_blank" title="Vimeo" href="https://vimeo.com/watch"><i class="fa fa-vimeo" aria-hidden="true"></i> Vimeo</a>
+                                <a target="_blank" title="Vimeo" href="https://vimeo.com/watch"><i class="fa fa-vimeo"
+                                                                                                   aria-hidden="true"></i>
+                                    Vimeo</a>
                             </li>
                             <li>
-                                <a target="_blank" title="哔哩哔哩动画" href="https://www.bilibili.com/"><i class="fa fa-play-circle" aria-hidden="true"></i> 哔哩哔哩动画</a>
+                                <a target="_blank" title="哔哩哔哩动画" href="https://www.bilibili.com/"><i
+                                        class="fa fa-play-circle" aria-hidden="true"></i> 哔哩哔哩动画</a>
                             </li>
                         </ul>
                     </div>
@@ -68,7 +76,9 @@
         <hr>
         <div class="row footer-bottom">
             <ul class="list-inline text-center">
-                <li>Copyright<i class="fa-copyright" aria-hidden="true"></i> 2018 XieHao. All Rights Reserved. Designed By XieHao</li>
+                <li>Copyright<i class="fa-copyright" aria-hidden="true"></i> 2018 XieHao. All Rights Reserved. Designed
+                    By XieHao
+                </li>
             </ul>
         </div>
     </div>

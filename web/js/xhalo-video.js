@@ -8,14 +8,14 @@ function formatTime(seconds) {
         .replace(/\b(\d)\b/g, "0$1");
 }
 
-function formatDate(str){
+function formatDate(str) {
     var oDate = new Date(str),
         oYear = oDate.getFullYear(),
-        oMonth = oDate.getMonth()+1,
+        oMonth = oDate.getMonth() + 1,
         oDay = oDate.getDate(),
         oHour = oDate.getHours(),
         oMinute = oDate.getMinutes(),
-        oTime = oYear.toString() + '-' + oMonth.toString() +'-'+
+        oTime = oYear.toString() + '-' + oMonth.toString() + '-' +
             oDay.toString() + ' ' + oHour.toString() + ':' + oMinute.toString();//最后拼接时间
     return oTime;
 };
@@ -280,7 +280,7 @@ function createCommentSingle(comment) {
     var divComment = $('<div class="media-body"></div>');
     divTop.append(divComment);
     divComment.append($('<h4 class="media-heading">' + comment.user.nickname +
-        ' <small>' + formatDate(Date.parse(comment.date)) +'</small></h4>'));
+        ' <small>' + formatDate(Date.parse(comment.date)) + '</small></h4>'));
     divComment.append($('<p>' + comment.content + '</p>'));
     return liTop;
 }

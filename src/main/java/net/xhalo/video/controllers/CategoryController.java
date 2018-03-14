@@ -16,22 +16,22 @@ import java.util.List;
 @Controller
 @Scope(value = "prototype")
 public class CategoryController {
-	@Autowired
-	private ICategoryService categoryService;
+    @Autowired
+    private ICategoryService categoryService;
 
-	@ResponseBody
-	@RequestMapping(value = "/getAllCategories", method = RequestMethod.GET)
-	public List<Category> getAllCategories(){
-		List<Category> categoryList = categoryService.getAllCategories();
-		return categoryList;
-	}
+    @ResponseBody
+    @RequestMapping(value = "/getAllCategories", method = RequestMethod.GET)
+    public List<Category> getAllCategories() {
+        List<Category> categoryList = categoryService.getAllCategories();
+        return categoryList;
+    }
 
-	@RequestMapping(value = "category-{categoryId}.html")
-	public String getVideosByCategoryId(@PathVariable(value = "categoryId") Long categoryId, Model model) {
-		Category result = categoryService.getCategoryById(categoryId);
-		if(result == null)
-			return "/error/404";
-		model.addAttribute("category", result);
-		return "showVideos";
-	}
+    @RequestMapping(value = "category-{categoryId}.html")
+    public String getVideosByCategoryId(@PathVariable(value = "categoryId") Long categoryId, Model model) {
+        Category result = categoryService.getCategoryById(categoryId);
+        if (result == null)
+            return "/error/404";
+        model.addAttribute("category", result);
+        return "showVideos";
+    }
 }
