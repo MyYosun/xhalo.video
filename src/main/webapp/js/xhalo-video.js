@@ -196,6 +196,12 @@ function modifyLikeBtn(btnId) {
 }
 
 function likeVideo(btnId) {
+    if ($('#isLogin').val() == "false") {
+        toastr.error("请先登录");
+        setTimeout(function () {
+            window.location.href = "/login";
+        }, 2000);
+    }
     var videoId = $('#videoId').val();
     $.ajax({
         url: "userAddLikeVideo",
@@ -238,6 +244,17 @@ function clearHeart(btnId) {
 }
 
 function submitComment() {
+    if ($('#isLogin').val() == "false") {
+        toastr.error("请先登录");
+        setTimeout(function () {
+            window.location.href = "/login";
+        }, 2000);
+        return;
+    }
+    if ($('#comment').val().length < 1 || $('#comment').val().length > 250) {
+        toastr.error("请检查评论长度然后重试!");
+        return;
+    }
     $('#comment-form').ajaxSubmit({
         url: "userAddVideoComment",
         type: "post",
@@ -246,6 +263,7 @@ function submitComment() {
                 toastr.info("评论成功!");
                 $('#comment-ul').html("");
                 getCommentList();
+                $('#comment-form').resetForm();
             } else {
                 toastr.error("评论失败,请重试!");
             }

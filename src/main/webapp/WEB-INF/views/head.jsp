@@ -63,9 +63,11 @@
                 <li><a href="/upload"><span class="glyphicon glyphicon-upload"></span> 上传视频</a></li>
                 <li><a href="/user-page"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
                 <sec:authorize access="!hasRole('ROLE_USER')">
+                    <input id="isLogin" type="hidden" value="false"/>
                     <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_USER')">
+                    <input id="isLogin" type="hidden" value="true"/>
                     <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
                 </sec:authorize>
             </ul>
