@@ -16,8 +16,8 @@
                 &times;
             </button>
 
-            <div class="modal-body">
-                正在上传，请不要关闭界面并耐心等待...
+            <div class="modal-body" id="upload-info">
+                正在上传，已上传<span id="upload-percent"></span>%请不要关闭界面并耐心等待...
             </div>
 
         </div>

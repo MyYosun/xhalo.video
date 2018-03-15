@@ -562,6 +562,19 @@ function uploadAction() {
             });
             uploadBtn.attr("disabled", "disabled");
         },
+        xhr: function() { //用以显示上传进度
+            var xhr = $.ajaxSettings.xhr();
+            if (xhr.upload) {
+                xhr.upload.addEventListener('progress', function(event) {
+                    var percent = Math.floor(event.loaded / event.total * 100);
+                    if(percent != 100)
+                        $('#upload-percent').html(percent);
+                    else
+                        $('#upload-info').html("上传完成，正在转码...");
+                }, false);
+            }
+            return xhr;
+        },
         success: function (data) {
             $('#myModal').modal("hide");
             if (data == "formatError") {
@@ -575,6 +588,7 @@ function uploadAction() {
                 }, 4000);
             }
         }
+
     });
     return false;
 }
