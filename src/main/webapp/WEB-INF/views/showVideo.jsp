@@ -15,8 +15,8 @@
 <jsp:include page="head.jsp"></jsp:include>
 <input type="hidden" value="${video.id}" id="videoId"/>
 <div style="width: 100%;">
-    <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
-           controls preload="auto" style="width:100%!important;" height="600"
+    <video id="video_display" class="video-js vjs-default-skin vjs-big-play-centered"
+           controls preload="auto" style="width:100%!important; height:560px;"
            data-setup='{"example_option":true}'>
         <source src="videoPlay?videoAddress=${video.address}" type='video/mp4'/>
     </video>
