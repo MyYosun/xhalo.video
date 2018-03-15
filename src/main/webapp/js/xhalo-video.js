@@ -27,6 +27,32 @@ function getQueryString(name) {
     return null;
 }
 
+function isMobile() {
+    var userAgentInfo = navigator.userAgent;
+
+    var mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+
+    var mobile_flag = false;
+
+    //根据userAgent判断是否是手机
+    for (var v = 0; v < mobileAgents.length; v++) {
+        if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+            mobile_flag = true;
+            break;
+        }
+    }
+
+    var screen_width = window.screen.width;
+    var screen_height = window.screen.height;
+
+    //根据屏幕分辨率判断是否是手机
+    if (screen_width < 500 && screen_height < 800) {
+        mobile_flag = true;
+    }
+
+    return mobile_flag;
+}
+
 
 //从这里开始
 //设置提示框的参数
@@ -160,18 +186,23 @@ function getRecommendVideos() {
 }
 
 function showRecommendVideos(videoList) {
+    var isBig = !isMobile();
+    var imgHeight = "";
+    if(!isBig) {
+        imgHeight = "height:300px!important;";
+    }
     for (var i = 0; i < videoList.length; i++) {
         var video = videoList[i];
         if (i == 0) {
             $('#carousel-indicators').append($('<li data-target="#myCarousel" data-slide-to="' + i + '" class="active"></li>'));
             var divSingle = $('<div class="item active"></div>');
-            divSingle.append($('<a href="/video-' + video.id + '.html"><img src="/showImg?isBig=true&view=' + video.view + '" alt="First slide"></a>'));
+            divSingle.append($('<a href="/video-' + video.id + '.html"><img style="width:100%;' + imgHeight + '" src="/showImg?isBig=' + isBig + '&view=' + video.view + '" alt="First slide"></a>'));
             divSingle.append($('<div class="carousel-caption">' + video.title + '</div>'));
             $('#carousel-inner').append(divSingle);
         } else {
             $('#carousel-indicators').append($('<li data-target="#myCarousel" data-slide-to="' + i + '"></li>'));
             var divSingle = $('<div class="item"></div>');
-            divSingle.append($('<a href="/video-' + video.id + '.html"><img src="/showImg?isBig=true&view=' + video.view + '" alt="First slide"></a>'));
+            divSingle.append($('<a href="/video-' + video.id + '.html"><img style="width:100%;' + imgHeight + '" src="/showImg?isBig=' + isBig + '&view=' + video.view + '"></a>'));
             divSingle.append($('<div class="carousel-caption">' + video.title + '</div>'));
             $('#carousel-inner').append(divSingle);
         }

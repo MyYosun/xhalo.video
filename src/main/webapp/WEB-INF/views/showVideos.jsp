@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>${category.name}${video.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
@@ -33,8 +34,8 @@
             <div class="page-header">
                 <h3>
                     ${category.name}${video.title} 的结果
-                    <small style="margin-left:10px;"><span class="glyphicon glyphicon-list" data-toggle="collapse"
-                                                           data-target="#options"></span> 筛选
+                    <small style="margin-left:10px;"><a class="glyphicon glyphicon-list" data-toggle="collapse"
+                                                           data-target="#options"></a> 筛选
                     </small>
                 </h3>
                 <div id="options" class="collapse out">
