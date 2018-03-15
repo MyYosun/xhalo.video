@@ -126,15 +126,21 @@
 </body>
 <script src="/js/jquery.zclip.js"></script>
 <script>
-    $("#shareBtn").zclip({
-        path: '/js/ZeroClipboard.swf',
-        copy: function () {
-            return window.document.location.href;
-        },
-        afterCopy: function () {
-            toastr.info("链接已复制到剪切板!");
-        }
-    });
+    if (!isMobile()) {
+        $("#shareBtn").zclip({
+            path: '/js/ZeroClipboard.swf',
+            copy: function () {
+                return window.document.location.href;
+            },
+            afterCopy: function () {
+                toastr.info("链接已复制到剪切板!");
+            }
+        });
+    } else {
+        $("#shareBtn").on("click", function (e) {
+            toastr.info("请通过浏览器自带的分享按钮分享!");
+        });
+    }
     $('#comment').on("click", function () {
         $('#comment-submit').show(200);
     });
