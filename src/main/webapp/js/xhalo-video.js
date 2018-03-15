@@ -582,15 +582,13 @@ function uploadAction() {
             } else if (data == "uploadFail") {
                 toastr.info("上传失败，请检查相应的视频信息和文件格式与大小!");
             } else {
-                toastr.info("上传成功,即将前往主页...");
-                setTimeout(function () {
-                    window.location.href = "/index";
-                }, 4000);
+                toastr.info("上传成功!");
             }
+            return false;
         }
 
     });
-    return false;
+    return;
 }
 
 /**上传结束**/

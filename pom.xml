@@ -275,16 +275,16 @@
 
     <profiles>
         <profile>
-            <id>uat</id>
+            <id>prd</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
-                <env>uat</env>
+                <env>prd</env>
             </properties>
         </profile>
         <profile>
             <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <env>dev</env>
             </properties>

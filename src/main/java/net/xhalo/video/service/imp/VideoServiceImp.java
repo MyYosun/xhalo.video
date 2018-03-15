@@ -58,7 +58,7 @@ public class VideoServiceImp implements IVideoService {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if (StringUtils.isEmpty(md5))
                 return null;
-            address = video.getTitle() + md5 + VIDEO_FILE_FORMAT;
+            address = md5 + VIDEO_FILE_FORMAT;
             videoPath = VIDEO_SAVE_PATH + address;
             File target = new File(videoPath);
             upload.transferTo(target);
@@ -67,7 +67,7 @@ public class VideoServiceImp implements IVideoService {
             e.printStackTrace();
             return null;
         }
-        view = video.getTitle() + md5 + IMAGE_FILE_FORMAT;
+        view = md5 + IMAGE_FILE_FORMAT;
         Video obj = new Video();
         obj.setTitle(video.getTitle());
         obj.setAuthor(author);
