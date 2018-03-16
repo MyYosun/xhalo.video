@@ -43,7 +43,7 @@
                 </ul>
             </div>
             <div class="media">
-                <a class="media-left" href="#">
+                <a class="media-left" href="/author-${video.author.username}">
                     <img class="media-object img-circle" style="height:80px;width:80px;"
                          src="/showImg?isHead=true&view=${video.author.headImg}"
                          alt="head">
