@@ -11,7 +11,24 @@
     <global-method-security pre-post-annotations="enabled"/>
 
     <!-- 不需要进行安全认证的资源 -->
-    <!--<http pattern="/resources/**" security="none" />-->
+    <http pattern="/css/**" security="none" />
+    <http pattern="/fonts/**" security="none" />
+    <http pattern="/images/**" security="none" />
+    <http pattern="/js/**" security="none" />
+    <http pattern="/showImg" security="none" />
+    <http pattern="/videoPlay" security="none" />
+    <http pattern="/404" security="none" />
+    <http pattern="/500" security="none" />
+    <http pattern="/index" security="none" />
+    <http pattern="/getAllCategories" security="none" />
+    <http pattern="/getLatestVideos" security="none" />
+    <http pattern="/getRecommendVideos" security="none" />
+    <http pattern="/getVideoCommentByVideo" security="none" />
+    <http pattern="/category-*.html" security="none" />
+    <http pattern="/video-*.html" security="none" />
+    <http pattern="/search" security="none" />
+    <http pattern="/getVideosByCategoryAndPage" security="none" />
+    <http pattern="/getVideosByTitleAndPage" security="none" />
 
     <!-- 资源所需要的权限 -->
     <http use-expressions="true" auto-config="true">
