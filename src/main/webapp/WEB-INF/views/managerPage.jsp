@@ -94,8 +94,7 @@
                             <h4 class="modal-title text-center" id="myModalLabel">提示</h4>
                         </div>
                         <div class="modal-body text-center">
-                            <p style="font-size:16px;">此操作可能需要花费一段时间执行，请确认次时间段为空闲时间段，并耐心等待
-                                确认执行？</p>
+                            <p style="font-size:16px;">确认执行???</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

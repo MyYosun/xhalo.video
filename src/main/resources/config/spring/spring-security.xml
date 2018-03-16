@@ -19,19 +19,18 @@
     <http pattern="/videoPlay" security="none" />
     <http pattern="/404" security="none" />
     <http pattern="/500" security="none" />
-    <http pattern="/index" security="none" />
-    <http pattern="/getAllCategories" security="none" />
-    <http pattern="/getLatestVideos" security="none" />
-    <http pattern="/getRecommendVideos" security="none" />
-    <http pattern="/getVideoCommentByVideo" security="none" />
-    <http pattern="/category-*.html" security="none" />
-    <http pattern="/video-*.html" security="none" />
-    <http pattern="/search" security="none" />
-    <http pattern="/getVideosByCategoryAndPage" security="none" />
-    <http pattern="/getVideosByTitleAndPage" security="none" />
-
     <!-- 资源所需要的权限 -->
     <http use-expressions="true" auto-config="true">
+        <intercept-url pattern="/index*" access="permitAll"/>
+        <intercept-url pattern="/search" access="permitAll"/>
+        <intercept-url pattern="/video-*.html" access="permitAll"/>
+        <intercept-url pattern="/category-*.html" access="permitAll"/>
+        <intercept-url pattern="/getAllCategories" access="permitAll"/>
+        <intercept-url pattern="/getLatestVideos" access="permitAll"/>
+        <intercept-url pattern="/getRecommendVideos" access="permitAll"/>
+        <intercept-url pattern="/getVideoCommentByVideo" access="permitAll"/>
+        <intercept-url pattern="/getVideosByCategoryAndPage" access="permitAll"/>
+        <intercept-url pattern="/getVideosByTitleAndPage" access="permitAll"/>
         <intercept-url pattern="/user*" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/validateUsername" access="permitAll"/>
         <intercept-url pattern="/*User*" access="hasRole('ROLE_USER')"/>
