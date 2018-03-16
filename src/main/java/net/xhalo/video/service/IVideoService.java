@@ -18,7 +18,7 @@ public interface IVideoService {
 
     Video getVideoById(Long videoId);
 
-    Video getVideoByIdNotAddClick(Long videoId);
+    Video getVideoByIdNotRelated(Long videoId);
 
     List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize);
 
@@ -26,15 +26,24 @@ public interface IVideoService {
 
     boolean addClickById(Long videoId);
 
-    List<Video> getUserUploadVideos();
+    List<Video> getUserUploadVideos(Integer pageNum, Integer pageSize);
 
-    List<Video> getVideosByAuthor(User author);
+    List<Video> getVideosByAuthor(User author, Integer pageNum, Integer pageSize);
 
     boolean deleteUserUploadVideo(Video video);
 
     boolean deleteVideoByAuthorAndId(Video video);
 
-    List<Video> getUserLikeVideos();
+    List<Video> getUserLikeVideos(Integer pageNum, Integer pageSize);
 
-    boolean deleteUserLikeVideo(Video video);
+    boolean removeUserLikeVideo(Video video);
+
+    List<Video> getAllVideos(Integer pageNum, Integer pageSize);
+
+    boolean deleteById(Video video);
+
+    boolean deleteUselessVideos();
+
+    boolean repairUselessVideos();
+
 }

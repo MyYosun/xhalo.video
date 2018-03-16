@@ -188,7 +188,7 @@ function getRecommendVideos() {
 function showRecommendVideos(videoList) {
     var isBig = !isMobile();
     var imgHeight = "";
-    if(!isBig) {
+    if (!isBig) {
         imgHeight = "height:300px!important;";
     }
     for (var i = 0; i < videoList.length; i++) {
@@ -383,6 +383,7 @@ function getResultVideos(isReload) {
     if (isReload) {
         $('#resultVideo').html("");
         pageNum = 1;
+        $('#pageNum').val(1);
     }
     var option_duration = $('input[name="radio"]:checked').val();
     var option_order = $('input[name="radio_order"]:checked').val();
@@ -439,7 +440,7 @@ function showResultVideos(videoList) {
     $('#pageNum').val(parseInt($('#pageNum').val()) + 1);
     $("#load-btn").button("reset");
     if (videoList.length < 9) {
-        $("#load-btn").attr("onclick", "javascript:void(0)");
+        $("#load-btn").attr("onclick", "javascript:void(0);");
     }
     else {
         $("#load-btn").attr("onclick", "getResultVideos()");
@@ -540,6 +541,11 @@ function uploadAction() {
         $('#video-title').focus();
         return;
     }
+    if (videoTitle.trim() == "") {
+        toastr.error("上传视频标题不能为空白!");
+        $('#video-title').focus();
+        return;
+    }
     if (videoInfo.length > 200) {
         toastr.error("视频简介的长度应小于200!");
         $('#video-info').focus();
@@ -562,12 +568,12 @@ function uploadAction() {
             });
             uploadBtn.attr("disabled", "disabled");
         },
-        xhr: function() { //用以显示上传进度
+        xhr: function () { //用以显示上传进度
             var xhr = $.ajaxSettings.xhr();
             if (xhr.upload) {
-                xhr.upload.addEventListener('progress', function(event) {
+                xhr.upload.addEventListener('progress', function (event) {
                     var percent = Math.floor(event.loaded / event.total * 100);
-                    if(percent != 100)
+                    if (percent != 100)
                         $('#upload-percent').html(percent);
                     else
                         $('#upload-info').html("上传完成，正在转码...");
@@ -584,6 +590,7 @@ function uploadAction() {
             } else {
                 toastr.info("上传成功!");
             }
+            $('#upload-form').resetForm();
             return false;
         }
 
@@ -743,8 +750,9 @@ function updateUserPasswordAction() {
 }
 
 function getUploadVideoList() {
+    var pageNum = $('#uploadVideoPage').val();
     $.ajax({
-        url: "getUserUploadVideos",
+        url: "getUserUploadVideos?pageSize=12&pageNum=" + pageNum,
         type: "get",
         success: showUploadVideoList,
         async: true
@@ -756,11 +764,17 @@ function showUploadVideoList(videoList) {
         var video = videoList[i];
         $('#upload-list').append(createLittleVideo(video, "upload", true));
     }
+    if (videoList.length < 12) {
+        $('#upload-load-btn').attr("onclick", "javascript:void(0);");
+        $('#upload-load-btn').addClass("disabled");
+    }
+    $('#uploadVideoPage').val(parseInt($('#uploadVideoPage').val()) + 1);
 }
 
 function getLikeVideoList() {
+    var pageNum = $('#likeVideoPage').val();
     $.ajax({
-        url: "getUserLikeVideos",
+        url: "getUserLikeVideos?pageSize=12&pageNum=" + pageNum,
         type: "get",
         success: showLikeVideoList,
         async: true
@@ -772,6 +786,12 @@ function showLikeVideoList(videoList) {
         var video = videoList[i];
         $('#like-list').append(createLittleVideo(video, "like", true));
     }
+    if (videoList.length < 12) {
+        $('#like-load-btn').attr("onclick", "javascript:void(0);");
+        $('#like-load-btn').addClass("disabled");
+
+    }
+    $('#likeVideoPage').val(parseInt($('#likeVideoPage').val()) + 1);
 }
 
 function createLittleVideo(video, which, isDelete) {
@@ -784,6 +804,10 @@ function createLittleVideo(video, which, isDelete) {
     if (which == "like") {
         whichVideo = 'likeVideo';
         deleteTip = '移除';
+    }
+    if (which == "admin") {
+        whichVideo = 'adminVideo';
+        deleteTip = '删除';
     }
     var liTop = $("<li class='col-sm-3' style='margin-top:20px;' id='" + whichVideo + video.id + "'></li>");
     var divTop = $("<div class='col-sm-12'></div>");
@@ -813,6 +837,8 @@ function deleteInfo(which, id) {
         $('#confirm-btn').attr("onclick", "deleteUploadVideo(" + id + ")");
     if (which == "like")
         $('#confirm-btn').attr("onclick", "deleteLikeVideo(" + id + ")");
+    if (which == "admin")
+        $('#confirm-btn').attr("onclick", "deleteAdminVideo(" + id + ")");
     return;
 }
 
@@ -850,6 +876,7 @@ function deleteLikeVideo(id) {
     });
 }
 
+
 function getAuthorUploadVideoList() {
     var authorId = $('#authorId').val();
     $.ajax({
@@ -867,5 +894,100 @@ function showAuthorUploadVideoList(videoList) {
     }
 }
 
+/*管理员界面开始*/
+function deleteAdminVideo(id) {
+    $.ajax({
+        url: "adminDeleteVideo?id=" + id,
+        type: "get",
+        async: false,
+        success: function (data) {
+            $('#modal-confirm').modal('toggle');
+            if (data == "deleteSuccess") {
+                toastr.info("删除成功!");
+                $('#adminVideo' + id).remove();
+            }
+            if (data == "deleteFail")
+                toastr.error("删除失败!");
+        }
+    });
+}
+
+function showAdminVideoList(videoList) {
+    for (var i = 0; i < videoList.length; i++) {
+        var video = videoList[i];
+        $('#upload-list').append(createLittleVideo(video, "admin", true));
+    }
+    if (videoList.length < 12) {
+        $('#load-btn').attr("onclick", "javascript:void(0);");
+        $('#load-btn').addClass("disabled");
+    }
+    $('#videoPage').val(parseInt($('#videoPage').val()) + 1);
+}
+
+function adminGetUploadVideoList() {
+    var pageNum = $('#videoPage').val();
+    $.ajax({
+        url: "adminGetVideos?pageSize=12&pageNum=" + pageNum,
+        type: "get",
+        success: showAdminVideoList,
+        async: true
+    });
+}
+
+function addCategoryAction() {
+    $('#categoryInfoForm').ajaxSubmit({
+        url: "adminAddCategory",
+        type: "post",
+        success: function (data) {
+            if (data == "addSuccess")
+                toastr.info("新增成功!");
+            else
+                toastr.info("新增失败!");
+            $('#categoryInfoForm').resetForm();
+        }
+    });
+}
+
+function confirmDeleteUselessVideos() {
+    $('#confirm-btn').attr("onclick", "deleteUselessVideos()");
+}
+
+function confirmRepairUselessVideos() {
+    $('#confirm-btn').attr("onclick", "repairUselessVideos()");
+}
+
+function deleteUselessVideos() {
+    $.ajax({
+        url: "adminDeleteUselessVideos",
+        type: "post",
+        success: function (data) {
+            if (data == "processSuccess") {
+                toastr.info("处理完成!");
+            } else {
+                toastr.info("处理失败!");
+            }
+            $('#modal-confirm').modal('toggle');
+            return;
+        }
+    });
+    return;
+}
+
+function repairUselessVideos() {
+    $.ajax({
+        url: "adminRepairUselessVideos",
+        type: "post",
+        success: function (data) {
+            if (data == "processSuccess") {
+                toastr.info("处理完成!");
+            } else {
+                toastr.info("处理失败!");
+            }
+            $('#modal-confirm').modal('toggle');
+            return;
+        }
+    });
+    return;
+}
 
 

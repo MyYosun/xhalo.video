@@ -3,6 +3,7 @@ package net.xhalo.video.controllers;
 import net.xhalo.video.model.User;
 import net.xhalo.video.model.Video;
 import net.xhalo.video.service.IVideoService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -30,10 +31,7 @@ public class VideoController {
     @ResponseBody
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
                            Errors errors) {
-        if (errors.hasErrors()) {
-            return "uploadFail";
-        }
-        if (null == upload || upload.isEmpty() || errors.hasErrors())
+        if (null == upload || upload.isEmpty() || errors.hasErrors() || StringUtils.isAllBlank(video.getTitle()))
             return "formatError";
         if (videoService.addVideo(upload, video) != null)
             return "uploadSuccess";
@@ -109,14 +107,16 @@ public class VideoController {
 
     @RequestMapping(value = "getUserUploadVideos")
     @ResponseBody
-    public List<Video> getUserUploadVideos() {
-        return videoService.getUserUploadVideos();
+    public List<Video> getUserUploadVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                           @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
+        return videoService.getUserUploadVideos(pageNum, pageSize);
     }
 
     @RequestMapping(value = "getUploadVideosByAuthor")
     @ResponseBody
-    public List<Video> getUploadVideosByAuthor(User author) {
-        return videoService.getVideosByAuthor(author);
+    public List<Video> getUploadVideosByAuthor(User author, @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                               @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
+        return videoService.getVideosByAuthor(author, pageNum, pageSize);
     }
 
     @RequestMapping(value = "deleteUserUploadVideo")
@@ -130,17 +130,52 @@ public class VideoController {
 
     @RequestMapping(value = "getUserLikeVideos")
     @ResponseBody
-    public List<Video> getUserLikeVideos() {
-        return videoService.getUserLikeVideos();
+    public List<Video> getUserLikeVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                         @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
+        return videoService.getUserLikeVideos(pageNum, pageSize);
     }
 
     @RequestMapping(value = "deleteUserLikeVideo")
     @ResponseBody
     public String deleteUserLikeVideos(Video video) {
-        if (videoService.deleteUserLikeVideo(video)) {
+        if (videoService.removeUserLikeVideo(video)) {
             return "deleteSuccess";
         }
         return "deleteFail";
+    }
+
+    @RequestMapping(value = "adminGetVideos")
+    @ResponseBody
+    public List<Video> getAllUploadVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                          @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
+        return videoService.getAllVideos(pageNum, pageSize);
+    }
+
+    @RequestMapping(value = "adminDeleteVideo")
+    @ResponseBody
+    public String adminDeleteVideo(Video video) {
+        if (videoService.deleteById(video)) {
+            return "deleteSuccess";
+        }
+        return "deleteFail";
+    }
+
+    @RequestMapping(value = "adminDeleteUselessVideos")
+    @ResponseBody
+    public String deleteUselessVideos() {
+        if (videoService.deleteUselessVideos()) {
+            return "processSuccess";
+        }
+        return "processFail";
+    }
+
+    @RequestMapping(value = "adminRepairUselessVideos")
+    @ResponseBody
+    public String repairUselessVideos() {
+        if (videoService.repairUselessVideos()) {
+            return "processSuccess";
+        }
+        return "processFail";
     }
 
 }

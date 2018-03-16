@@ -12,10 +12,11 @@
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageInterceptor">
+                    <!--reasonable设为false这样超出查询的页数返回空，而不是之前的数据-->
                     <property name="properties">
                         <value>
                             helperDialect=mysql
-                            reasonable=true
+                            reasonable=false
                             supportMethodsArguments=true
                             params=count=countSql
                             autoRuntimeDialect=true

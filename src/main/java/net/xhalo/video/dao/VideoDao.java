@@ -19,6 +19,8 @@ public interface VideoDao {
 
     Video getVideoById(Long videoId);
 
+    Video getVideoByIdNotRelated(Long videoId);
+
     Integer addClickById(Long videoId);
 
     List<Video> getVideosByAuthor(User author);
@@ -26,4 +28,8 @@ public interface VideoDao {
     Integer deleteVideoByAuthorAndId(Video video);
 
     List<Video> getLikeVideosByUser(User user);
+
+    List<Video> getAllVideos();
+
+    Integer deleteById(Video video);
 }

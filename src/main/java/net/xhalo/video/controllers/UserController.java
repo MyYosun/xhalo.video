@@ -32,7 +32,7 @@ public class UserController {
     @ResponseBody
     public String addUser(@Valid User user, Errors errors) {
         String result = "registerFail";
-        if (errors.hasErrors()) {
+        if (errors.hasErrors() || StringUtils.isAllBlank(user.getUsername())) {
             return result;
         }
         if (userService.validateUsername(user)) {

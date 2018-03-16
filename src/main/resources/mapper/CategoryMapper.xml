@@ -30,4 +30,15 @@
 		category_table
 		ORDER BY id ASC
 	</select>
+
+    <insert id="addCategory" parameterType="net.xhalo.video.model.Category">
+		INSERT INTO
+		category_table(
+		name,
+		belong_to_other
+		)VALUES (
+		#{name},
+		#{belongToOther}
+		)
+	</insert>
 </mapper>

@@ -12,4 +12,6 @@ public interface CategoryDao {
     Category getCategoryById(@Param("id") Long id);
 
     List<Category> getAllCategories();
+
+    Integer addCategory(Category category);
 }

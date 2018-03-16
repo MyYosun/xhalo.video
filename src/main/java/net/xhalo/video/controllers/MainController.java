@@ -29,7 +29,6 @@ public class MainController {
 
     private Logger logger = LogManager.getLogger(MainController.class);
 
-    private static final long serialVersionUID = 1L;
     private static final int BUFFER_LENGTH = 1024 * 16;
     private static final long EXPIRE_TIME = 1000 * 60 * 60 * 24;
     private static final Pattern RANGE_PATTERN = Pattern.compile("bytes=(?<start>\\d*)-(?<end>\\d*)"); // range的获取数据的格式为:如byte=0-500

@@ -12,5 +12,7 @@ public class MaginNumberProperties {
     public static final int NUM_EIGHT = 8;
     public static final int NUM_NINE = 9;
     public static final int NUM_TEN = 10;
+    public static final int NUM_FIFTY = 50;
+    public static final int NUM_ONE_HUNDRED = 100;
 
 }

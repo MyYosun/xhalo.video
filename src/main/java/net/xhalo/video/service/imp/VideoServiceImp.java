@@ -25,9 +25,8 @@ import java.util.Date;
 import java.util.List;
 
 import static net.xhalo.video.config.ConstantProperties.*;
-import static net.xhalo.video.config.FilePathProperties.VIDEO_SAVE_PATH;
-import static net.xhalo.video.config.MaginNumberProperties.NUM_ONE;
-import static net.xhalo.video.config.MaginNumberProperties.NUM_ZERO;
+import static net.xhalo.video.config.FilePathProperties.*;
+import static net.xhalo.video.config.MaginNumberProperties.*;
 
 @Service
 @Transactional
@@ -43,6 +42,9 @@ public class VideoServiceImp implements IVideoService {
 
     @Autowired
     private SecurityUserUtil securityUserUtil;
+
+    @Autowired
+    private IVideoService self;
 
     @Override
     @CacheEvict(value = "video", allEntries = true, beforeInvocation = true)
@@ -109,25 +111,25 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
-    public Video getVideoByIdNotAddClick(Long videoId) {
-        return videoDao.getVideoById(videoId);
+    public Video getVideoByIdNotRelated(Long videoId) {
+        return videoDao.getVideoByIdNotRelated(videoId);
     }
 
     @Override
     public List<Video> getVideosByCategory(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         String sqlEL = translateOptionDuration(optionDuration);
         if (!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
             return null;
+        PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosByCategoryAndOrderByWhat(video, sqlEL, optionOrder);
     }
 
     @Override
     public List<Video> getVideosByTitle(Video video, String optionDuration, String optionOrder, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
         String sqlEL = translateOptionDuration(optionDuration);
         if (!(StringUtils.equals(optionOrder, VIDEO_DATE) || StringUtils.equals(optionOrder, VIDEO_DURATION) || StringUtils.equals(optionOrder, VIDEO_CLICK)))
             return null;
+        PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosByTitleAndOrderByWhat(video, sqlEL, optionOrder);
     }
 
@@ -158,44 +160,153 @@ public class VideoServiceImp implements IVideoService {
     }
 
     @Override
-    public List<Video> getUserUploadVideos() {
+    public List<Video> getUserUploadVideos(Integer pageNum, Integer pageSize) {
         User author = securityUserUtil.getLoginCusUser();
         if (author == null)
             return null;
-        return getVideosByAuthor(author);
+        return getVideosByAuthor(author, pageNum, pageSize);
     }
 
     @Override
-    public List<Video> getVideosByAuthor(User author) {
+    public List<Video> getVideosByAuthor(User author, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return videoDao.getVideosByAuthor(author);
     }
 
-    //使用Aop删除关联的用户喜欢视频和文件
     @Override
     public boolean deleteUserUploadVideo(Video video) {
         User author = securityUserUtil.getLoginCusUser();
         if (null == author)
             return false;
         video.setAuthor(author);
-        return deleteVideoByAuthorAndId(video);
+        return self.deleteVideoByAuthorAndId(video);
     }
 
+    //使用Aop删除关联的用户喜欢视频和文件
     @Override
     public boolean deleteVideoByAuthorAndId(Video video) {
         return videoDao.deleteVideoByAuthorAndId(video) == NUM_ONE;
     }
 
     @Override
-    public List<Video> getUserLikeVideos() {
+    public List<Video> getUserLikeVideos(Integer pageNum, Integer pageSize) {
         User user = securityUserUtil.getLoginCusUser();
         if (null == user) {
             return null;
         }
+        PageHelper.startPage(pageNum, pageSize);
         return videoDao.getLikeVideosByUser(user);
     }
 
     @Override
-    public boolean deleteUserLikeVideo(Video video) {
+    public boolean removeUserLikeVideo(Video video) {
         return userVideoService.deleteLoginUserLikeVideo(video);
+    }
+
+    @Override
+    public List<Video> getAllVideos(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return videoDao.getAllVideos();
+    }
+
+    //使用AOP删除文件
+    @Override
+    public boolean deleteById(Video video) {
+        return videoDao.deleteById(video) == NUM_ONE;
+    }
+
+    @Override
+    public boolean deleteUselessVideos() {
+        int i = NUM_ZERO;
+        while (true) {
+            //根据实际视频数目来选定次数
+            if (i >= NUM_ONE_HUNDRED) {
+                break;
+            }
+            List<Video> videos = getAllVideos(i, NUM_FIFTY);
+            if (null == videos || videos.size() == 0) {
+                break;
+            }
+            for (Video video : videos) {
+                if (null == video.getId()) {
+                    continue;
+                }
+                if (!validateVideoOk(video)) {
+                    self.deleteById(video);
+                }
+            }
+            i++;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean repairUselessVideos() {
+        int i = NUM_ZERO;
+        while (true) {
+            //根据实际视频数目来选定次数
+            if (i >= NUM_ONE_HUNDRED) {
+                break;
+            }
+            List<Video> videos = getAllVideos(i, NUM_FIFTY);
+            if (null == videos || videos.size() == 0) {
+                break;
+            }
+            for (Video video : videos) {
+                repairVideo(video);
+            }
+            i++;
+        }
+        return true;
+    }
+
+    private boolean validateVideoOk(Video video) {
+        if (StringUtils.isEmpty(video.getTitle()) || StringUtils.isAllBlank(video.getTitle())) {
+            return false;
+        }
+        if (null == video.getAuthor() || StringUtils.isEmpty(video.getAuthor().getUsername())) {
+            return false;
+        }
+        if (null == video.getCategory() || StringUtils.isEmpty(video.getCategory().getName())) {
+            return false;
+        }
+        if (StringUtils.isEmpty(video.getAddress())) {
+            return false;
+        }
+        File videoFile = new File(VIDEO_SAVE_PATH + video.getAddress());
+        if (!videoFile.exists()) {
+            return false;
+        }
+        if (StringUtils.isEmpty(video.getDuration().toString())) {
+            return false;
+        }
+        if (video.getDuration() < 10) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean repairVideo(Video video) {
+        if (null == video.getView() || StringUtils.isAllBlank(video.getView())) {
+            if (null == video.getAddress() || StringUtils.isAllBlank(video.getAddress())) {
+                return false;
+            }
+            video.setView(video.getAddress());
+            processVideoImage(video);
+            return true;
+        }
+        processVideoImage(video);
+        return true;
+    }
+
+    private void processVideoImage(Video video) {
+        File image = new File(IMAGE_SAVE_PATH + video.getView());
+        if (!image.exists()) {
+            FFmpegUtil.videoCutImg(video.getAddress(), video.getView());
+        }
+        File imageBig = new File(BIG_IMAGE_SAVE_PATH + video.getView());
+        if (!imageBig.exists()) {
+            FFmpegUtil.videoCutImgBig(video.getAddress(), video.getView());
+        }
     }
 }

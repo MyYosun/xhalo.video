@@ -56,6 +56,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/upload"><span class="glyphicon glyphicon-upload"></span> 上传视频</a></li>
                 <li><a href="/user-page"><span class="glyphicon glyphicon-user"></span> 个人中心</a></li>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <input id="isAdmin" type="hidden" value="true"/>
+                    <li><a href="/admin-page"><span class="glyphicon glyphicon-cog"></span> 管理中心</a></li>
+                </sec:authorize>
                 <sec:authorize access="!hasRole('ROLE_USER')">
                     <input id="isLogin" type="hidden" value="false"/>
                     <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
@@ -90,7 +94,7 @@
         $('#search-form').submit();
     }
 
-    if(isMobile()) {
+    if (isMobile()) {
         $('#head-logo').html('Xhalo-Video');
     } else {
         $('#head-logo').html('<img style="height:130%;" src="/images/logo.png"/>');

@@ -9,4 +9,6 @@ public interface ICategoryService {
     List<Category> getAllCategories();
 
     Category getCategoryById(Long categoryId);
+
+    boolean addCategory(Category category);
 }

@@ -40,7 +40,11 @@ public class VideoAop {
     public void getVideoById() {
     }
 
-    @Pointcut("execution(* net.xhalo.video.service.imp.VideoServiceImp.deleteUserUploadVideo(..))")
+    @Pointcut("execution(* net.xhalo.video.service.imp.VideoServiceImp.deleteVideoByAuthorAndId(..))")
+    public void deleteUserUploadVideo() {
+    }
+
+    @Pointcut("execution(* net.xhalo.video.service.imp.VideoServiceImp.deleteById(..))")
     public void deleteVideo() {
     }
 
@@ -65,8 +69,18 @@ public class VideoAop {
     }
 
     @Transactional
+    @Around("deleteUserUploadVideo()")
+    public boolean deleteUploadVideos(ProceedingJoinPoint proceedingJoinPoint) {
+        return proceedDeleteVideo(proceedingJoinPoint);
+    }
+
+    @Transactional
     @Around("deleteVideo()")
-    public boolean deleteLikeVideos(ProceedingJoinPoint proceedingJoinPoint) {
+    public boolean deleteVideoProcess(ProceedingJoinPoint proceedingJoinPoint) {
+        return proceedDeleteVideo(proceedingJoinPoint);
+    }
+
+    private boolean proceedDeleteVideo(ProceedingJoinPoint proceedingJoinPoint) {
         Object[] args = proceedingJoinPoint.getArgs();
         Video video = null;
         for (Object arg : args) {
@@ -80,7 +94,7 @@ public class VideoAop {
             }
         }
         try {
-            video = videoService.getVideoByIdNotAddClick(video.getId());
+            video = videoService.getVideoByIdNotRelated(video.getId());
             if (null == video) {
                 return false;
             }

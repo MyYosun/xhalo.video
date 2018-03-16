@@ -20,8 +20,8 @@
                 </a>
             </li>
             <li><a href="#security" data-toggle="tab">修改密码</a></li>
-            <li><a href="#jmeter" data-toggle="tab">上传的视频</a></li>
-            <li><a href="#ejb" data-toggle="tab">喜欢的视频</a></li>
+            <li><a href="#upv" data-toggle="tab">上传的视频</a></li>
+            <li><a href="#lkv" data-toggle="tab">喜欢的视频</a></li>
         </ul>
         <div id="myTabContent" class="tab-content" style="margin: 10px 0 0 0;">
             <div class="tab-pane fade in active" id="home" style="font-size:16px;margin:30px 0 0 0;">
@@ -91,7 +91,8 @@
                     </form>
                 </div>
             </div>
-            <div class="tab-pane fade" id="jmeter" style="font-size:16px;margin:30px 0 0 0;">
+            <div class="tab-pane fade" id="upv" style="font-size:16px;margin:30px 0 0 0;">
+                <input type="hidden" id="uploadVideoPage" value="1"/>
                 <div class="col-sm-12">
                     <ul class="list-inline" id="upload-list">
                         <!--下列列表由jquery动态生成，以下为单例示例-->
@@ -111,9 +112,14 @@
                             </div>
                         </li>--%>
                     </ul>
+                    <div class="col-sm-12" style="text-align:center;margin-top:20px;">
+                        <a id="upload-load-btn" href="javascript:void(0);" onclick="getUploadVideoList()"
+                           class="button button-caution button-pill button-small">load more</a>
+                    </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="ejb" style="font-size:16px;margin:30px 0 0 0;">
+            <div class="tab-pane fade" id="lkv" style="font-size:16px;margin:30px 0 0 0;">
+                <input type="hidden" id="likeVideoPage" value="1"/>
                 <div class="col-sm-12">
                     <ul class="list-inline" id="like-list">
                         <!--下列列表由jquery动态生成，以下为单例示例-->
@@ -133,6 +139,10 @@
                             </div>
                         </li>--%>
                     </ul>
+                    <div class="col-sm-12" style="text-align:center;margin-top:20px;">
+                        <a id="like-load-btn" href="javascript:void(0);" onclick="getLikeVideoList()"
+                           class="button button-caution button-pill button-small">load more</a>
+                    </div>
                 </div>
             </div>
 
