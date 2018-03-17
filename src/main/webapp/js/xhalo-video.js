@@ -187,7 +187,7 @@ function getRecommendVideos() {
 
 function showRecommendVideos(videoList) {
     var isBig = !isMobile();
-    var imgHeight = "";
+    var imgHeight = "height:480px!important;";
     if (!isBig) {
         imgHeight = "height:300px!important;";
     }
