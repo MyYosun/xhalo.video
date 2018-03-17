@@ -60,8 +60,9 @@ public class VideoAop {
                 File originVideo = new File(VIDEO_SAVE_PATH + videoName);
                 File targetVideo = new File(VIDEO_SAVE_PATH + videoName + "(transcode).mp4");
                 if (targetVideo.exists() && targetVideo.isFile()) {
-                    FileUtils.deleteQuietly(originVideo);
-                    targetVideo.renameTo(originVideo);
+                    if (FileUtils.deleteQuietly(originVideo)) {
+                        targetVideo.renameTo(originVideo);
+                    }
                 }
             }
         }
