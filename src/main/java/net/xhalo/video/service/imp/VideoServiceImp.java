@@ -9,6 +9,7 @@ import net.xhalo.video.service.IUserVideoService;
 import net.xhalo.video.service.IVideoService;
 import net.xhalo.video.utils.FFmpegUtil;
 import net.xhalo.video.utils.HashCodeUtil;
+import net.xhalo.video.utils.RandomStringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -60,7 +61,7 @@ public class VideoServiceImp implements IVideoService {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if (StringUtils.isEmpty(md5))
                 return null;
-            address = md5 + VIDEO_FILE_FORMAT;
+            address = RandomStringUtil.getRandomString(NUM_THREE) + md5 + VIDEO_FILE_FORMAT;
             videoPath = VIDEO_SAVE_PATH + address;
             File target = new File(videoPath);
             upload.transferTo(target);

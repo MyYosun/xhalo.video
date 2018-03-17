@@ -56,7 +56,14 @@ public class VideoAop {
             String imageName = video.getView();
             FFmpegUtil.videoCutImg(videoName, imageName);
             FFmpegUtil.videoCutImgBig(videoName, imageName);
-            FFmpegUtil.processMediaCode(videoName);
+            if (FFmpegUtil.processMediaCode(videoName)) {
+                File originVideo = new File(VIDEO_SAVE_PATH + videoName);
+                File targetVideo = new File(VIDEO_SAVE_PATH + videoName + "(transcode).mp4");
+                if (targetVideo.exists() && targetVideo.isFile()) {
+                    FileUtils.deleteQuietly(originVideo);
+                    targetVideo.renameTo(originVideo);
+                }
+            }
         }
     }
 

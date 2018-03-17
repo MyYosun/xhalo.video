@@ -89,11 +89,11 @@ public class FFmpegUtil {
         Integer bitrate = Integer.parseInt(getDetailInfo(videoPath, 1, 3));
         if (bitrate == null)
             return false;
-        if (bitrate > 1000)
+        if (bitrate > 900)
             return transcodeMedia(videoPath, "normal");
-        if (bitrate > 2000)
+        if (bitrate > 1800)
             return transcodeMedia(videoPath, "medium");
-        if (bitrate > 3000)
+        if (bitrate > 2700)
             return transcodeMedia(videoPath, "high");
         return false;
     }
@@ -238,16 +238,16 @@ public class FFmpegUtil {
             ProcessBuilder builder = new ProcessBuilder();
             builder.command(command);
             builder.redirectErrorStream(true);
+            logger.info(videoPath + "开始转码...");
             Process p = builder.start();
 
             InputStream in = p.getInputStream();
             byte[] bytes = new byte[1024];
             while (in.read(bytes) != -1) {
-                logger.info("......");
+//                logger.info("......");
             }
             // 这里线程阻塞，将等待外部转换进程运行成功运行结束后，才往下执行
             p.waitFor();
-
             logger.info("视频:" + videoPath + "转码成功!");
             return true;
         } catch (Exception e) {
