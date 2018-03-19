@@ -21,13 +21,13 @@ public class FFmpegUtil {
     private static Logger logger = LogManager.getLogger(FFmpegUtil.class);
 
     //普通视频截图接口
-    public static boolean videoCutImg(String inputVideoPath, String inputImageOutPath) {
-        return makeScreenCut(VIDEO_SAVE_PATH + inputVideoPath, IMAGE_SAVE_PATH + inputImageOutPath, DEFAULT_IMAGE_SIZE, "10");
+    public static boolean videoCutImg(String inputVideoPath, String inputImageOutPath, Integer when) {
+        return makeScreenCut(VIDEO_SAVE_PATH + inputVideoPath, IMAGE_SAVE_PATH + inputImageOutPath, DEFAULT_IMAGE_SIZE, when.toString());
     }
 
     //首页推荐视频截图接口
-    public static boolean videoCutImgBig(String inputVideoPath, String inputImageOutPath) {
-        return makeScreenCut(VIDEO_SAVE_PATH + inputVideoPath, BIG_IMAGE_SAVE_PATH + inputImageOutPath, IMAGE_SIZE_BIG, "10");
+    public static boolean videoCutImgBig(String inputVideoPath, String inputImageOutPath, Integer when) {
+        return makeScreenCut(VIDEO_SAVE_PATH + inputVideoPath, BIG_IMAGE_SAVE_PATH + inputImageOutPath, IMAGE_SIZE_BIG, when.toString());
     }
 
     public static boolean makeScreenCut(String videoPath, String imageOutPath, String imageSize, String when) {
@@ -57,9 +57,9 @@ public class FFmpegUtil {
             InputStream in = process.getInputStream();
             byte[] bytes = new byte[1024];
             while (in.read(bytes) != -1) {
-                logger.info("......");
+//                logger.info("......");
             }
-            logger.info("截图输出路径" + IMAGE_SAVE_PATH + imageOutPath);
+            logger.info("截图输出路径" + imageOutPath);
         } catch (IOException e) {
             logger.error("FFmpegUtil:ERROR WHEN CATCH VIDEO SHOT:", e);
             return false;
@@ -89,11 +89,11 @@ public class FFmpegUtil {
         Integer bitrate = Integer.parseInt(getDetailInfo(videoPath, 1, 3));
         if (bitrate == null)
             return false;
-        if (bitrate > 900)
+        if (bitrate > 1200 && bitrate <= 2400)
             return transcodeMedia(videoPath, "normal");
-        if (bitrate > 1800)
+        if (bitrate > 2400 && bitrate <= 3600)
             return transcodeMedia(videoPath, "medium");
-        if (bitrate > 2700)
+        if (bitrate > 3600)
             return transcodeMedia(videoPath, "high");
         return false;
     }
@@ -212,7 +212,7 @@ public class FFmpegUtil {
             }
             case "normal": {
                 speed = "fast";
-                transcodeLevel = "24";
+                transcodeLevel = "25";
                 break;
             }
             case "low": {

@@ -304,11 +304,11 @@ public class VideoServiceImp implements IVideoService {
     private void processVideoImage(Video video) {
         File image = new File(IMAGE_SAVE_PATH + video.getView());
         if (!image.exists()) {
-            FFmpegUtil.videoCutImg(video.getAddress(), video.getView());
+            FFmpegUtil.videoCutImg(video.getAddress(), video.getView(), video.getDuration() / NUM_TEN);
         }
         File imageBig = new File(BIG_IMAGE_SAVE_PATH + video.getView());
         if (!imageBig.exists()) {
-            FFmpegUtil.videoCutImgBig(video.getAddress(), video.getView());
+            FFmpegUtil.videoCutImgBig(video.getAddress(), video.getView(), video.getDuration() / NUM_TEN);
         }
     }
 }

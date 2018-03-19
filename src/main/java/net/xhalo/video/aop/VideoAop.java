@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.File;
 
 import static net.xhalo.video.config.FilePathProperties.*;
+import static net.xhalo.video.config.MaginNumberProperties.NUM_TEN;
 
 @Component
 @Aspect
@@ -54,8 +55,8 @@ public class VideoAop {
             Video video = (Video) returnValue;
             String videoName = video.getAddress();
             String imageName = video.getView();
-            FFmpegUtil.videoCutImg(videoName, imageName);
-            FFmpegUtil.videoCutImgBig(videoName, imageName);
+            FFmpegUtil.videoCutImg(videoName, imageName, video.getDuration() / NUM_TEN);
+            FFmpegUtil.videoCutImgBig(videoName, imageName, video.getDuration() / NUM_TEN);
             if (FFmpegUtil.processMediaCode(videoName)) {
                 File originVideo = new File(VIDEO_SAVE_PATH + videoName);
                 File targetVideo = new File(VIDEO_SAVE_PATH + videoName + "(transcode).mp4");

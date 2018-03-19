@@ -4,7 +4,7 @@ public class ConstantProperties {
     public static final String AUTHORITY_USER = "user";
     public static final String AUTHORITY_ADMIN = "admin";
     public static final String DEFAULT_IMAGE_SIZE = "800x600";
-    public static final String IMAGE_SIZE_BIG = "1200x400";
+    public static final String IMAGE_SIZE_BIG = "900x400";
     public static final String VIDEO_FILE_FORMAT = ".mp4";
     public static final String IMAGE_FILE_FORMAT = ".jpg";
     public static final String IMAGE_HEAD_FORMAT = "png";
