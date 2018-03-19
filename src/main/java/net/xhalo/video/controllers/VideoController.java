@@ -27,7 +27,7 @@ public class VideoController {
      * @param errors
      * @return 上传文件和表单时注意接受表单的对象不要加注解
      */
-    @RequestMapping(value = "uploadVideo", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadVideo", method = RequestMethod.POST)
     @ResponseBody
     public String addVideo(@RequestPart MultipartFile upload, @Valid Video video,
                            Errors errors) {
@@ -39,7 +39,7 @@ public class VideoController {
             return "uploadFail";
     }
 
-    @RequestMapping(value = "getLatestVideos")
+    @RequestMapping(value = "/getLatestVideos")
     @ResponseBody
     public List<Video> getNewVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                     @RequestParam(required = false, defaultValue = "6") Integer pageSize) {
@@ -48,7 +48,7 @@ public class VideoController {
         return newVideoList;
     }
 
-    @RequestMapping(value = "getRecommendVideos")
+    @RequestMapping(value = "/getRecommendVideos")
     @ResponseBody
     public List<Video> getRecommendVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                           @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
@@ -57,7 +57,7 @@ public class VideoController {
         return newVideoList;
     }
 
-    @RequestMapping(value = "getRecommendVideosByCategoryAndPage")
+    @RequestMapping(value = "/getRecommendVideosByCategoryAndPage")
     @ResponseBody
     public List<Video> getRecommendVideosByCategoryAndPage(Video video,
                                                            @RequestParam(required = false, defaultValue = "1") Integer pageNum,
@@ -67,7 +67,7 @@ public class VideoController {
         return newVideoList;
     }
 
-    @RequestMapping(value = "video-{videoId}.html")
+    @RequestMapping(value = "/video-{videoId}.html")
     public String getVideoById(@PathVariable(value = "videoId") Long videoId, Model model) {
         Video result = null;
         result = videoService.getVideoById(videoId);
@@ -77,7 +77,7 @@ public class VideoController {
         return "showVideo";
     }
 
-    @RequestMapping(value = "search")
+    @RequestMapping(value = "/search")
     public String searchByTitle(@RequestParam(value = "title") String videoTitle, Model model) {
         Video result = new Video();
         result.setTitle(videoTitle);
@@ -85,7 +85,7 @@ public class VideoController {
         return "showVideos";
     }
 
-    @RequestMapping(value = "getVideosByCategoryAndPage")
+    @RequestMapping(value = "/getVideosByCategoryAndPage")
     @ResponseBody
     public List<Video> getVideoByCategory(Video video,
                                           @RequestParam(required = false, defaultValue = "1") Integer pageNum,
@@ -95,7 +95,7 @@ public class VideoController {
         return videoService.getVideosByCategory(video, optionDuration, optionOrder, pageNum, pageSize);
     }
 
-    @RequestMapping(value = "getVideosByTitleAndPage")
+    @RequestMapping(value = "/getVideosByTitleAndPage")
     @ResponseBody
     public List<Video> getVideosByTitle(Video video,
                                         @RequestParam(required = false, defaultValue = "1") Integer pageNum,
@@ -105,21 +105,21 @@ public class VideoController {
         return videoService.getVideosByTitle(video, optionDuration, optionOrder, pageNum, pageSize);
     }
 
-    @RequestMapping(value = "getUserUploadVideos")
+    @RequestMapping(value = "/getUserUploadVideos")
     @ResponseBody
     public List<Video> getUserUploadVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                            @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
         return videoService.getUserUploadVideos(pageNum, pageSize);
     }
 
-    @RequestMapping(value = "getUploadVideosByAuthor")
+    @RequestMapping(value = "/getUploadVideosByAuthor")
     @ResponseBody
     public List<Video> getUploadVideosByAuthor(User author, @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
         return videoService.getVideosByAuthor(author, pageNum, pageSize);
     }
 
-    @RequestMapping(value = "deleteUserUploadVideo")
+    @RequestMapping(value = "/deleteUserUploadVideo")
     @ResponseBody
     public String deleteUserUploadVideos(Video video) {
         if (videoService.deleteUserUploadVideo(video)) {
@@ -128,14 +128,14 @@ public class VideoController {
         return "deleteFail";
     }
 
-    @RequestMapping(value = "getUserLikeVideos")
+    @RequestMapping(value = "/getUserLikeVideos")
     @ResponseBody
     public List<Video> getUserLikeVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                          @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
         return videoService.getUserLikeVideos(pageNum, pageSize);
     }
 
-    @RequestMapping(value = "deleteUserLikeVideo")
+    @RequestMapping(value = "/deleteUserLikeVideo")
     @ResponseBody
     public String deleteUserLikeVideos(Video video) {
         if (videoService.removeUserLikeVideo(video)) {
@@ -144,14 +144,14 @@ public class VideoController {
         return "deleteFail";
     }
 
-    @RequestMapping(value = "adminGetVideos")
+    @RequestMapping(value = "/adminGetVideos")
     @ResponseBody
     public List<Video> getAllUploadVideos(@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                           @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
         return videoService.getAllVideos(pageNum, pageSize);
     }
 
-    @RequestMapping(value = "adminDeleteVideo")
+    @RequestMapping(value = "/adminDeleteVideo")
     @ResponseBody
     public String adminDeleteVideo(Video video) {
         if (videoService.deleteById(video)) {
@@ -160,7 +160,7 @@ public class VideoController {
         return "deleteFail";
     }
 
-    @RequestMapping(value = "adminDeleteUselessVideos")
+    @RequestMapping(value = "/adminDeleteUselessVideos")
     @ResponseBody
     public String deleteUselessVideos() {
         if (videoService.deleteUselessVideos()) {
@@ -169,7 +169,7 @@ public class VideoController {
         return "processFail";
     }
 
-    @RequestMapping(value = "adminRepairUselessVideos")
+    @RequestMapping(value = "/adminRepairUselessVideos")
     @ResponseBody
     public String repairUselessVideos() {
         if (videoService.repairUselessVideos()) {

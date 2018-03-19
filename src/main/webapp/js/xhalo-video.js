@@ -90,7 +90,6 @@ function showCategory(categoryList) {
         if (!category.belongToOther) {
             continue;
         }
-        var id = "category" + (i + 1).toString();
         var li = $("<li></li>");
         otherVideos.append(li);
         li.html("<a href='category-" + category.id + ".html" + "'>" + category.name + "</a>");

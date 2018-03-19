@@ -51,7 +51,7 @@ public class VideoServiceImp implements IVideoService {
     @CacheEvict(value = "video", allEntries = true, beforeInvocation = true)
     public Video addVideo(MultipartFile upload, Video video) {
         String md5 = null;
-        String address = null;
+        String saveName = null;
         String view = null;
         String videoPath = null;
         User author = securityUserUtil.getLoginCusUser();
@@ -61,8 +61,8 @@ public class VideoServiceImp implements IVideoService {
             md5 = HashCodeUtil.md5HashCode(upload.getInputStream());
             if (StringUtils.isEmpty(md5))
                 return null;
-            address = RandomStringUtil.getRandomString(NUM_THREE) + md5 + VIDEO_FILE_FORMAT;
-            videoPath = VIDEO_SAVE_PATH + address;
+            saveName = RandomStringUtil.getRandomString(NUM_THREE) + md5;
+            videoPath = VIDEO_SAVE_PATH + saveName + VIDEO_FILE_FORMAT;
             File target = new File(videoPath);
             upload.transferTo(target);
         } catch (IOException e) {
@@ -70,7 +70,8 @@ public class VideoServiceImp implements IVideoService {
             e.printStackTrace();
             return null;
         }
-        view = md5 + IMAGE_FILE_FORMAT;
+        view = saveName + IMAGE_FILE_FORMAT;
+        String address = saveName + VIDEO_FILE_FORMAT;
         Video obj = new Video();
         obj.setTitle(video.getTitle());
         obj.setAuthor(author);

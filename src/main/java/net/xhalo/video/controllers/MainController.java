@@ -34,7 +34,7 @@ public class MainController {
     private static final Pattern RANGE_PATTERN = Pattern.compile("bytes=(?<start>\\d*)-(?<end>\\d*)"); // range的获取数据的格式为:如byte=0-500
 
 
-    @RequestMapping(value = "videoPlay")
+    @RequestMapping(value = "/videoPlay")
     public void videoPlay(@RequestParam String videoAddress, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String videoFilename = URLDecoder.decode(videoAddress, "UTF-8");
         Path video = Paths.get(VIDEO_SAVE_PATH, videoFilename);
@@ -91,7 +91,7 @@ public class MainController {
         }
     }
 
-    @RequestMapping(value = "showImg")
+    @RequestMapping(value = "/showImg")
     public void showImage(@RequestParam(name = "view") String imgFile,
                           @RequestParam(name = "isBig", required = false, defaultValue = "false") Boolean isBig,
                           @RequestParam(name = "isHead", required = false, defaultValue = "false") Boolean isHead,

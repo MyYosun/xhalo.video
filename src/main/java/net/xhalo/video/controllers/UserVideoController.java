@@ -20,7 +20,7 @@ public class UserVideoController {
     @Autowired
     private IUserVideoService userVideoService;
 
-    @RequestMapping(value = "userAddLikeVideo")
+    @RequestMapping(value = "/userAddLikeVideo")
     @ResponseBody
     public String userAddLikeVideo(Video video) {
         if (userVideoService.addLoginUserLikeVideo(video)) {
@@ -29,7 +29,7 @@ public class UserVideoController {
         return "addFail";
     }
 
-    @RequestMapping(value = "userDeleteLikeVideo")
+    @RequestMapping(value = "/userDeleteLikeVideo")
     @ResponseBody
     public String userDeleteLikeVideo(Video video) {
         if (userVideoService.deleteLoginUserLikeVideo(video)) {
@@ -38,7 +38,7 @@ public class UserVideoController {
         return "deleteFail";
     }
 
-    @RequestMapping(value = "validateUserLikeVideo")
+    @RequestMapping(value = "/validateUserLikeVideo")
     @ResponseBody
     public String validateUserLikeVideo(Video video) {
         if (userVideoService.validateUserLikeVideo(video)) {
@@ -47,7 +47,7 @@ public class UserVideoController {
         return "unlike";
     }
 
-    @RequestMapping(value = "userAddVideoComment")
+    @RequestMapping(value = "/userAddVideoComment")
     @ResponseBody
     public String addVideoComment(@Valid Comment comment, Errors errors) {
         if (errors.hasErrors()) {
@@ -59,7 +59,7 @@ public class UserVideoController {
         return "addFail";
     }
 
-    @RequestMapping(value = "getVideoCommentByVideo")
+    @RequestMapping(value = "/getVideoCommentByVideo")
     @ResponseBody
     public List<Comment> getVideoComment(Video video) {
         return userVideoService.getVideoCommentByVideo(video);

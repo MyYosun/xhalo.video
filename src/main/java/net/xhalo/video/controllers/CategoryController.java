@@ -28,7 +28,7 @@ public class CategoryController {
         return categoryList;
     }
 
-    @RequestMapping(value = "category-{categoryId}.html")
+    @RequestMapping(value = "/category-{categoryId}.html")
     public String getVideosByCategoryId(@PathVariable(value = "categoryId") Long categoryId, Model model) {
         Category result = categoryService.getCategoryById(categoryId);
         if (result == null)

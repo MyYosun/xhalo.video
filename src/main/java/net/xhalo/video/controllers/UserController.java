@@ -43,7 +43,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "validateUsername")
+    @RequestMapping(value = "/validateUsername")
     @ResponseBody
     public String validateUsername(User user) {
         if (userService.validateUsername(user)) {
@@ -53,7 +53,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "getLoginUserInfo")
+    @RequestMapping(value = "/getLoginUserInfo")
     @ResponseBody
     public User getLoginUser() {
         User user = securityUserUtil.getLoginCusUser();
@@ -61,7 +61,7 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "updateLoginUserInfo")
+    @RequestMapping(value = "/updateLoginUserInfo")
     @ResponseBody
     public String updateLoginUserInfo(@Valid User user, Errors errors) {
         if (errors.hasErrors()) {
@@ -80,7 +80,7 @@ public class UserController {
         return "updateUserInfoFail";
     }
 
-    @RequestMapping(value = "updateLoginUserHeadImg", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateLoginUserHeadImg", method = RequestMethod.POST)
     @ResponseBody
     public String updateLoginUserHeadImg(@Valid User user, Errors errors, MultipartFile upload) {
         if (errors.hasErrors()) {
@@ -99,7 +99,7 @@ public class UserController {
         return "updateUserHeadImgFail";
     }
 
-    @RequestMapping(value = "updateLoginUserPassword")
+    @RequestMapping(value = "/updateLoginUserPassword")
     @ResponseBody
     public String updateLoginUserPassword(@Valid User user, Errors errors) {
         if (errors.hasErrors()) {
@@ -118,7 +118,7 @@ public class UserController {
         return "updateUserPasswordFail";
     }
 
-    @RequestMapping(value = "author-{username}")
+    @RequestMapping(value = "/author-{username}")
     public String getAuthorInfo(@PathVariable String username, Model model) {
         User user = new User();
         user.setUsername(username);
