@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
@@ -61,7 +62,9 @@ public class UserVideoController {
 
     @RequestMapping(value = "/getVideoCommentByVideo")
     @ResponseBody
-    public List<Comment> getVideoComment(Video video) {
-        return userVideoService.getVideoCommentByVideo(video);
+    public List<Comment> getVideoComment(Video video,
+                                         @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+                                         @RequestParam(required = false, defaultValue = "6") Integer pageSize) {
+        return userVideoService.getVideoCommentByVideo(video, pageSize, pageNum);
     }
 }

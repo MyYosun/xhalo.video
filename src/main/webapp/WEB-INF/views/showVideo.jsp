@@ -75,6 +75,7 @@
                 <h4 style="margin: 15px 0 20px 0;">
                     网友评论
                 </h4>
+                <input type="hidden" value="1" id="comment-pageNum"/>
                 <ul class="list-unstyled" id="comment-ul">
                     <!--使用jquery动态创建，下为单例-->
                     <%--<li>
@@ -92,6 +93,10 @@
                         </div>
                     </li>--%>
                 </ul>
+                <div class="col-sm-12" style="text-align:center">
+                    <a id="comment-load-btn" href="javascript:void(0);" onclick="getCommentList()"
+                       class="button button-caution button-pill button-small">load more</a>
+                </div>
             </div>
         </div>
         <div class="col-md-4 column">

@@ -48,6 +48,7 @@
             </div>
             <div class="tab-pane fade" id="jmeter" style="font-size:16px;margin:30px 0 0 0;">
                 <div class="col-sm-12">
+                    <input type="hidden" id="videoPage" value="1"/>
                     <ul class="list-inline" id="upload-list">
                         <!--下列列表由jquery动态生成，以下为单例示例-->
                         <%--<li class="col-sm-3">
@@ -66,6 +67,10 @@
                             </div>
                         </li>--%>
                     </ul>
+                    <div class="col-sm-12" style="text-align:center;margin-top:20px;">
+                        <a id="load-btn" href="javascript:void(0);" onclick="getAuthorUploadVideoList()"
+                           class="button button-caution button-pill button-small">load more</a>
+                    </div>
                 </div>
             </div>
 

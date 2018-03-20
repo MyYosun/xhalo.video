@@ -1,5 +1,6 @@
 package net.xhalo.video.service.imp;
 
+import com.github.pagehelper.PageHelper;
 import net.xhalo.video.dao.UserVideoDao;
 import net.xhalo.video.model.Comment;
 import net.xhalo.video.model.User;
@@ -77,7 +78,8 @@ public class UserVideoServiceImp implements IUserVideoService {
     }
 
     @Override
-    public List<Comment> getVideoCommentByVideo(Video video) {
+    public List<Comment> getVideoCommentByVideo(Video video, Integer pageSize, Integer pageNum) {
+        PageHelper.startPage(pageNum, pageSize);
         return userVideoDao.selectVideoCommentByVideo(video);
     }
 

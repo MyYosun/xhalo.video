@@ -114,7 +114,8 @@ public class VideoController {
 
     @RequestMapping(value = "/getUploadVideosByAuthor")
     @ResponseBody
-    public List<Video> getUploadVideosByAuthor(User author, @RequestParam(required = false, defaultValue = "1") Integer pageNum,
+    public List<Video> getUploadVideosByAuthor(User author,
+                                               @RequestParam(required = false, defaultValue = "1") Integer pageNum,
                                                @RequestParam(required = false, defaultValue = "12") Integer pageSize) {
         return videoService.getVideosByAuthor(author, pageNum, pageSize);
     }

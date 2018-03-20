@@ -292,6 +292,9 @@ function submitComment() {
             if (data == "addSuccess") {
                 toastr.info("评论成功!");
                 $('#comment-ul').html("");
+                $('#comment-pageNum').val(1);
+                $('#comment-load-btn').attr("onclick", "getCommentList()");
+                $('#comment-load-btn').removeClass("disabled");
                 getCommentList();
                 $('#comment-form').resetForm();
             } else {
@@ -303,10 +306,14 @@ function submitComment() {
 
 function getCommentList() {
     var videoId = $('#videoId').val();
+    var pageNum = $('#comment-pageNum').val();
     $.ajax({
         url: "getVideoCommentByVideo",
         type: "post",
-        data: {id: videoId},
+        data: {
+            id: videoId,
+            pageNum: pageNum
+        },
         success: showCommentList
     });
 }
@@ -315,6 +322,11 @@ function showCommentList(commentList) {
     for (var i = 0; i < commentList.length; i++) {
         $('#comment-ul').append(createCommentSingle(commentList[i]));
     }
+    if (commentList == null || commentList == "" || commentList.length < 6) {
+        $('#comment-load-btn').attr("onclick", "javascript:void(0);");
+        $('#comment-load-btn').addClass("disabled");
+    }
+    $('#comment-pageNum').val(parseInt($('#comment-pageNum').val()) + 1);
 }
 
 function createCommentSingle(comment) {
@@ -438,7 +450,7 @@ function showResultVideos(videoList) {
     toastr.info("加载完成");
     $('#pageNum').val(parseInt($('#pageNum').val()) + 1);
     $("#load-btn").button("reset");
-    if (videoList.length < 9) {
+    if (videoList == null || videoList == "" || videoList.length < 9) {
         $("#load-btn").attr("onclick", "javascript:void(0);");
     }
     else {
@@ -763,7 +775,7 @@ function showUploadVideoList(videoList) {
         var video = videoList[i];
         $('#upload-list').append(createLittleVideo(video, "upload", true));
     }
-    if (videoList.length < 12) {
+    if (videoList == null || videoList == "" || videoList.length < 12) {
         $('#upload-load-btn').attr("onclick", "javascript:void(0);");
         $('#upload-load-btn').addClass("disabled");
     }
@@ -785,7 +797,7 @@ function showLikeVideoList(videoList) {
         var video = videoList[i];
         $('#like-list').append(createLittleVideo(video, "like", true));
     }
-    if (videoList.length < 12) {
+    if (videoList == null || videoList == "" || videoList.length < 12) {
         $('#like-load-btn').attr("onclick", "javascript:void(0);");
         $('#like-load-btn').addClass("disabled");
 
@@ -878,8 +890,9 @@ function deleteLikeVideo(id) {
 
 function getAuthorUploadVideoList() {
     var authorId = $('#authorId').val();
+    var pageNum = $('#videoPage').val();
     $.ajax({
-        url: "getUploadVideosByAuthor?id=" + authorId,
+        url: "getUploadVideosByAuthor?pageNum=" + pageNum + "&id=" + authorId,
         type: "get",
         success: showAuthorUploadVideoList,
         async: true
@@ -891,6 +904,11 @@ function showAuthorUploadVideoList(videoList) {
         var video = videoList[i];
         $('#upload-list').append(createLittleVideo(video, "upload", false));
     }
+    if (videoList == null || videoList == "" || videoList.length < 12) {
+        $('#load-btn').attr("onclick", "javascript:void(0);");
+        $('#load-btn').addClass("disabled");
+    }
+    $('#videoPage').val(parseInt($('#videoPage').val()) + 1);
 }
 
 /*管理员界面开始*/
@@ -916,7 +934,7 @@ function showAdminVideoList(videoList) {
         var video = videoList[i];
         $('#upload-list').append(createLittleVideo(video, "admin", true));
     }
-    if (videoList.length < 12) {
+    if (videoList == null || videoList == "" || videoList.length < 12) {
         $('#load-btn').attr("onclick", "javascript:void(0);");
         $('#load-btn').addClass("disabled");
     }

@@ -19,7 +19,7 @@ public interface IUserVideoService {
 
     boolean validateUserLikeVideo(Video video);
 
-    List<Comment> getVideoCommentByVideo(Video video);
+    List<Comment> getVideoCommentByVideo(Video video, Integer pageSize, Integer pageNum);
 
     boolean deleteVideoCommentByVideo(Video video);
 
