@@ -22,7 +22,7 @@ jquery-zclip.js、toastr.js、video.js
 `需要搭建环境java + tomcat8 + mysql + redis + ffmpeg
 项目数据库使用jndi获取，需要修改tomcat服务器conf/context.xml
 添加<Resource auth="Container" driverClassName="com.mysql.cj.jdbc.Driver" name="jdbc/video" password="your password" type="javax.sql.DataSource" url="jdbc:mysql://your sql ip/video?serverTimezone=GMT%2B8" username="your username"/>，
-启动项目前需开启Redis服务器，Redis的设置根据配置修改，配置文件为resources/config/properties/redis.properties，启动项目需要搭建ffmpeg工具，
-并在resources/config/properties/path.properties修改ffmpeg的启动路径，
-请根据需求创建媒体存储目录，并在resources/config/properties/path.properties中修改相应路径`
+启动项目前需开启Redis服务器，Redis的设置根据配置修改，配置文件为resources-filter/profiles/{env}/config/properties/redis.properties，启动项目需要搭建ffmpeg工具，
+并在resources-filter/profiles/{env}/config/properties/path.properties修改ffmpeg的启动路径，
+请根据需求创建媒体存储目录，并在resources-filter/profiles/{env}/config/properties/path.properties中修改相应路径`
 
