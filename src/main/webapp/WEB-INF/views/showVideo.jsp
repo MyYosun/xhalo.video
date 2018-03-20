@@ -16,7 +16,7 @@
 <input type="hidden" value="${video.id}" id="videoId"/>
 <div style="width: 100%;">
     <video id="video_display" autoplay="autoplay" class="video-js vjs-default-skin vjs-big-play-centered"
-           controls preload="auto" style="width:100%!important; height:560px;"
+           controls preload="auto" style="width:100%!important;"
            data-setup='{"example_option":true}'>
         <source src="videoPlay?videoAddress=${video.address}" type='video/mp4'/>
     </video>
