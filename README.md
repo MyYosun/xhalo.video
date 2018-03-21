@@ -14,7 +14,7 @@
 
 `此项目使用maven作为项目依赖管理工具，使用Spring、SpringMvc、MyBatis、SpringSecurity框架，使用JavaxValidation作为验证工具、
 使用Redis作为数据缓存服务器、使用Mysql作为数据存储服务器，使用ffmpeg工具做视频和图片处理，前端使用bootstrap作为开发框架，使用jquery和其他插件:jquery-form.js、
-jquery-zclip.js、toastr.js、video.js
+jquery-zclip.js、toastr.js、video.js、Three.js
 `
 
 **开始前配置:**
