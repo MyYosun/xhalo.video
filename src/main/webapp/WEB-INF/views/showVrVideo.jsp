@@ -7,20 +7,22 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
-    <link href="/css/video-js.min.css" rel="stylesheet">
-    <script src="/js/video.min.js"></script>
+    <script src="/js/vr/three.js"></script>
+    <script src="/js/vr/CanvasRenderer.js"></script>
+    <script src="/js/vr/Projector.js"></script>
+    <script src="/js/vr/mxreality.js"></script>
     <link href="/css/xhalo-video.css" rel="stylesheet">
+    <style>
+        body {
+            overflow: scroll !important
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
+<input type="hidden" value="${video.address}" id="video-address"/>
 <input type="hidden" value="${video.id}" id="videoId"/>
-<div style="width: 100%;">
-    <video id="video_display" autoplay="autoplay" class="video-js vjs-default-skin vjs-big-play-centered"
-           controls preload="auto" style="width:100%!important;" height="600px"
-           data-setup='{"example_option":true}'>
-        <source src="videoPlay?videoAddress=${video.address}" type='video/mp4'/>
-    </video>
-</div>
+<div id="example"></div>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-8 column">
@@ -131,7 +133,15 @@
 </body>
 <script src="/js/jquery.zclip.js"></script>
 <script>
+    //初始化vr视频
+    initVrVideo('/videoPlay?videoAddress=' + $('#video-address').val(), 'example');
+    //消除样式
     $('#head').removeClass("navbar-fixed-top");
+    $('#example').css("height", "100%");
+    $('#example').css("position", "relative");
+    $('#comment').on("click", function () {
+        $('#comment-submit').show(200);
+    });
     if (!isMobile()) {
         $("#shareBtn").zclip({
             path: '/js/ZeroClipboard.swf',
@@ -147,9 +157,7 @@
             toastr.info("请通过浏览器自带的分享按钮分享!");
         });
     }
-    $('#comment').on("click", function () {
-        $('#comment-submit').show(200);
-    });
+
     getPopularList();
     modifyLikeBtn('likeBtn');
     getCommentList();

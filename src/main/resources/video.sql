@@ -12,10 +12,10 @@ CREATE TABLE `category_table` (
 -- Records of category_table(Default Add Nine categories)
 -- ----------------------------
 INSERT INTO `category_table` VALUES ('1', 'Short Video', '0');
-INSERT INTO `category_table` VALUES ('2', 'Movie', '0');
+INSERT INTO `category_table` VALUES ('2', 'VR (Beta)', '0');
 INSERT INTO `category_table` VALUES ('3', 'Music Video', '0');
 INSERT INTO `category_table` VALUES ('4', 'Cartoon', '1');
-INSERT INTO `category_table` VALUES ('5', 'News', '1');
+INSERT INTO `category_table` VALUES ('5', 'Movie', '1');
 INSERT INTO `category_table` VALUES ('6', 'Funny Video', '1');
 INSERT INTO `category_table` VALUES ('7', 'Edu Video', '1');
 INSERT INTO `category_table` VALUES ('8', 'Tech Video', '1');

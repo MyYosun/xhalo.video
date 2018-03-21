@@ -16,7 +16,8 @@
     <script src="/js/xhalo-video.js"></script>
 </head>
 <body>
-<nav id="head" class="navbar navbar-fixed-top navbar-default navbar-static-top" role="navigation">
+<nav id="head" class="navbar navbar-fixed-top navbar-default navbar-static-top" style="margin-bottom: 0;"
+     role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -36,7 +37,7 @@
                     <a href="/category-1.html"><span class="glyphicon glyphicon-facetime-video"></span> Short Video</a>
                 </li>
                 <li id="category2">
-                    <a href="/category-2.html"><span class="glyphicon glyphicon-film"></span> Movie</a>
+                    <a href="/category-2.html"><span class="glyphicon glyphicon-film"></span> VR (Beta)</a>
                 </li>
                 <li id="category3">
                     <a href="/category-3.html"><span class="glyphicon glyphicon-music"></span> Music Video</a>

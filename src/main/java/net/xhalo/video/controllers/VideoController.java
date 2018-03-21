@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.List;
 
+import static net.xhalo.video.config.MaginNumberProperties.NUM_TWO;
+
 @Controller
 @Scope(value = "prototype")
 public class VideoController {
@@ -74,6 +76,8 @@ public class VideoController {
         if (result == null)
             return "error/404";
         model.addAttribute("video", result);
+        if (StringUtils.equals(result.getCategory().getId().toString(), String.valueOf(NUM_TWO)))
+            return "showVrVideo";
         return "showVideo";
     }
 

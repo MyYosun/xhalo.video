@@ -1007,4 +1007,58 @@ function repairUselessVideos() {
     return;
 }
 
+/**vr开始**/
+function initVrVideo(url, divId) {
+    var scene, renderer;
+    var container;
+    AVR.debug = true;
+    if (!AVR.Broswer.isIE() && AVR.Broswer.webglAvailable()) {
+        renderer = new THREE.WebGLRenderer();
+    } else {
+        renderer = new THREE.CanvasRenderer();
+    }
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container = document.getElementById(divId);
+    container.appendChild(renderer.domElement);
+    scene = new THREE.Scene();
+
+    var vr = new VR(scene, renderer, container, {"fov": 50});
+
+    vr.vrbox.radius = 600;
+    if (AVR.isCrossScreen()) {
+        vr.effect.separation = 1.2;
+    }
+
+    //小行星视角配置
+    vr.asteroidConfig = {
+        enable: false, //是否使用小行星视角
+        assteroidFPS: 36, //视角移动速度，值越小，移动越快 ms
+        assteroidFov: 135, //俯视视角大小
+        asteroidForwardTime: 2000, //小行星视角到正常视角更新完成总耗时 ms
+        asteroidWaitTime: 1000, //小行星开始之前等待时间 ms
+        asteroidDepressionRate: 0.5, //
+        asteroidTop: 1, //小行星视角方向[1 俯视/-1 仰视]
+        cubeResolution: 2048 //立体相机宽度
+    };
+
+    //AVR.useGyroscope=false;
+
+    vr.init();
+
+    //全景视频则是vr.resType.video  正六面体为vr.resType.box 切片并补天播放器类别为vr.resType.slice
+    vr.playPanorama(url, vr.resType.video);
+    vr.video.setAttribute("loop", "loop");
+    vr.video.crossOrigin = "Anonymous";
+    vr.VRhint = "请取消屏幕翻转锁定后装入VR盒子中"; //VR 模式提示文字
+    vr.defaultAutoHideLeftTime = 3; //播放器工具栏自动隐藏时间
+    vr.defaultVoiceHideLeftTime = 2; //播放器音量控制条隐藏时间
+    vr.autoplayPanoImg = false; //播放器镜头是否自动旋转
+    vr.loadProgressManager.onLoad = function () {
+        vr.video.muted = true;
+        vr.VRObject.getObjectByName("__panoContainer").visible = true;
+    }
+    vr.video.onended = function () {
+    }
+}
+
 

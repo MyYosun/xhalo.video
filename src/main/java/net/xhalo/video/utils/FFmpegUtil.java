@@ -89,12 +89,10 @@ public class FFmpegUtil {
         Integer bitrate = Integer.parseInt(getDetailInfo(videoPath, 1, 3));
         if (bitrate == null)
             return false;
-        if (bitrate > 1200 && bitrate <= 2400)
+        if (bitrate > 1800 && bitrate <= 3600)
             return transcodeMedia(videoPath, "normal");
-        if (bitrate > 2400 && bitrate <= 3600)
-            return transcodeMedia(videoPath, "medium");
         if (bitrate > 3600)
-            return transcodeMedia(videoPath, "high");
+            return transcodeMedia(videoPath, "medium");
         return false;
     }
 
