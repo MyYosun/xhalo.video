@@ -1043,8 +1043,8 @@ function initVrVideo(url, divId) {
 
     //AVR.useGyroscope=false;
 
+    vr.defaultVolume = 1; //默认音量大小
     vr.init();
-
     //全景视频则是vr.resType.video  正六面体为vr.resType.box 切片并补天播放器类别为vr.resType.slice
     vr.playPanorama(url, vr.resType.video);
     vr.video.setAttribute("loop", "loop");
@@ -1054,7 +1054,7 @@ function initVrVideo(url, divId) {
     vr.defaultVoiceHideLeftTime = 2; //播放器音量控制条隐藏时间
     vr.autoplayPanoImg = false; //播放器镜头是否自动旋转
     vr.loadProgressManager.onLoad = function () {
-        vr.video.muted = true;
+        vr.video.muted = false;
         vr.VRObject.getObjectByName("__panoContainer").visible = true;
     }
     vr.video.onended = function () {

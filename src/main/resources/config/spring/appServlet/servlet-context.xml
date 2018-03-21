@@ -23,6 +23,7 @@
     <mvc:view-controller path="/upload" view-name="/upload"/>
     <mvc:view-controller path="/user-page" view-name="/userInfo"/>
     <mvc:view-controller path="/admin-page" view-name="/managerPage"/>
+    <mvc:view-controller path="/vr-view" view-name="/vrView"/>
     <!--出错页面配置-->
     <mvc:view-controller path="/404" view-name="/error/404"/>
     <mvc:view-controller path="/500" view-name="/error/500"/>

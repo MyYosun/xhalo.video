@@ -22,7 +22,7 @@
 <jsp:include page="head.jsp"></jsp:include>
 <input type="hidden" value="${video.address}" id="video-address"/>
 <input type="hidden" value="${video.id}" id="videoId"/>
-<div id="example"></div>
+<div id="vr-video"></div>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-8 column">
@@ -134,10 +134,10 @@
 <script src="/js/jquery.zclip.js"></script>
 <script>
     //初始化vr视频
-    initVrVideo('/videoPlay?videoAddress=' + $('#video-address').val(), 'example');
+    initVrVideo('/videoPlay?videoAddress=' + $('#video-address').val(), 'vr-video');
     //消除样式
     $('#head').removeClass("navbar-fixed-top");
-    $('#example').css("position", "relative");
+    $('#vr-video').css("position", "relative");
     $('#comment').on("click", function () {
         $('#comment-submit').show(200);
     });
@@ -151,13 +151,21 @@
                 toastr.info("链接已复制到剪切板!");
             }
         });
-        $('#example').css("height", "100%");
+        $('#vr-video').css("height", "100%");
     } else {
         $("#shareBtn").on("click", function (e) {
             toastr.info("请通过浏览器自带的分享按钮分享!");
         });
-        $('#example').css("height", "80%");
+        $('#vr-video').css("height", "80%");
     }
+
+    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
+        if (window.orientation === 180 || window.orientation === 0) {
+        }
+        if (window.orientation === 90 || window.orientation === -90) {
+            window.location.href = "/vr-view?path=" + $('#video-address').val();
+        }
+    }, false);
 
     getPopularList();
     modifyLikeBtn('likeBtn');
