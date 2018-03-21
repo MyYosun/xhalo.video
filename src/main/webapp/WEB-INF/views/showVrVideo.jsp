@@ -137,7 +137,6 @@
     initVrVideo('/videoPlay?videoAddress=' + $('#video-address').val(), 'example');
     //消除样式
     $('#head').removeClass("navbar-fixed-top");
-    $('#example').css("height", "100%");
     $('#example').css("position", "relative");
     $('#comment').on("click", function () {
         $('#comment-submit').show(200);
@@ -152,10 +151,12 @@
                 toastr.info("链接已复制到剪切板!");
             }
         });
+        $('#example').css("height", "100%");
     } else {
         $("#shareBtn").on("click", function (e) {
             toastr.info("请通过浏览器自带的分享按钮分享!");
         });
+        $('#example').css("height", "80%");
     }
 
     getPopularList();
