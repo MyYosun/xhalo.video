@@ -170,6 +170,7 @@
 		a.author=c.id
 		AND
 		a.category=b.id
+		LIMIT 1
 	</select>
 
     <update id="addClickById" parameterType="LONG">
@@ -304,6 +305,7 @@
 		ON a.author = c.id
 		WHERE
 		a.id=#{videoId}
+		LIMIT 1
 	</select>
 
     <delete id="deleteById" parameterType="net.xhalo.video.model.Video">

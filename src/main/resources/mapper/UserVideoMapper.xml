@@ -51,6 +51,7 @@
         user_id=#{user.id}
         AND
         video_id=#{video.id}
+        LIMIT 1
     </select>
 
     <insert id="addVideoComment">

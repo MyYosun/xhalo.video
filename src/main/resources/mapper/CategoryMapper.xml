@@ -19,6 +19,7 @@
 		category_table
 		WHERE
 		id=#{id}
+		LIMIT 1
 	</select>
 
     <select id="getAllCategories" resultMap="CategoryMap">

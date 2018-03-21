@@ -50,6 +50,7 @@
 		username=#{username}
 		AND
 		enabled = TRUE
+		LIMIT 1
 	</select>
 
     <update id="updateLoginTime" parameterType="net.xhalo.video.model.User">
@@ -73,6 +74,7 @@
 		username=#{username}
 		AND
 		enabled = TRUE
+		LIMIT 1
 	</select>
 
     <select id="getUserByUsername" parameterType="net.xhalo.video.model.User" resultMap="UserMap">
@@ -90,6 +92,7 @@
 		user_table
 		WHERE
 		username=#{username}
+		LIMIT 1
 	</select>
 
     <update id="updateUserInfoByIdAndUsername" parameterType="net.xhalo.video.model.User">
