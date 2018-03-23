@@ -10,9 +10,6 @@
     <!-- 使用注解的包，包括子集 -->
     <context:component-scan base-package="net.xhalo.video.controllers"/>
 
-    <!--可以使用@Controller-->
-    <mvc:annotation-driven/>
-
     <mvc:default-servlet-handler/>
 
     <!--跳转jsp页面-->
@@ -65,8 +62,22 @@
                         </list>
                     </property>
                 </bean>
+                <bean id="jaxb2RootElementHttpMessageConverter" class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+                            <value>text/html;charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                            <value>application/xml;charset=UTF-8</value>
+                            <value>text/plain;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
             </list>
         </property>
     </bean>
+
+    <!--可以使用@Controller-->
+    <mvc:annotation-driven/>
 
 </beans>
