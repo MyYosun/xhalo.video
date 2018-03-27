@@ -28,4 +28,5 @@ public class RedisTask {
         redisCacheUtil.clearCache("category");
         logger.info("SCHEDULED CLEAR CATEGORY CACHE SUCCESS: EVERY TWELVE HOURS.");
     }
+
 }
