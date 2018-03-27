@@ -26,5 +26,6 @@ public class ConstantProperties {
     public static final String VIDEO_DURATION_OTHER = "other";
     public static final String VIDEO_DURATION_OTHER_SQL = "AND a.duration >= '5400'";
     public static final String USER_DEFAULT_SIGN = "此人很懒，还没有签名~";
-
+    //WebSocket中给一个用户标识，在后面处理中会使用它来识别用户
+    public static final String CLIENT_ID = "username";
 }

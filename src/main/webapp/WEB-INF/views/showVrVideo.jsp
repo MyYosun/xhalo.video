@@ -12,6 +12,7 @@
     <script src="/js/vr/Projector.js"></script>
     <script src="/js/vr/mxreality.js"></script>
     <link href="/css/xhalo-video.css" rel="stylesheet">
+    <script src="/js/xhalo/showVideo.js"></script>
     <style>
         body {
             overflow: scroll !important

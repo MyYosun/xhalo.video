@@ -8,6 +8,7 @@
     <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/thumbnail-gallery.css">
+    <script src="/js/xhalo/showVideos.js"></script>
 </head>
 <style>
     .page-header ul {
@@ -35,7 +36,7 @@
                 <h3>
                     ${category.name}${video.title} 的结果
                     <small style="margin-left:10px;"><a class="glyphicon glyphicon-list" data-toggle="collapse"
-                                                           data-target="#options"></a> 筛选
+                                                        data-target="#options"></a> 筛选
                     </small>
                 </h3>
                 <div id="options" class="collapse out">

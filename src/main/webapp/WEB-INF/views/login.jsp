@@ -12,6 +12,7 @@
     <script src="/js/toastr.min.js"></script>
     <script src="/js/jquery.form.js"></script>
     <script src="/js/xhalo-video.js"></script>
+    <script src="/js/xhalo/login.js"></script>
 </head>
 <body>
 <div class="htmleaf-container">

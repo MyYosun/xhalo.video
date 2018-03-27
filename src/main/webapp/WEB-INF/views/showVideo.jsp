@@ -10,6 +10,7 @@
     <link href="/css/video-js.min.css" rel="stylesheet">
     <script src="/js/video.min.js"></script>
     <link href="/css/xhalo-video.css" rel="stylesheet">
+    <script src="/js/xhalo/showVideo.js"></script>
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>

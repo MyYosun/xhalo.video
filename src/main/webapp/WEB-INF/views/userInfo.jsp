@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link href="/css/xhalo-video.css" rel="stylesheet">
+    <script src="/js/xhalo/userInfo.js"></script>
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>

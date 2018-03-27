@@ -13,6 +13,7 @@
     <script src="/js/jquery.form.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/toastr.min.js"></script>
+    <script src="/js/sockjs.min.js"></script>
     <script src="/js/xhalo-video.js"></script>
 </head>
 <body>

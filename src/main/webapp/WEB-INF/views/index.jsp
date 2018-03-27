@@ -8,6 +8,7 @@
     <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/baguetteBox.min.css">
     <link rel="stylesheet" href="/css/thumbnail-gallery.css">
+    <script src="/js/xhalo/index.js"></script>
     <style>
         #myCarousel {
             margin: 50px 0 0 0;
@@ -84,8 +85,10 @@
     $('#myCarousel').carousel('cycle');
     getRecommendVideos();
     getLatestVideos();
-    if (getQueryString("loginSuccess"))
+    if (getQueryString("loginSuccess")) {
         toastr.info("登录成功");
+        getWebSocket();
+    }
     if (getQueryString("logout"))
         toastr.info("登出成功");
 </script>

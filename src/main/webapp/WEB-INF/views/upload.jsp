@@ -6,6 +6,7 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
     <link rel="bookmark" href="/images/favicon.ico" type="image/x-icon"/>
+    <script src="/js/xhalo/upload.js"></script>
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>

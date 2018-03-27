@@ -11,6 +11,7 @@
     <script src="/js/vr/Projector.js"></script>
     <script src="/js/vr/mxreality.js"></script>
     <script src="/js/xhalo-video.js"></script>
+    <script src="/js/xhalo/showVideo.js"></script>
 </head>
 <body>
 <div id="vr-video"></div>
