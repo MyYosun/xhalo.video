@@ -18,6 +18,7 @@
         <ul id="myTab" class="nav nav-tabs nav-pills" style="margin:10px 0 0 0;">
             <li class="active"><a href="#allVideo" data-toggle="tab">所有视频</a></li>
             <li><a href="#categoryManage" data-toggle="tab">新增类别</a></li>
+            <li><a href="#msgManage" data-toggle="tab">发送通知</a></li>
             <li><a href="#otherManage" data-toggle="tab">其他管理</a></li>
         </ul>
         <div id="myTabContent" class="tab-content" style="margin: 10px 0 0 0;">
@@ -60,6 +61,22 @@
                         </div>
                         <button type="button" onclick="addCategoryAction()" class="btn btn-default col-sm-offset-2">
                             增加
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="msgManage" style="font-size:16px;margin:30px 0 0 0;">
+                <div class="col-sm-12">
+                    <form class="form-horizontal" role="form" id="msgInfoForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">消息内容</label>
+                            <div class="col-sm-10">
+                                <textarea id="messageContent" name="messageContent" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" onclick="sendMessageAction()" class="btn btn-default col-sm-offset-2">
+                            发送
                         </button>
                     </form>
                 </div>

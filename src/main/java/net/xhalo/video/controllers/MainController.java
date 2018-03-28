@@ -1,10 +1,14 @@
 package net.xhalo.video.controllers;
 
+import net.xhalo.video.webSocket.CusWebSocketHandler;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.socket.TextMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +30,9 @@ import static net.xhalo.video.config.FilePathProperties.*;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    private CusWebSocketHandler cusWebSocketHandler;
 
     private Logger logger = LogManager.getLogger(MainController.class);
 
@@ -116,5 +123,12 @@ public class MainController {
             toClient.write(data); // 输出数据
         fis.close();
         toClient.close();
+    }
+
+    @RequestMapping(value = "/adminSendMessageToAll")
+    @ResponseBody
+    public String adminSendMessageToAll(@RequestParam("messageContent") String messageContent) {
+        cusWebSocketHandler.sendMessageToAll(new TextMessage(messageContent));
+        return "sendSuccess";
     }
 }

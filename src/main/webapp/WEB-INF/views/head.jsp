@@ -70,6 +70,9 @@
                 <sec:authorize access="hasRole('ROLE_USER')">
                     <input id="isLogin" type="hidden" value="true"/>
                     <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
+                    <script>
+                        getWebSocket();
+                    </script>
                 </sec:authorize>
             </ul>
 

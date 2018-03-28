@@ -53,6 +53,20 @@ function addCategoryAction() {
     });
 }
 
+function sendMessageAction() {
+    $('#msgInfoForm').ajaxSubmit({
+        url: "adminSendMessageToAll",
+        type: "get",
+        success: function (data) {
+            if (data == "sendSuccess")
+                toastr.info("发送成功!");
+            else
+                toastr.info("发送失败!");
+            $('#msgInfoForm').resetForm();
+        }
+    });
+}
+
 function confirmDeleteUselessVideos() {
     $('#confirm-btn').attr("onclick", "deleteUselessVideos()");
 }

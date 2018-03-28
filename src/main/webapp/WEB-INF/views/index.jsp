@@ -87,7 +87,6 @@
     getLatestVideos();
     if (getQueryString("loginSuccess")) {
         toastr.info("登录成功");
-        getWebSocket();
     }
     if (getQueryString("logout"))
         toastr.info("登出成功");

@@ -21,7 +21,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(webSocketHandler, "/webSocket/handler").addInterceptors(handshakeInterceptor);
-        webSocketHandlerRegistry.addHandler(webSocketHandler, "/webSocket/sockJs/handler").addInterceptors(handshakeInterceptor).withSockJS();
+        webSocketHandlerRegistry.addHandler(webSocketHandler, "/webSocket/handler")
+                .addInterceptors(handshakeInterceptor)
+                .setAllowedOrigins("*");
+        webSocketHandlerRegistry.addHandler(webSocketHandler, "/webSocket/sockJs/handler")
+                .addInterceptors(handshakeInterceptor)
+                .setAllowedOrigins("*")
+                .withSockJS();
     }
 }
