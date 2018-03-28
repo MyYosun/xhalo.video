@@ -14,6 +14,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/toastr.min.js"></script>
     <script src="/js/sockjs.min.js"></script>
+    <script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
     <script src="/js/xhalo-video.js"></script>
 </head>
 <body>

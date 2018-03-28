@@ -32,7 +32,8 @@ import static net.xhalo.video.config.MaginNumberProperties.NUM_ZERO;
 public class UserAop {
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
+
     Logger logger = LoggerFactory.getLogger(UserAop.class);
 
 

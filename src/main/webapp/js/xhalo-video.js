@@ -53,6 +53,15 @@ function isMobile() {
     return mobile_flag;
 }
 
+function getRootPath() {
+    var curWwwPath = window.document.location.href;
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+    var localhostPath = curWwwPath.substring(0, pos);
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+    return (localhostPath + projectName);
+}
+
 
 //从这里开始
 //设置提示框的参数
@@ -64,7 +73,7 @@ toastr.options = {
     onclick: null,
     showDuration: "300",
     hideDuration: "1000",
-    timeOut: "5000",
+    timeOut: "8000",
     extendedTimeOut: "1000",
     showEasing: "swing",
     hideEasing: "linear",
@@ -73,22 +82,19 @@ toastr.options = {
 };
 
 /**head开始**/
-var webSocket;
-
 function getWebSocket() {
-    if (webSocket == null || webSocket == undefined) {
-        if ('WebSocket' in window) {
-            webSocket = new WebSocket("ws://localhost:8080/webSocket/handler");
-        } else if ('MozWebSocket' in window) {
-            webSocket = new MozWebSocket("ws://localhost:8080/webSocket/handler");
-        } else {
-            webSocket = new SockJS("http://localhost:8080/webSocket/sockJs/handler");
-        }
-        webSocket.onopen = function (evnt) {
-        };
-        webSocket.onmessage = function (evnt) {
-            toastr.info(evnt.data);
-        }
+    var url = getRootPath();
+    var path = url.substring(url.indexOf('/') + 2, url.length);
+    var webSocket;
+    if ('WebSocket' in window) {
+        webSocket = new WebSocket("ws://" + path + "/webSocket/handler");
+    } else {
+        webSocket = new SockJS("http://" + path + "/webSocket/sockJs/handler");
+    }
+    webSocket.onopen = function (evnt) {
+    }
+    webSocket.onmessage = function (evnt) {
+        toastr.info(evnt.data);
     }
 }
 

@@ -31,6 +31,7 @@
         <intercept-url pattern="/getVideoCommentByVideo" access="permitAll"/>
         <intercept-url pattern="/getVideosByCategoryAndPage" access="permitAll"/>
         <intercept-url pattern="/getVideosByTitleAndPage" access="permitAll"/>
+        <intercept-url pattern="/webSocket/*" access="permitAll"/>
         <intercept-url pattern="/user*" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/validateUsername" access="permitAll"/>
         <intercept-url pattern="/*User*" access="hasRole('ROLE_USER')"/>
