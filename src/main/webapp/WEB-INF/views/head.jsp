@@ -1,23 +1,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
-<head>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/toastr.min.css"/>
-    <link rel="stylesheet" href="/css/buttons.css"/>
-    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/css/checkbox.css">
-    <link rel="stylesheet" href="/css/all.css"/>
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/jquery.form.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/toastr.min.js"></script>
-    <script src="/js/sockjs.min.js"></script>
-    <script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
-    <script src="/js/xhalo-video.js"></script>
-</head>
-<body>
+<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/css/toastr.min.css"/>
+<link rel="stylesheet" href="/css/buttons.css"/>
+<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="/css/checkbox.css">
+<link rel="stylesheet" href="/css/all.css"/>
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/toastr.min.js"></script>
+<script src="/js/sockjs.min.js"></script>
+<script src="//cdn.jsdelivr.net/sockjs/1.0.0/sockjs.min.js"></script>
+<script src="/js/xhalo-video.js"></script>
 <nav id="head" class="navbar navbar-fixed-top navbar-default navbar-static-top" style="margin-bottom: 0;"
      role="navigation">
     <div class="container-fluid">
@@ -87,7 +83,6 @@
         </div>
     </div>
 </nav>
-</body>
 <script>
     getCategory();
 
@@ -106,4 +101,3 @@
         $('#head-logo').html('<img style="height:130%;" src="/images/logo.png"/>');
     }
 </script>
-</html>
