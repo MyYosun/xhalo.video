@@ -146,7 +146,7 @@
         </if>
     </update>
 
-    <update id="updateUserPasswordByIdAndUsernameAndPassword">
+    <update id="updateUserPasswordByIdAndUsername">
         UPDATE
         user_table
         SET

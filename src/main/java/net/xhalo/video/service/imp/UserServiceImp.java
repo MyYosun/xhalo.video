@@ -87,6 +87,6 @@ public class UserServiceImp implements IUserService {
     public boolean updateUserPasswordByIdAndUsername(User user) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userDao.updateUserPasswordByIdAndUsernameAndPassword(user) == NUM_ONE;
+        return userDao.updateUserPasswordByIdAndUsername(user) == NUM_ONE;
     }
 }

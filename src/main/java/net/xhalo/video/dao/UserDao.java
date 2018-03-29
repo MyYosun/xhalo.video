@@ -21,5 +21,5 @@ public interface UserDao {
 
     Integer updateUserHeadImgByIdAndUsername(User user);
 
-    Integer updateUserPasswordByIdAndUsernameAndPassword(@Param("user") User user);
+    Integer updateUserPasswordByIdAndUsername(@Param("user") User user);
 }
