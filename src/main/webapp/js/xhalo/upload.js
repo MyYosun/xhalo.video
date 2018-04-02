@@ -31,8 +31,8 @@ function uploadAction() {
         toastr.error("请选择视频");
         return;
     }
-    if (videoTitle.length < 2 || videoTitle.length > 30) {
-        toastr.error("上传视频标题的长度为2-30之间!");
+    if (videoTitle.length < 2 || videoTitle.length > 50) {
+        toastr.error("上传视频标题的长度为2-50之间!");
         $('#video-title').focus();
         return;
     }
@@ -41,8 +41,8 @@ function uploadAction() {
         $('#video-title').focus();
         return;
     }
-    if (videoInfo.length > 200) {
-        toastr.error("视频简介的长度应小于200!");
+    if (videoInfo.length > 250) {
+        toastr.error("视频简介的长度应小于250!");
         $('#video-info').focus();
         return;
     }

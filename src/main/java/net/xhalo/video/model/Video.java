@@ -16,7 +16,7 @@ public class Video implements Serializable {
     private User author;
     private String view;
     private Integer duration;
-    @Size(min = 0, max = 200)
+    @Size(min = 0, max = 250)
     private String info;
     private String address;
 
