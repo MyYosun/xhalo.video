@@ -92,7 +92,7 @@ public class FFmpegUtil {
         if (bitrate > 1800 && bitrate <= 3600)
             return transcodeMedia(videoPath, "normal");
         if (bitrate > 3600)
-            return transcodeMedia(videoPath, "medium");
+            return transcodeMedia(videoPath, "high");
         return false;
     }
 
@@ -200,12 +200,7 @@ public class FFmpegUtil {
         switch (level) {
             case "high": {
                 speed = "slow";
-                transcodeLevel = "18";
-                break;
-            }
-            case "medium": {
-                speed = "medium";
-                transcodeLevel = "22";
+                transcodeLevel = "23";
                 break;
             }
             case "normal": {
