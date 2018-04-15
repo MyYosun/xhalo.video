@@ -82,10 +82,10 @@ toastr.options = {
 };
 
 /**head开始**/
+var webSocket;
 function getWebSocket() {
     var url = getRootPath();
     var path = url.substring(url.indexOf('/') + 2, url.length);
-    var webSocket;
     if ('WebSocket' in window) {
         webSocket = new WebSocket("ws://" + path + "/webSocket/handler");
     } else {

@@ -17,13 +17,17 @@
             color: #777;
         }
 
+        #footer {
+            width:90%;
+        }
+
     </style>
 </head>
 <body>
-<div class="footer" style="margin-top:20px;">
-    <div class="container">
+<div class="footer" style="margin-top:30px;">
+    <div id="footer" class="container">
         <div class="row footer-top">
-            <div class="col-sm-6 col-lg-6">
+            <div class="col-sm-5 col-lg-5 col-sm-offset-1 ">
                 <h4>Xhalo-Video Website</h4>
                 <p>欢迎你观赏，这里有你想要的.</p>
                 <p>欢迎你上传，这里是每个人的平台.</p>

@@ -14,10 +14,61 @@
             margin: 50px 0 0 0;
         }
 
-        .carousel-inner img {
-            margin: 0 auto;
-            height: 400px !important;
-            width: 80%;
+       /* .lightBox img {
+            height:250px!important;
+            width:100%;
+        }
+
+        .caption {
+            height:100px!important;
+        }
+
+        .tz-gallery .caption .video-info{
+            height:40px!important;
+        }
+
+        .tz-gallery .caption .video-title{
+            height:20px!important;
+        }*/
+
+        .content h1 {
+            color: #f17c67;
+            text-shadow: 1px 1px 1px white;
+            font-size: 50px;
+        }
+
+        .banner {
+            width:90%;
+            margin-left:5%;
+            height: 250px;
+            position: relative;
+            margin-top: 20px;
+            overflow: hidden;
+            background: #222;
+            border-radius: 4px 4px 4px 4px;
+        }
+
+        .banner img {
+            position: absolute;
+            left: 50%;
+            top: -300px;
+            margin-left: -1000px;
+            width: 2000px;
+            vertical-align: middle;
+            border: 0;
+        }
+
+        .banner span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 1px #333;
+            font-size: 50px;
+            line-height: 250px;
         }
     </style>
 </head>
@@ -50,32 +101,65 @@
        data-slide="next"><span class="glyphicon glyphicon-chevron-right"> </span>
     </a>
 </div>
-
-<div class="container gallery-container">
-    <h1>Latest Videos</h1>
-    <p class="page-description text-center">享受用户们最新上传的视频吧!</p>
-    <div class="tz-gallery">
-        <div class="row" id="mostPopular">
-            <!--使用jquery动态生成，下面为单例示例-->
-            <%--<div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a class="lightBox" href="images/park.jpg">
-                        <img src="/showImg?view=12313213cfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
-                    </a>
-                    <div class="caption">
-                        <div class="video-title">
-                        <h3><span class="badge">50views</span>蠟筆小新 [949] 就是想吃聖代 & 單身出任真揪心</h3>
+<div>
+    <div class="container gallery-container content" id="content">
+        <div>
+            <h1>Latest Videos</h1>
+            <p class="page-description text-center">享受用户们最新上传的视频吧!</p>
+            <div class="tz-gallery">
+                <div class="row" id="latestVideos">
+                    <!--使用jquery动态生成，下面为单例示例-->
+                    <%--<div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <a class="lightBox" href="images/park.jpg">
+                                <img src="/showImg?view=12313213cfcfba869d7cf8ed654a3aa676eebbd1.jpg" alt="First slide">
+                            </a>
+                            <div class="caption">
+                                <div class="video-title">
+                                <h3><span class="badge">50views</span>蠟筆小新 [949] 就是想吃聖代 & 單身出任真揪心</h3>
+                                </div>
+                                <div class="video-info">
+                                <p>这是一个简洁的简介，来测试一下看起来怎么样，可能有点丑，没事，我过会会调动</p>
+                                </div>
+                                <ul>
+                                    <li><span class="glyphicon glyphicon-user"></span><span><a>Yosun</a></span></li>
+                                    <li class="right-list"><span class="glyphicon glyphicon-time"></span><span>5:03</span></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="video-info">
-                        <p>这是一个简洁的简介，来测试一下看起来怎么样，可能有点丑，没事，我过会会调动</p>
-                        </div>
-                        <ul>
-                            <li><span class="glyphicon glyphicon-user"></span><span><a>Yosun</a></span></li>
-                            <li class="right-list"><span class="glyphicon glyphicon-time"></span><span>5:03</span></li>
-                        </ul>
-                    </div>
+                    </div>--%>
                 </div>
-            </div>--%>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner">
+        <img alt="Recommend" data-stellar-ratio="1.3"
+             src="/images/recommend-index.jpg">
+        <span>Recommend Videos</span>
+    </div>
+    <div class="container gallery-container content">
+        <div>
+            <p class="page-description text-center">推荐给你的视频!</p>
+            <div class="tz-gallery">
+                <div class="row" id="suggestVideos">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner">
+        <img alt="VR" data-stellar-ratio="1.3"
+             src="/images/vr-index.jpg">
+        <span>VR Videos</span>
+    </div>
+    <div class="container gallery-container content">
+        <div>
+            <p class="page-description text-center">享受VR视频吧!</p>
+            <div class="tz-gallery">
+                <div class="row" id="vrVideos">
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -83,8 +167,7 @@
 </body>
 <script>
     $('#myCarousel').carousel('cycle');
-    getRecommendVideos();
-    getLatestVideos();
+    getIndex();
     if (getQueryString("loginSuccess")) {
         toastr.info("登录成功");
     }

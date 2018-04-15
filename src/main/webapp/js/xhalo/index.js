@@ -1,8 +1,15 @@
 /**主页方法开始**/
+function getIndex() {
+    getRecommendVideos();
+    getLatestVideos();
+    getVrVideos();
+    getSuggestVideos();
+}
+
 function getLatestVideos() {
     $.ajax({
         type: "get",
-        url: "getLatestVideos",
+        url: "getLatestVideos?pageSize=6",
         // contentType:"application/json",
         async: true,
         success: showLatestVideos
@@ -13,7 +20,43 @@ function showLatestVideos(data) {
     var videoList = eval('(' + data + ')');
     for (var i = 0; i < videoList.length; i++) {
         var divTop = createNewVideoModel(videoList[i]);
-        $('#mostPopular').append(divTop);
+        $('#latestVideos').append(divTop);
+    }
+}
+
+function getVrVideos() {
+    $.ajax({
+        type: "get",
+        url: "getVideosByCategoryAndPage?category.id=2&optionOrder=click&pageSize=6",
+        // contentType:"application/json",
+        async: true,
+        success: showVrVideos
+    });
+}
+
+function showVrVideos(data) {
+    var videoList = eval('(' + data + ')');
+    for (var i = 0; i < videoList.length; i++) {
+        var divTop = createNewVideoModel(videoList[i]);
+        $('#vrVideos').append(divTop);
+    }
+}
+
+function getSuggestVideos() {
+    $.ajax({
+        type: "get",
+        url: "getRecommendVideos?pageSize=6",
+        // contentType:"application/json",
+        async: true,
+        success: showSuggestVideos
+    });
+}
+
+function showSuggestVideos(data) {
+    var videoList = eval('(' + data + ')');
+    for (var i = 0; i < videoList.length; i++) {
+        var divTop = createNewVideoModel(videoList[i]);
+        $('#suggestVideos').append(divTop);
     }
 }
 

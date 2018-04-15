@@ -71,7 +71,7 @@ function uploadAction() {
                     if (percent != 100)
                         $('#upload-percent').html(percent);
                     else
-                        $('#upload-info').html("上传完成，正在转码...");
+                        $('#upload-info').html("上传完成，正在截图和转码...");
                 }, false);
             }
             return xhr;
@@ -87,8 +87,12 @@ function uploadAction() {
             }
             $('#upload-form').resetForm();
             return false;
-        }
-
+        },
+        error: function () {
+            $('#myModal').modal("hide");
+            toastr.info("上传失败，请检查网络连接!");
+        },
+        async: true
     });
     return;
 }
