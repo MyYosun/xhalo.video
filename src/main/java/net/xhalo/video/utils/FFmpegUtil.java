@@ -33,13 +33,13 @@ public class FFmpegUtil {
     public static boolean makeScreenCut(String videoPath, String imageOutPath, String imageSize, String when) {
         List<String> command = new ArrayList<String>();
         command.add(FFMPEG_PATH);
+        command.add("-ss");
+        command.add(when);     //截图位置
         command.add("-i");
         command.add(videoPath);
         command.add("-y");
         command.add("-f");
         command.add("image2");
-        command.add("-ss");
-        command.add(when);     //截图位置
         command.add("-t");
         command.add("0.001");  //截图时长
         command.add("-s");
