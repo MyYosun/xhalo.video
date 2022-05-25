@@ -11,7 +11,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <spring-family.version>5.0.2.RELEASE</spring-family.version>
+        <spring-family.version>5.5.7</spring-family.version>
     </properties>
 
     <repositories>
